@@ -37,8 +37,8 @@ class CaseGenerator:
           base.to_csv(output, index=False)
           n=0
           for case in self.generator:
-              temp = pd.DataFrame({'Inheritor_' + str(i) : [case[i]] for i in range(len(case))})
-              base=base.append(temp, ignore_index=True)
+              temp = pd.DataFrame({'Inheritor_' + str(i+1) : [case[i]] for i in range(len(case))})
+              base=base.append(temp)
               n+=1
               if n % chunk_size == 0:
                  base.to_csv(output, mode='a', index=False, header=False)
