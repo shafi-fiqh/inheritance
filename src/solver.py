@@ -13,7 +13,12 @@ def solve(case: dict,
     or not they're a male/female descendant
     :return: case with shares filled
     """
-    case = solve_father(case)
+    case = solve_father(case=case,
+                        descendants=descendants)
+    case = solve_husband(case=case,
+                         descendants=descendants)
+    case = solve_wife(case=case,
+                      descendants=descendants)
     #Add more here as we create more partial solvers
     return case
 
@@ -28,15 +33,50 @@ def solve_father(case: dict,
     """
     if 'father' not in case:
         return case
-    male_desc = ['son', 'son_of_son']
-    female_desc = ['daughter', 'daughter_x2', 'daughter_of_son', 'daughter_of_son_x2']
-    if any([x in case for x in male_desc]):
+    #Check for any male descendants
+    if any([descendants[inh] == 'M' for inh in case]):
         case['father']='1/6'
-    elif any([x in case for x in female_desc]):
-        case['father']='1/6 + A'
+    #Check for any female descendants
+    elif any([descendants[inh] == 'F' for inh in case]):
+        case['father'] = '1/6 + A'
     else:
-        case['father']='A'
+        case['father'] = 'A'
     return case
 
+def solve_husband(case: dict,
+                 descendants: dict)->dict:
+    """
+    Solve only for the father's share if he exists
+    :param case: dictionary of inheritors and shares
+    :param descendants: dictionary mapping inheritor name to whether
+    or not they're a male/female descendant
+    :return: string representing the fraction.
+    """
+    if 'husband' not in case:
+        return case
+    male_female_lookup={'M':0, 'F':0}
+    if any([descendants[inh] in male_female_lookup for inh in case]):
+        case['husband'] = '1/4'
+    else:
+        case['husband'] = '1/2'
+    return case
+
+def solve_wife(case: dict,
+                 descendants: dict)->dict:
+    """
+    Solve only for the father's share if he exists
+    :param case: dictionary of inheritors and shares
+    :param descendants: dictionary mapping inheritor name to whether
+    or not they're a male/female descendant
+    :return: string representing the fraction.
+    """
+    if 'wife' not in case:
+        return case
+    male_female_lookup={'M':0, 'F':0}
+    if any([descendants[inh] in male_female_lookup for inh in case]):
+        case['wife'] = '1/8'
+    else:
+        case['wife'] = '1/4'
+    return case
 
 

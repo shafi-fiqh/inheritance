@@ -5,11 +5,13 @@ Number of different types of inheritors passed as a parameter.
 Saving the cases to a csv is an option.
 """
 import argparse
-import itertools
 import logging
+import itertools
 import os
+import coloredlogs
 import pandas as pd
 
+from src.solver import solve
 from utils.helpers import is_redundant
 
 
@@ -27,8 +29,8 @@ class CaseGenerator:
         """
         family_csv = pd.read_csv(config)
         self.inheritors = list(family_csv['Inheritor'])
-        self.descendants = pd.Series(family_csv.descendant.values, index=family_csv.Inheritor).to_dict()
-        logging.info(self.descendants)
+        self.descendants = pd.Series(family_csv.descendant.values,
+                                     index=family_csv.Inheritor).to_dict()
         self.n_types=None
         self.generator=None
     def generate_cases(self,
@@ -40,6 +42,7 @@ class CaseGenerator:
         Daugher x 2 + Son is still considered n_types = 2.
         :return: Generator object for inheritane cases with the specified types
         """
+        logging.info('Generating cases for cases with %s types of inheritors', n_types)
         self.n_types = n_types
         self.generator = itertools.combinations(self.inheritors, n_types)
         return self.generator
@@ -55,11 +58,14 @@ class CaseGenerator:
         """
         columns = ['Case']
         base = pd.DataFrame(columns=columns)
+        logging.info('Saving output to %s, %s rows at a time', output, chunk_size )
         base.to_csv(output, index=False)
         n_cases=0
         for case in self.generator:
             #Later to be filled by the solver
             case = {x: 0 for x in case}
+            case = solve(case=case,
+                         descendants=self.descendants)
             if not is_redundant(case):
                 temp = pd.DataFrame({'Case': [case]})
                 base=base.append(temp)
@@ -70,6 +76,14 @@ class CaseGenerator:
         #Add the remainder to the csv, unless it stopped exactly on a chunk_size multiple.
         if n_cases % chunk_size != 0:
             base.to_csv(output, mode='a', index=False, header=False)
+
+def set_logging():
+    """
+    Defines a basic logger
+    :return:
+    """
+    logging.getLogger(__name__)
+    coloredlogs.install(level='DEBUG')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Case generator parameters')
@@ -85,7 +99,9 @@ if __name__ == '__main__':
                         type=str,
                         required='True',
                         help="Output filename for the generated cases")
+    set_logging()
     args = parser.parse_args()
-    casegen = CaseGenerator(args.config)
-    casegen.generate_cases(args.n_types)
-    casegen.save_cases(os.path.join('output', args.output), chunk_size=10000)
+    casegen = CaseGenerator(config=args.config)
+    casegen.generate_cases(n_types=args.n_types)
+    casegen.save_cases(output=os.path.join('output', args.output),
+                       chunk_size=10000)
