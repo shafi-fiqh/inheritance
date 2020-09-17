@@ -1,54 +1,89 @@
+"""
+This module is to be used to generate inheritance cases.
+Configuration files specify the base set of inheritors to permute.
+Number of different types of inheritors passed as a parameter.
+Saving the cases to a csv is an option.
+"""
 import argparse
+import logging
 import itertools
-import pandas as pd
 import os
+import coloredlogs
+import pandas as pd
+
+from src.solver import solve
+from utils.helpers import is_redundant
 
 
 class CaseGenerator:
-      def __init__(self,
-                   config: str):
-          """
-          Initialize the list of inheritors. This can increase to more sophisticated levels in the future.
-          :param config: Comma separated file containing the inheritors.
-          """
-          family_csv = pd.read_csv(config)
-          self.inheritors = list(family_csv['Inheritor'])
-          return
-      def generate_cases(self,
-                         n_types: int):
-          """
-          Generator object for inheritance cases to be solved.
-          :param n_types: number of distinct different types of inheritors. For example Daughter + Son is considered 2 types. Daugher x 2 + Son is still considered n_types = 2.
-          :return: Generator object for inheritane cases with the specified types
-          """
-          self.n_types = n_types
-          self.generator = itertools.combinations(self.inheritors, n_types)
-          return self.generator
-      def save_cases(self,
-                     output: str,
-                     chunk_size: int):
-          """
-          Append cases to an output file. We will yield and append cases one by one to the file to avoid memory issues, as the permutation space can get quite large.
-          :param output: string for the csv filepath
-          :return: None
-          """
-          columns = ['Inheritor_' + str(i) for i in range(1, self.n_types+1)]
-          base = pd.DataFrame(columns=columns)
-          base.to_csv(output, index=False)
-          n=0
-          for case in self.generator:
-              temp = pd.DataFrame({'Inheritor_' + str(i+1) : [case[i]] for i in range(len(case))})
-              base=base.append(temp)
-              n+=1
-              if n % chunk_size == 0:
-                 base.to_csv(output, mode='a', index=False, header=False)
-                 base = pd.DataFrame(columns=columns)
-          #Add the remainder to the csv, unless it stopped exactly on a chunk_size multiple.
-          if n % chunk_size != 0:
-             base.to_csv(output, mode='a', index=False, header=False)
+    """
+    The parent case generation class. Can generate inheritance cases from a config
+    and save them.
+    """
+    def __init__(self,
+                 config: str) -> None:
+        """
+        Initialize the list of inheritors.
+        This can increase to more sophisticated levels in the future.
+        :param config: Comma separated file containing the inheritors.
+        """
+        family_csv = pd.read_csv(config)
+        self.inheritors = list(family_csv['Inheritor'])
+        self.descendants = pd.Series(family_csv.descendant.values,
+                                     index=family_csv.Inheritor).to_dict()
+        self.n_types=None
+        self.generator=None
+    def generate_cases(self,
+                       n_types: int) -> itertools.combinations:
+        """
+        Generator object for inheritance cases to be solved.
+        :param n_types: number of distinct different types of inheritors.
+        For example Daughter + Son is considered 2 types.
+        Daugher x 2 + Son is still considered n_types = 2.
+        :return: Generator object for inheritane cases with the specified types
+        """
+        logging.info('Generating cases for cases with %s types of inheritors', n_types)
+        self.n_types = n_types
+        self.generator = itertools.combinations(self.inheritors, n_types)
+        return self.generator
+    def save_cases(self,
+                   output: str,
+                   chunk_size: int) -> None:
+        """
+        Append cases to an output file.
+        We will yield and append cases one by one to the file to avoid memory issues,
+        as the permutation space can get quite large.
+        :param output: string for the csv filepath
+        :return: None
+        """
+        columns = ['Case']
+        base = pd.DataFrame(columns=columns)
+        logging.info('Saving output to %s, %s rows at a time', output, chunk_size )
+        base.to_csv(output, index=False)
+        n_cases=0
+        for case in self.generator:
+            #Later to be filled by the solver
+            case = {x: 0 for x in case}
+            case = solve(case=case,
+                         descendants=self.descendants)
+            if not is_redundant(case):
+                temp = pd.DataFrame({'Case': [case]})
+                base=base.append(temp)
+                n_cases+=1
+                if n_cases % chunk_size == 0:
+                    base.to_csv(output, mode='a', index=False, header=False)
+                    base = pd.DataFrame(columns=columns)
+        #Add the remainder to the csv, unless it stopped exactly on a chunk_size multiple.
+        if n_cases % chunk_size != 0:
+            base.to_csv(output, mode='a', index=False, header=False)
 
-
-
+def set_logging():
+    """
+    Defines a basic logger
+    :return:
+    """
+    logging.getLogger(__name__)
+    coloredlogs.install(level='DEBUG')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Case generator parameters')
@@ -64,11 +99,9 @@ if __name__ == '__main__':
                         type=str,
                         required='True',
                         help="Output filename for the generated cases")
+    set_logging()
     args = parser.parse_args()
-    casegen = CaseGenerator(args.config)
-    casegen.generate_cases(args.n_types)
-    casegen.save_cases(os.path.join('output', args.output), chunk_size=10000)
-
-
-
-
+    casegen = CaseGenerator(config=args.config)
+    casegen.generate_cases(n_types=args.n_types)
+    casegen.save_cases(output=os.path.join('output', args.output),
+                       chunk_size=10000)
