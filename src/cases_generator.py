@@ -30,7 +30,7 @@ class CaseGenerator:
         """
         inheritors_df = pd.read_csv(config)
         inheritors_df = inheritors_df[inheritors_df.Ignore==0]
-        inheritors_df['Asaba'] = inheritors_df['Asaba'].apply(lambda x: ast.literal_eval(x))
+        inheritors_df['Asaba'] = inheritors_df['Asaba'].apply(ast.literal_eval)
         self.inheritors = list(inheritors_df['Inheritor'])
         self.descendants = pd.Series(inheritors_df.descendant.values,
                                      index=inheritors_df.Inheritor).to_dict()
