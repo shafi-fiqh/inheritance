@@ -2,15 +2,21 @@
 Collection of functions to solve for various inheritors.
 The function should take a tuple of inheritors, and return some shares.
 """
+from utils.helpers import sisters_with_daughters
 
 def solve(case: dict,
-          descendants:dict) -> dict:
+          descendants:dict,
+          rank: dict,
+          taseeb: dict) -> dict:
     """
     This is the master solver. Individual inheritor solvers added to this
     incrementally.
     :param case: dictionary of inheritors and shares
     :param descendants: dictionary mapping inheritor name to whether
     or not they're a male/female descendant
+    :param rank: asaba ranking in the hierarchy
+    :param taseeb: Dictionary mapping each inheritor to a list of inheritors
+    that would take asaba if he is present.
     :return: case with shares filled
     """
     case = solve_father(case=case,
@@ -21,6 +27,9 @@ def solve(case: dict,
                       descendants=descendants)
     case = solve_daughter(case=case)
     case = solve_granddaughter(case=case)
+    case = solve_asaba(case=case,
+                       rank=rank,
+                       taseeb=taseeb)
     #Add more here as we create more partial solvers
     return case
 
@@ -113,12 +122,51 @@ def solve_granddaughter(case: dict)->dict:
     if 'daughter_of_son_x2' in case:
         inh = 'daughter_of_son_x2'
         share = '2/3'
-    if 'son' in case or 'daughter_x2' in case:
+    if 'son' in case:
         case[inh] = 0
     elif 'son_of_son' in case:
         case[inh] = 'A'
+    elif 'daughter_x2' in case:
+        case[inh] = 0
     elif 'daughter' in case:
         case[inh] = '1/6'
     else:
         case[inh] = share
+    return case
+
+def solve_asaba(case: dict,
+                rank: dict,
+                taseeb: dict) -> dict:
+    """
+    Solve for asaba inheritors except for the father/grandfather.
+
+    :param case:
+    :param fard_asaba:
+    :param rank:
+    :param taseeb: Dictionary containing the list of
+    inheritors who become asaba if this inheritor is present.
+    :return:
+    """
+    case_ranks = {inh: rank[inh] for inh in case if rank[inh] > 0}
+    if sisters_with_daughters(case=case):
+        if 'sister' in case:
+            case_ranks['sister'] = 5.5
+        if 'sister_x2' in case:
+            case_ranks['sister_x2'] = 5.5
+        if 'paternal_halfsister' in case:
+            case_ranks['paternal_halfsister'] = 6.5
+        if 'paternal_halfsister_x2' in case:
+            case_ranks['paternal_halfsister_x2'] = 6.5
+    if not case_ranks:
+        return case
+    closest = min(case_ranks, key=case_ranks.get)
+
+    #Father is a special case to be handled in another function
+    if closest != 'father':
+        case[closest] = 'A'
+        for inheritor in taseeb[closest]:
+            if inheritor in case:
+                case[inheritor] = 'A'
+
+    #Need to resolve for sister with daughter
     return case
