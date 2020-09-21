@@ -5,6 +5,7 @@ Number of different types of inheritors passed as a parameter.
 Saving the cases to a csv is an option.
 """
 import argparse
+import ast
 import logging
 import itertools
 import os
@@ -27,10 +28,16 @@ class CaseGenerator:
         This can increase to more sophisticated levels in the future.
         :param config: Comma separated file containing the inheritors.
         """
-        family_csv = pd.read_csv(config)
-        self.inheritors = list(family_csv['Inheritor'])
-        self.descendants = pd.Series(family_csv.descendant.values,
-                                     index=family_csv.Inheritor).to_dict()
+        inheritors_df = pd.read_csv(config)
+        inheritors_df = inheritors_df[inheritors_df.Ignore==0]
+        inheritors_df['Asaba'] = inheritors_df['Asaba'].apply(ast.literal_eval)
+        self.inheritors = list(inheritors_df['Inheritor'])
+        self.descendants = pd.Series(inheritors_df.descendant.values,
+                                     index=inheritors_df.Inheritor).to_dict()
+        self.rank= pd.Series(inheritors_df.Asaba_Rank.values,
+                                    index=inheritors_df.Inheritor).to_dict()
+        self.taseeb= pd.Series(inheritors_df.Asaba.values,
+                                    index=inheritors_df.Inheritor).to_dict()
         self.n_types=None
         self.generator=None
     def generate_cases(self,
@@ -65,7 +72,9 @@ class CaseGenerator:
             #Later to be filled by the solver
             case = {x: 0 for x in case}
             case = solve(case=case,
-                         descendants=self.descendants)
+                         descendants=self.descendants,
+                         rank=self.rank,
+                         taseeb=self.taseeb)
             if not is_redundant(case):
                 temp = pd.DataFrame({'Case': [case]})
                 base=base.append(temp)
