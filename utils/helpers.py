@@ -1,6 +1,7 @@
 """
 Misc helper functions
 """
+import numpy
 
 INHERITING_DESCENDANTS = ['son', 'son_of_son', 'daughter', 'daughter_x2',
                           'daughter_of_son', 'daughter_of_son_x2'] #Far3 Waris
@@ -38,7 +39,25 @@ def is_musharika(case: dict)->bool:
     :param case: Dictionary with the inheritors and shares
     :return: A boolean to indicate if it is or isn't.
     """
-    # TODO: Check if it is a Musharika Mas'ala
+    # Musharika case is only applicable if full siblings and maternal siblings are there
+    maternal_siblings_in_case = [inh for inh in case if 'maternal' in inh]
+    if len(maternal_siblings_in_case) == 0:
+        return False
+
+    if not any(is_full_sibling(inh) for inh in case):
+        return False
+
+    denominator_each_share_lst = [int(share.split('/')[1]) if share not in (0, 'A') else 1
+                                  for share in case.values()]
+    common_denominator = numpy.lcm.reduce(denominator_each_share_lst)
+
+    # Want to check if the total share of inheritors is >=1, which means Asaba has no share left
+    updated_share_lst = [int(share.split('/')[0]) * (common_denominator / int(share.split('/')[1]))
+                         if share not in (0, 'A') else 0 for share in case.values()]
+
+    if sum(updated_share_lst) >= common_denominator:
+        return True
+
     return False
 
 
