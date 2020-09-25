@@ -2,6 +2,10 @@
 Collection of functions to solve for various inheritors.
 The function should take a tuple of inheritors, and return some shares.
 """
+from utils.helpers import calculate_share_of_maternal_siblings
+from utils.helpers import INHERITING_DESCENDANTS
+from utils.helpers import is_full_sibling
+from utils.helpers import is_musharika
 from utils.helpers import sisters_with_daughters
 
 def solve(case: dict,
@@ -27,6 +31,7 @@ def solve(case: dict,
                       descendants=descendants)
     case = solve_daughter(case=case)
     case = solve_granddaughter(case=case)
+    case = solve_maternal_siblings(case=case)
     case = solve_asaba(case=case,
                        rank=rank,
                        taseeb=taseeb)
@@ -134,6 +139,27 @@ def solve_granddaughter(case: dict)->dict:
         case[inh] = share
     return case
 
+def solve_maternal_siblings(case: dict) -> dict:
+    """
+    Solve for maternal siblings.
+
+    :param case:
+    :return: string representing the fraction.
+    """
+    relatives_who_block_maternal_siblings = INHERITING_DESCENDANTS + ['father', 'father_of_father']
+
+    if any(relative in case for relative in relatives_who_block_maternal_siblings):
+        return case
+
+    maternal_siblings_in_case = [inh for inh in case if 'maternal' in inh]
+
+    if len(maternal_siblings_in_case) > 0:
+        maternal_sibling_share = calculate_share_of_maternal_siblings(maternal_siblings_in_case)
+        for maternal_sibling in maternal_siblings_in_case:
+            case[maternal_sibling] = maternal_sibling_share
+
+    return case
+
 def solve_asaba(case: dict,
                 rank: dict,
                 taseeb: dict) -> dict:
@@ -168,5 +194,13 @@ def solve_asaba(case: dict,
             if inheritor in case:
                 case[inheritor] = 'A'
 
-    #Need to resolve for sister with daughter
+    #Musharika is a special case
+    if is_full_sibling(closest) and is_musharika(case):
+        maternal_siblings_in_case = [inh for inh in case if 'maternal' in inh]
+        maternal_sibling_share = calculate_share_of_maternal_siblings(maternal_siblings_in_case)
+        case[closest] = maternal_sibling_share
+        for inheritor in taseeb[closest]:
+            if inheritor in case:
+                case[inheritor] = maternal_sibling_share
+
     return case
