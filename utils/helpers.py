@@ -2,6 +2,9 @@
 Misc helper functions
 """
 
+INHERITING_DESCENDANTS = ['son', 'son_of_son', 'daughter', 'daughter_x2',
+                          'daughter_of_son', 'daughter_of_son_x2'] #Far3 Waris
+
 def is_redundant(case: dict)->bool:
     """
     Reveals whether there is a redundancy such as sister and sister_x2
@@ -26,3 +29,34 @@ def sisters_with_daughters(case: dict)->bool:
     daughters = ['daughter', 'daughter_x2']
     return any([sister in case for sister in sisters]) \
         and any([daughter in case for daughter in daughters])
+
+
+def is_musharika(case: dict)->bool:
+    """
+    Reveals whether the case is an example of Musharika
+    where the maternal and full siblings share a fixed share.
+    :param case: Dictionary with the inheritors and shares
+    :return: A boolean to indicate if it is or isn't.
+    """
+    # TODO: Check if it is a Musharika Mas'ala
+    return False
+
+
+def is_full_sibling(inh: str)->bool:
+    """
+    Reveals whether the inheritor is a full sibling or not.
+    :param inh: string which specifies which inheritor
+    :return: A boolean to indicate if it is a full sibling or isn't.
+    """
+    return inh in ['brother', 'sister', 'sister_x2']
+
+
+def calculate_share_of_maternal_siblings(maternal_siblings_lst: list)->str:
+    """
+    Calculates the share of the maternal siblings.
+    :param maternal_siblings_lst: list of all maternal siblings in the case
+    :return: A string which is the share of the maternal siblings.
+    """
+    if len(maternal_siblings_lst) == 2 or maternal_siblings_lst[0] == 'maternal_halfsister_x2':
+        return '1/3'
+    return '1/6'
