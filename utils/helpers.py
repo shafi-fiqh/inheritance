@@ -86,3 +86,20 @@ def calculate_share_of_maternal_siblings(maternal_siblings_lst: list)->str:
     if len(maternal_siblings_lst) == 2 or maternal_siblings_lst[0] == 'maternal_halfsister_x2':
         return '1/3'
     return '1/6'
+
+def is_omariyya(case: dict,
+                n_siblings: int)->bool:
+    """
+    Check if this is a omariyya case or not
+    :param case: dictionary containing inheritors
+    :param n_siblings: number of siblings in the case
+    :return: Boolean indicating whether or not it's a omariyya case
+    """
+    cond1 = 'husband' in case or 'wife' in case
+    cond2 = 'mother' in case
+    cond3 = 'father' in case
+    omaria_core = ['husband', 'wife', 'mother', 'father']
+    cond4 = all([case[inh]== 0 for inh in case if inh not in omaria_core] )
+    cond5 = n_siblings < 2
+    return all([cond1,cond2,cond3,cond4,cond5])
+

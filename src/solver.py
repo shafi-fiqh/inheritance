@@ -5,6 +5,7 @@ The function should take a tuple of inheritors, and return some shares.
 from utils.helpers import calculate_share_of_maternal_siblings
 from utils.helpers import is_full_sibling
 from utils.helpers import is_musharika
+from utils.helpers import is_omariyya
 from utils.helpers import sisters_with_daughters
 
 def solve(case: dict,
@@ -40,6 +41,7 @@ def solve(case: dict,
     case = solve_asaba(case=case,
                        rank=rank,
                        taseeb=taseeb)
+    case = solve_mother(case=case)
     #Add more here as we create more partial solvers
     return case
 
@@ -281,3 +283,33 @@ def solve_asaba(case: dict,
                 case[inheritor] = maternal_sibling_share
 
     return case
+
+def solve_mother(case:dict)-> dict:
+    """
+    Solve for the mother
+    :param case:
+    :return:
+    """
+    if 'mother' not in case:
+        return case
+    siblings_dict = {}
+    for inh in case:
+        if 'brother' in inh or 'sister' in inh:
+            if 'x2' in inh:
+                siblings_dict[inh] = 2
+            else:
+                siblings_dict[inh] = 1
+    n_siblings = sum([siblings_dict[inh] for inh in siblings_dict])
+    far_warith = False
+    for inh in case:
+        if 'son' in inh or 'daughter' in inh:
+            far_warith = True
+    if far_warith or n_siblings >= 2:
+        case['mother'] = '1/6'
+    else:
+        case['mother'] = '1/3'
+    if is_omariyya(case=case,
+                   n_siblings=n_siblings):
+        case['mother'] = '1/3 remainder'
+    return case
+
