@@ -15,7 +15,8 @@ def is_redundant(case: dict)->bool:
     cond3 = 'daughter_of_son' in case and 'daughter_of_son_x2' in case
     cond4 = 'paternal_halfsister' in case and 'paternal_halfsister_x2' in case
     cond5 = 'maternal_halfsister' in case and 'maternal_halfsister_x2' in case
-    return any([cond1, cond2, cond3, cond4, cond5])
+    cond6 = 'husband' in case and 'wife' in case
+    return any([cond1, cond2, cond3, cond4, cond5, cond6])
 
 
 def sisters_with_daughters(case: dict)->bool:
