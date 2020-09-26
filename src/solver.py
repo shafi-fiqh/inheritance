@@ -33,6 +33,7 @@ def solve(case: dict,
                       descendants=descendants)
     case = solve_daughter(case=case)
     case = solve_granddaughter(case=case)
+    case = solve_grandmother(case=case, mahjoob=mahjoob)
     case = solve_maternal_siblings(case=case, mahjoob=mahjoob)
     case = solve_asaba(case=case,
                        rank=rank,
@@ -152,10 +153,10 @@ def solve_grandmother(case:dict, mahjoob:dict)->dict:
     if not(any(grandma in case for grandma in ['grandmother_mother', 'grandmother_father'])):
         return case
 
-    if not(any(blockers in case for blocker in mahjoob['grandmother_father'])):
+    if not(any(blocker in case for blocker in mahjoob['grandmother_father'])):
         case['grandmother_father'] = '1/6'
 
-    if not(any(blockers in case for blocker in mahjoob['grandmother_mother'])):
+    if not(any(blocker in case for blocker in mahjoob['grandmother_mother'])):
         case['grandmother_mother'] = '1/6'
 
     return case
