@@ -3,8 +3,6 @@ Misc helper functions
 """
 import numpy
 
-INHERITING_DESCENDANTS = ['son', 'son_of_son', 'daughter', 'daughter_x2',
-                          'daughter_of_son', 'daughter_of_son_x2'] #Far3 Waris
 
 def is_redundant(case: dict)->bool:
     """
