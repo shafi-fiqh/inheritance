@@ -1,6 +1,7 @@
 """
 Testing module
 """
+import copy
 import pytest
 import json
 
@@ -11,8 +12,10 @@ def test_cases():
     with open('config/cases.json', 'r') as cases_file:
         cases = json.load(cases_file)
     casegen = CaseGenerator('config/family_config.csv')
+    print('cases = ', cases)
     for case in cases:
-        assert all([case[inh] == solve(case=case,
+        case_copy = copy.copy(case)
+        assert all([case[inh] == solve(case=case_copy,
                                        descendants=casegen.descendants,
                                        mahjoob=casegen.mahjoob,
                                        rank=casegen.rank,
