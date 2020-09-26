@@ -122,6 +122,7 @@ def solve_full_sister(case: dict, mahjoob: dict)->dict:
     """
     Solve only for the sister's share if she exists or is not blocked
     :param case: dictionary of inheritors and shares
+    :param mahjoob: dictionary of inheritors and blockers
     :return: string representing the fraction.
     """
 
@@ -143,7 +144,6 @@ def solve_granddaughter(case: dict)->dict:
     """
     Solve only for the daughter's share if she exists
     :param case: dictionary of inheritors and shares
-    :param mahjoob: dictionary of inheritors and blockers
     :return: string representing the fraction.
     """
     if 'daughter_of_son' not in case and 'daughter_of_son_x2' not in case:
