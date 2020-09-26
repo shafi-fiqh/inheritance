@@ -19,5 +19,5 @@ def test_cases():
                                        descendants=casegen.descendants,
                                        mahjoob=casegen.mahjoob,
                                        rank=casegen.rank,
-                                       taseeb=casegen.taseeb)[inh] for inh in case]), 'Case %s failed' % case
+                                       taseeb=casegen.taseeb)[inh] for inh in case]), 'Case %s failed solver returned %s' % (case, case_copy)
 
