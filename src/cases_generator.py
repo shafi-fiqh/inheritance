@@ -31,6 +31,7 @@ class CaseGenerator:
         inheritors_df = pd.read_csv(config)
         inheritors_df = inheritors_df[inheritors_df.Ignore==0]
         inheritors_df['Asaba'] = inheritors_df['Asaba'].apply(ast.literal_eval)
+        inheritors_df['blocked_by'] = inheritors_df['blocked_by'].apply(ast.literal_eval)
         self.inheritors = list(inheritors_df['Inheritor'])
         self.descendants = pd.Series(inheritors_df.descendant.values,
                                      index=inheritors_df.Inheritor).to_dict()
@@ -38,8 +39,11 @@ class CaseGenerator:
                                     index=inheritors_df.Inheritor).to_dict()
         self.taseeb= pd.Series(inheritors_df.Asaba.values,
                                     index=inheritors_df.Inheritor).to_dict()
+        self.mahjoob = pd.Series(inheritors_df.blocked_by.values,
+                                 index=inheritors_df.Inheritor).to_dict()
         self.n_types=None
         self.generator=None
+
     def generate_cases(self,
                        n_types: int) -> itertools.combinations:
         """
@@ -73,6 +77,7 @@ class CaseGenerator:
             case = {x: 0 for x in case}
             case = solve(case=case,
                          descendants=self.descendants,
+                         mahjoob=self.mahjoob,
                          rank=self.rank,
                          taseeb=self.taseeb)
             if not is_redundant(case):
