@@ -37,11 +37,12 @@ def solve(case: dict,
     case = solve_full_sister(case=case, mahjoob=mahjoob)
     case = solve_paternal_sister(case=case, mahjoob=mahjoob)
     case = solve_grandmother(case=case, mahjoob=mahjoob)
+    case = solve_mother(case=case)
     case = solve_maternal_siblings(case=case, mahjoob=mahjoob)
     case = solve_asaba(case=case,
                        rank=rank,
                        taseeb=taseeb)
-    case = solve_mother(case=case)
+    case = solve_omariyya(case=case)
     #Add more here as we create more partial solvers
     return case
 
@@ -308,8 +309,18 @@ def solve_mother(case:dict)-> dict:
         case['mother'] = '1/6'
     else:
         case['mother'] = '1/3'
+    return case
+
+def solve_omariyya(case:dict)->dict:
+    siblings_dict = {}
+    for inh in case:
+        if 'brother' in inh or 'sister' in inh:
+            if 'x2' in inh:
+                siblings_dict[inh] = 2
+            else:
+                siblings_dict[inh] = 1
+    n_siblings = sum([siblings_dict[inh] for inh in siblings_dict])
     if is_omariyya(case=case,
                    n_siblings=n_siblings):
         case['mother'] = '1/3 remainder'
     return case
-
