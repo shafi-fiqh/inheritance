@@ -1,7 +1,27 @@
 [
-{"son":  "A",
- "daughter" :  "A",
-"husband":  "1/4"},
-{"daughter_x2": "2/3",
-"wife": "1/8"}
+  {
+    "son":  "A",
+    "daughter" :  "A",
+    "husband":  "1/4"
+  },
+  {
+    "daughter_x2": "2/3",
+    "wife": "1/8"
+  },
+  {
+    "husband": "1/4",
+    "daughter_x2": "2/3",
+    "daughter_of_son": 0
+  },
+  {
+    "maternal_halfsister": "1/3",
+    "maternal_halfbrother": "1/3",
+    "brother": "A",
+    "paternal_halfbrother": 0
+  },
+  {
+    "father": "A",
+    "husband": "1/2",
+    "mother": "1/3 remainder"
+  }
 ]
