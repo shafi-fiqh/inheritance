@@ -34,6 +34,7 @@ def solve(case: dict,
     case = solve_daughter(case=case)
     case = solve_granddaughter(case=case)
     case = solve_full_sister(case=case, mahjoob=mahjoob)
+    case = solve_paternal_sister(case=case, mahjoob=mahjoob)
     case = solve_grandmother(case=case, mahjoob=mahjoob)
     case = solve_maternal_siblings(case=case, mahjoob=mahjoob)
     case = solve_asaba(case=case,
@@ -163,6 +164,33 @@ def solve_granddaughter(case: dict)->dict:
         case[inh] = '1/6'
     else:
         case[inh] = share
+    return case
+
+def solve_paternal_sister(case:dict, mahjoob:dict)->dict:
+    """
+    Solve only for the paternal sister's share if she exists or is not blocked
+    :param case: dictionary of inheritors and shares
+    :param mahjoob: dictionary of inheritors and blockers
+    :return: string representing the fraction.
+    """
+
+    if 'paternal_halfsister' not in case and 'paternal_halfsister_x2' not in case:
+        return case
+
+    if any(blocker in case for blocker in mahjoob['paternal_halfsister']):
+        return case
+
+    paternal_sister_in_case = [inh for inh in case if 'paternal_halfsister' in inh].pop()
+
+    if paternal_sister_in_case == 'paternal_halfsister':
+        case[paternal_sister_in_case] = '1/2'
+
+    if paternal_sister_in_case == 'paternal_halfsister_x2':
+        case[paternal_sister_in_case] = '2/3'
+
+    if 'sister' in case:
+        case[paternal_sister_in_case] = '1/6'
+
     return case
 
 def solve_grandmother(case:dict, mahjoob:dict)->dict:
