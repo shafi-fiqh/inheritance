@@ -145,7 +145,8 @@ def solve_maternal_siblings(case: dict, mahjoob:dict) -> dict:
     """
     Solve for maternal siblings.
 
-    :param case:
+    :param case: dictionary of inheritors and shares
+    :param mahjoob: dictionary of inheritors and blockers
     :return: string representing the fraction.
     """
     #Mahjoob for maternal siblings is common for brother or sister
