@@ -312,6 +312,11 @@ def solve_mother(case:dict)-> dict:
     return case
 
 def solve_omariyya(case:dict)->dict:
+    """
+    Solve for the 2 omariyan cases.
+    :param case:
+    :return:
+    """
     siblings_dict = {}
     for inh in case:
         if 'brother' in inh or 'sister' in inh:
