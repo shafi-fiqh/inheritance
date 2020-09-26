@@ -102,4 +102,3 @@ def is_omariyya(case: dict,
     cond4 = all([case[inh]== 0 for inh in case if inh not in omaria_core] )
     cond5 = n_siblings < 2
     return all([cond1,cond2,cond3,cond4,cond5])
-
