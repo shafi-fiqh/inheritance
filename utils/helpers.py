@@ -50,10 +50,19 @@ def is_musharika(case: dict)->bool:
     common_denominator = numpy.lcm.reduce(denominator_each_share_lst)
 
     # Want to check if the total share of inheritors is >=1, which means Asaba has no share left
-    updated_share_lst = [int(share.split('/')[0]) * (common_denominator / int(share.split('/')[1]))
-                         if share not in (0, 'A') else 0 for share in case.values()]
+    updated_shares = {inh: int(case[inh].split('/')[0]) * (common_denominator / int(case[inh].split('/')[1])) if case[inh] not in (0, 'A') else 0 for inh in case}
 
-    if sum(updated_share_lst) >= common_denominator:
+    sum_shares = 0
+    added_maternal_sibling_share = False
+
+    for inh in updated_shares:
+        if 'maternal' in inh and not added_maternal_sibling_share:
+            added_maternal_sibling_share = True
+            sum_shares += updated_shares[inh]
+        if 'maternal' not in inh:
+            sum_shares += updated_shares[inh]
+
+    if sum_shares >= common_denominator:
         return True
 
     return False
