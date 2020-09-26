@@ -150,13 +150,15 @@ def solve_grandmother(case:dict, mahjoob:dict)->dict:
     :param mahjoob: dictionary of inheritors and blockers
     :return: string representing the fraction.
     """
-    if not(any(grandma in case for grandma in ['grandmother_mother', 'grandmother_father'])):
+    if not any(grandma in case for grandma in ['grandmother_mother', 'grandmother_father']):
         return case
 
-    if not(any(blocker in case for blocker in mahjoob['grandmother_father'])):
+    if not any(blocker in case for blocker in mahjoob['grandmother_father']) \
+    and 'grandmother_father' in case:
         case['grandmother_father'] = '1/6'
 
-    if not(any(blocker in case for blocker in mahjoob['grandmother_mother'])):
+    if not any(blocker in case for blocker in mahjoob['grandmother_mother']) \
+    and 'grandmother_mother' in case:
         case['grandmother_mother'] = '1/6'
 
     return case
