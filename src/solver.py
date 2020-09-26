@@ -3,13 +3,13 @@ Collection of functions to solve for various inheritors.
 The function should take a tuple of inheritors, and return some shares.
 """
 from utils.helpers import calculate_share_of_maternal_siblings
-from utils.helpers import INHERITING_DESCENDANTS
 from utils.helpers import is_full_sibling
 from utils.helpers import is_musharika
 from utils.helpers import sisters_with_daughters
 
 def solve(case: dict,
           descendants:dict,
+          mahjoob:dict,
           rank: dict,
           taseeb: dict) -> dict:
     """
@@ -18,6 +18,8 @@ def solve(case: dict,
     :param case: dictionary of inheritors and shares
     :param descendants: dictionary mapping inheritor name to whether
     or not they're a male/female descendant
+    :param mahjoob: dictionary mapping inheritor name to a list of inheritors
+    that would block this inheritor if present
     :param rank: asaba ranking in the hierarchy
     :param taseeb: Dictionary mapping each inheritor to a list of inheritors
     that would take asaba if he is present.
@@ -31,7 +33,7 @@ def solve(case: dict,
                       descendants=descendants)
     case = solve_daughter(case=case)
     case = solve_granddaughter(case=case)
-    case = solve_maternal_siblings(case=case)
+    case = solve_maternal_siblings(case=case, mahjoob=mahjoob)
     case = solve_asaba(case=case,
                        rank=rank,
                        taseeb=taseeb)
@@ -139,14 +141,15 @@ def solve_granddaughter(case: dict)->dict:
         case[inh] = share
     return case
 
-def solve_maternal_siblings(case: dict) -> dict:
+def solve_maternal_siblings(case: dict, mahjoob:dict) -> dict:
     """
     Solve for maternal siblings.
 
     :param case:
     :return: string representing the fraction.
     """
-    relatives_who_block_maternal_siblings = INHERITING_DESCENDANTS + ['father', 'father_of_father']
+    #Mahjoob for maternal siblings is common for brother or sister
+    relatives_who_block_maternal_siblings = mahjoob['maternal_halfbrother']
 
     if any(relative in case for relative in relatives_who_block_maternal_siblings):
         return case
