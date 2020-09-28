@@ -48,7 +48,8 @@ def is_musharraka(case: dict)->bool:
     n_maternal = sum([2  if 'x2' in inh else 1 for inh in maternal])
     cond3 = n_maternal >= 2
     cond4 = 'brother' in case
-    inval = ['son', 'son_of_son', 'father', 'father_of_father', 'daughter', 'daughter_x2', 'daughter_of_son', 'daughter_of_son_x2']
+    inval = ['son', 'son_of_son', 'father', 'father_of_father',
+             'daughter', 'daughter_x2', 'daughter_of_son', 'daughter_of_son_x2']
     cond5 = all([inh not in case for inh in inval])
     return all([cond1, cond2, cond3, cond4, cond5])
 
@@ -83,7 +84,7 @@ def is_omariyya(case: dict,
     cond1 = 'husband' in case or 'wife' in case
     cond2 = 'mother' in case
     cond3 = 'father' in case
-    omaria_core = ['husband', 'wife', 'mother', 'father']
-    cond4 = all([case[inh]== 0 for inh in case if inh not in omaria_core] )
+    desc = ['son', 'son_of_son', 'daughter', 'daughter_x2', 'daughter_of_son', 'daughter_of_son_x2']
+    cond4 = all([inh not in case for inh in desc])
     cond5 = n_siblings < 2
-    return all([cond1,cond2,cond3,cond4,cond5])
+    return all([cond1, cond2, cond3, cond4, cond5])
