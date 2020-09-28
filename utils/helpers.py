@@ -26,7 +26,7 @@ def sisters_with_daughters(case: dict)->bool:
     :return:
     """
     sisters = ['sister', 'sister_x2', 'paternal_halfsister', 'paternal_halfsister_x2']
-    daughters = ['daughter', 'daughter_x2']
+    daughters = ['daughter', 'daughter_x2', 'daughter_of_son', 'daughter_of_son_x2']
     return any([sister in case for sister in sisters]) \
         and any([daughter in case for daughter in daughters])
 

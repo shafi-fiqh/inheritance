@@ -136,6 +136,9 @@ def solve_full_sister(case: dict, mahjoob: dict)->dict:
     if any(blocker in case for blocker in mahjoob['sister']):
         return case
 
+    if sisters_with_daughters(case):
+        return case
+
     if 'sister' in case:
         case['sister'] = '1/2'
 
@@ -181,6 +184,9 @@ def solve_paternal_sister(case:dict, mahjoob:dict)->dict:
         return case
 
     if any(blocker in case for blocker in mahjoob['paternal_halfsister']):
+        return case
+
+    if sisters_with_daughters(case):
         return case
 
     paternal_sister_in_case = [inh for inh in case if 'paternal_halfsister' in inh].pop()
