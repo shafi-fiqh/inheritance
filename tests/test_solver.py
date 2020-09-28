@@ -33,3 +33,5 @@ def test_cases(case):
                                        rank=casegen.rank,
                                        taseeb=casegen.taseeb)[inh] for inh in case]),\
             'Case %s failed solver returned %s' % (case, case_copy)
+
+

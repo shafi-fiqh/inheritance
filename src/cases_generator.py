@@ -73,21 +73,21 @@ class CaseGenerator:
         base.to_csv(output, index=False)
         n_cases=0
         for case in self.generator:
-            #Later to be filled by the solver
-            case = {x: 0 for x in case}
-            case = solve(case=case,
-                         descendants=self.descendants,
-                         mahjoob=self.mahjoob,
-                         rank=self.rank,
-                         taseeb=self.taseeb)
             if not is_redundant(case):
+                #Later to be filled by the solver
+                case = {x: 0 for x in case}
+                case = solve(case=case,
+                             descendants=self.descendants,
+                             mahjoob=self.mahjoob,
+                             rank=self.rank,
+                             taseeb=self.taseeb)
                 temp = pd.DataFrame({'Case': [case]})
                 base=base.append(temp)
                 n_cases+=1
                 if n_cases % chunk_size == 0:
                     base.to_csv(output, mode='a', index=False, header=False)
                     base = pd.DataFrame(columns=columns)
-        #Add the remainder to the csv, unless it stopped exactly on a chunk_size multiple.
+        #Add     the remainder to the csv, unless it stopped exactly on a chunk_size multiple.
         if n_cases % chunk_size != 0:
             base.to_csv(output, mode='a', index=False, header=False)
 
