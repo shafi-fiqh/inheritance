@@ -4,7 +4,7 @@ The function should take a tuple of inheritors, and return some shares.
 """
 from utils.helpers import calculate_share_of_maternal_siblings
 from utils.helpers import is_full_sibling
-from utils.helpers import is_musharika
+from utils.helpers import is_musharraka
 from utils.helpers import is_omariyya
 from utils.helpers import sisters_with_daughters
 
@@ -280,8 +280,8 @@ def solve_asaba(case: dict,
             if inheritor in case:
                 case[inheritor] = 'A'
 
-    #Musharika is a special case
-    if is_full_sibling(closest) and is_musharika(case):
+    #Musharraka is a special case
+    if is_full_sibling(closest) and is_musharraka(case):
         maternal_siblings_in_case = [inh for inh in case if 'maternal' in inh]
         maternal_sibling_share = calculate_share_of_maternal_siblings(maternal_siblings_in_case)
         case[closest] = maternal_sibling_share

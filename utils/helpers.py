@@ -31,42 +31,26 @@ def sisters_with_daughters(case: dict)->bool:
         and any([daughter in case for daughter in daughters])
 
 
-def is_musharika(case: dict)->bool:
+def is_musharraka(case: dict)->bool:
     """
-    Reveals whether the case is an example of Musharika
-    where the maternal and full siblings share a fixed share.
-    :param case: Dictionary with the inheritors and shares
-    :return: A boolean to indicate if it is or isn't.
+    Function to determine if the case is a musharraka. Conditions are
+    husband in case
+    mother or grandmothers in case
+    at least 2 maternal siblings
+    brother is in the case
+    No inheriting branch or father/grandfather. Other asabat are allowed, siblings are allowed.
+    :param case:
+    :return:
     """
-    # Musharika case is only applicable if full siblings and maternal siblings are there
-    maternal_siblings_in_case = [inh for inh in case if 'maternal' in inh]
-    if len(maternal_siblings_in_case) == 0:
-        return False
-
-    if not any(is_full_sibling(inh) for inh in case):
-        return False
-
-    denominator_each_share_lst = [int(share.split('/')[1]) if share not in (0, 'A') else 1
-                                  for share in case.values()]
-    common_denominator = numpy.lcm.reduce(denominator_each_share_lst)
-
-    # Want to check if the total share of inheritors is >=1, which means Asaba has no share left
-    updated_shares = {inh: int(case[inh].split('/')[0]) * (common_denominator / int(case[inh].split('/')[1])) if case[inh] not in (0, 'A') else 0 for inh in case}
-
-    sum_shares = 0
-    added_maternal_sibling_share = False
-
-    for inh in updated_shares:
-        if 'maternal' in inh and not added_maternal_sibling_share:
-            added_maternal_sibling_share = True
-            sum_shares += updated_shares[inh]
-        if 'maternal' not in inh:
-            sum_shares += updated_shares[inh]
-
-    if sum_shares >= common_denominator:
-        return True
-
-    return False
+    cond1 = 'husband' in case
+    cond2 = 'mother' in case or 'grandmother_father' in case or 'grandmother_mother' in case
+    maternal = [inh for inh in case if 'maternal' in inh]
+    n_maternal = sum([2  if 'x2' in inh else 1 for inh in maternal])
+    cond3 = n_maternal >= 2
+    cond4 = 'brother' in case
+    inval = ['son', 'son_of_son', 'father', 'father_of_father', 'daughter', 'daughter_x2', 'daughter_of_son', 'daughter_of_son_x2']
+    cond5 = all([inh not in case for inh in inval])
+    return all([cond1, cond2, cond3, cond4, cond5])
 
 
 def is_full_sibling(inh: str)->bool:
