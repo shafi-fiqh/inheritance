@@ -193,5 +193,42 @@
   {
     "wife": "1/8",
     "daughter_of_son_x2": "2/3"
+  },
+  {
+    "wife": "1/4",
+    "father": "A"
+  },
+  {
+    "husband": "1/4",
+    "father": "1/6",
+    "son": "A"
+  },
+  {
+    "husband": "1/4",
+    "daughter": "1/2",
+    "father": "1/6 + A"
+  },
+  {
+    "wife": "1/8",
+    "daughter": "1/2",
+    "daughter_of_son": "1/6",
+    "father": "1/6 + A"
+  },
+  {
+    "wife": "1/8",
+    "father": "1/6",
+    "daughter": "1/2",
+    "son_of_son": "A"
+  },
+  {
+    "husband": "1/4",
+    "daughter_x2": "2/3",
+    "father": "1/6 + A"
+  },
+  {
+    "wife": "1/8",
+    "father": "1/6",
+    "daughter_x2": "A",
+    "son": "A"
   }
 ]
