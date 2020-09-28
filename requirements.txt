@@ -2,3 +2,4 @@ argparse
 pandas
 coloredlogs
 pytest
+coverage
