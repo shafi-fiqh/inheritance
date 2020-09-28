@@ -127,5 +127,71 @@
     "wife": "1/8",
     "daughter": "1/2",
     "son_of_son": "A"
+  },
+  {
+    "husband": "1/4",
+    "daughter_x2": "2/3",
+    "daughter_of_son": 0
+  },
+  {
+    "husband": "1/4",
+    "daughter": "1/2",
+    "daughter_of_son": "1/6"
+  },
+  {
+    "wife": "1/8",
+    "daughter": "1/2",
+    "daughter_of_son": "1/6"
+  },
+  {
+    "husband": "1/4",
+    "son_of_son": "A",
+    "daughter_of_son": "A"
+  },
+  {
+    "daughter": "1/2",
+    "son_of_son": "A",
+    "daughter_of_son": "A"
+  },
+  {
+    "husband": "1/4",
+    "daughter": "1/2",
+    "son_of_son": "A",
+    "daughter_of_son": "A"
+  },
+  {
+    "husband": "1/4",
+    "daughter_x2": "2/3",
+    "son_of_son": "A",
+    "daughter_of_son": "A"
+  },
+  {
+    "husband": "1/4",
+    "daughter_x2": "2/3",
+    "daughter_of_son": 0
+  },
+  {
+    "husband": "1/4",
+    "mother": "1/6",
+    "father": "1/6",
+    "daughter": "1/2",
+    "son_of_son": "A",
+    "daughter_of_son": "A"
+  },
+  {
+    "husband": "1/4",
+    "mother": "1/6",
+    "father": "1/6 + A",
+    "daughter": "1/2",
+    "daughter_of_son": "1/6"
+  },
+  {
+    "wife": "1/8",
+    "daughter_x2": "2/3",
+    "daughter_of_son_x2": 0
+  },
+  {
+    "wife": "1/8",
+    "daughter_of_son_x2": "2/3"
   }
 ]
