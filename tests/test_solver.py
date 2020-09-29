@@ -29,6 +29,10 @@ def test_cases(case):
     """
     casegen = CaseGenerator('config/family_config.csv')
     case_copy = copy.copy(case)
+
+    for inh in case_copy:
+        case_copy[inh] = 0
+
     assert all([case[inh] == solve(case=case_copy,
                                    descendants=casegen.descendants,
                                    mahjoob=casegen.mahjoob,

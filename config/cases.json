@@ -32,8 +32,8 @@
   {
     "daughter_of_son": "1/2",
     "mother": "1/6",
-    "maternal_halfbrother": "1/3",
-    "maternal_halfsister": "1/3",
+    "maternal_halfbrother": 0,
+    "maternal_halfsister": 0,
     "paternal_halfsister": "A"
   },
   {
@@ -485,7 +485,7 @@
   {
     "daughter": "1/2",
     "paternal_halfbrother": "A",
-    "maternal_halfsister_x2": "A"
+    "maternal_halfsister_x2": 0
   },
   {
     "daughter": "1/2",
