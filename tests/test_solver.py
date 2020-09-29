@@ -8,6 +8,7 @@ import pytest
 from src.cases_generator import CaseGenerator
 from src.solver import solve
 
+
 def pytest_generate_tests(metafunc):
     """
     Load the cases in the config
@@ -16,6 +17,7 @@ def pytest_generate_tests(metafunc):
     with open('config/cases.json', 'r') as cases_file:
         cases = json.load(cases_file)
     metafunc.parametrize('case', cases)
+
 
 def test_cases(case):
     """
@@ -28,10 +30,9 @@ def test_cases(case):
     casegen = CaseGenerator('config/family_config.csv')
     case_copy = copy.copy(case)
     assert all([case[inh] == solve(case=case_copy,
-                                       descendants=casegen.descendants,
-                                       mahjoob=casegen.mahjoob,
-                                       rank=casegen.rank,
-                                       taseeb=casegen.taseeb)[inh] for inh in case]),\
-            'Case %s failed solver returned %s' % (case, case_copy)
-
-
+                                   descendants=casegen.descendants,
+                                   mahjoob=casegen.mahjoob,
+                                   rank=casegen.rank,
+                                   taseeb=casegen.taseeb)[inh]
+                for inh in case]), \
+        'Case %s failed solver returned %s' % (case, case_copy)
