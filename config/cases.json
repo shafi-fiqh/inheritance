@@ -534,5 +534,40 @@
     "mother": "1/6",
     "sister": "1/2",
     "paternal_halfsister": "1/6"
+  },
+  {
+    "husband": "1/4",
+    "mother": "1/6",
+    "daughter": "1/2",
+    "daughter_of_son": "1/6",
+    "paternal_halfbrother": "A"
+  },
+  {
+    "daughter": "1/2",
+    "sister": "A"
+  },
+  {
+    "daughter_of_son": "1/2",
+    "sister": "A"
+  },
+  {
+    "daughter": "1/2",
+    "paternal_halfsister": "A"
+  },
+  {
+    "daughter_of_son": "1/2",
+    "paternal_halfsister": "A"
+  },
+  {
+    "daughter_of_son": 0,
+    "daughter": "A",
+    "son": "A"
+  },
+  {
+    "husband": "1/2",
+    "mother": "1/6",
+    "maternal_halfsister_x2": "1/3",
+    "brother": "1/3",
+    "sister": "1/3"
   }
 ]
