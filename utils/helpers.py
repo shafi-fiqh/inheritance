@@ -1,6 +1,7 @@
 """
 Misc helper functions
 """
+import math
 import numpy
 
 
@@ -88,3 +89,7 @@ def is_omariyya(case: dict,
     cond4 = all([inh not in case for inh in desc])
     cond5 = n_siblings < 2
     return all([cond1, cond2, cond3, cond4, cond5])
+
+def nCr(n,r):
+    f = math.factorial
+    return f(n) / f(r) / f(n-r)

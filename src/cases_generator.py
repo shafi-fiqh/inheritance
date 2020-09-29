@@ -11,9 +11,11 @@ import itertools
 import os
 import coloredlogs
 import pandas as pd
+import tqdm
 
 from src.solver import solve
 from utils.helpers import is_redundant
+from utils.helpers import nCr
 
 
 class CaseGenerator:
@@ -72,7 +74,9 @@ class CaseGenerator:
         logging.info('Saving output to %s, %s rows at a time', output, chunk_size )
         base.to_csv(output, index=False)
         n_cases=0
-        for case in self.generator:
+        for case in tqdm.tqdm(self.generator,
+                              total=nCr(n=len(self.inheritors),
+                                        r=self.n_types)):
             if not is_redundant(case):
                 #Later to be filled by the solver
                 case = {x: 0 for x in case}
