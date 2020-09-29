@@ -11,16 +11,20 @@ import itertools
 import os
 import coloredlogs
 import pandas as pd
+import tqdm
 
 from src.solver import solve
 from utils.helpers import is_redundant
+from utils.helpers import nCr
 
 
 class CaseGenerator:
     """
-    The parent case generation class. Can generate inheritance cases from a config
+    The parent case generation class.
+    Can generate inheritance cases from a config
     and save them.
     """
+
     def __init__(self,
                  config: str) -> None:
         """
@@ -29,20 +33,21 @@ class CaseGenerator:
         :param config: Comma separated file containing the inheritors.
         """
         inheritors_df = pd.read_csv(config)
-        inheritors_df = inheritors_df[inheritors_df.Ignore==0]
+        inheritors_df = inheritors_df[inheritors_df.Ignore == 0]
         inheritors_df['Asaba'] = inheritors_df['Asaba'].apply(ast.literal_eval)
-        inheritors_df['blocked_by'] = inheritors_df['blocked_by'].apply(ast.literal_eval)
+        inheritors_df['blocked_by'] = \
+            inheritors_df['blocked_by'].apply(ast.literal_eval)
         self.inheritors = list(inheritors_df['Inheritor'])
         self.descendants = pd.Series(inheritors_df.descendant.values,
                                      index=inheritors_df.Inheritor).to_dict()
-        self.rank= pd.Series(inheritors_df.Asaba_Rank.values,
-                                    index=inheritors_df.Inheritor).to_dict()
-        self.taseeb= pd.Series(inheritors_df.Asaba.values,
-                                    index=inheritors_df.Inheritor).to_dict()
+        self.rank = pd.Series(inheritors_df.Asaba_Rank.values,
+                              index=inheritors_df.Inheritor).to_dict()
+        self.taseeb = pd.Series(inheritors_df.Asaba.values,
+                                index=inheritors_df.Inheritor).to_dict()
         self.mahjoob = pd.Series(inheritors_df.blocked_by.values,
                                  index=inheritors_df.Inheritor).to_dict()
-        self.n_types=None
-        self.generator=None
+        self.n_types = None
+        self.generator = None
 
     def generate_cases(self,
                        n_types: int) -> itertools.combinations:
@@ -53,28 +58,34 @@ class CaseGenerator:
         Daugher x 2 + Son is still considered n_types = 2.
         :return: Generator object for inheritane cases with the specified types
         """
-        logging.info('Generating cases for cases with %s types of inheritors', n_types)
+        logging.info('Generating cases for cases with %s types of inheritors',
+                     n_types)
         self.n_types = n_types
         self.generator = itertools.combinations(self.inheritors, n_types)
         return self.generator
+
     def save_cases(self,
                    output: str,
                    chunk_size: int) -> None:
         """
         Append cases to an output file.
-        We will yield and append cases one by one to the file to avoid memory issues,
+        We will yield and append cases one by one to the file,
+        to avoid memory issues,
         as the permutation space can get quite large.
         :param output: string for the csv filepath
         :return: None
         """
         columns = ['Case']
         base = pd.DataFrame(columns=columns)
-        logging.info('Saving output to %s, %s rows at a time', output, chunk_size )
+        logging.info('Saving output to %s, %s rows at a time',
+                     output, chunk_size)
         base.to_csv(output, index=False)
-        n_cases=0
-        for case in self.generator:
+        n_cases = 0
+        for case in tqdm.tqdm(self.generator,
+                              total=nCr(n=len(self.inheritors),
+                                        r=self.n_types)):
             if not is_redundant(case):
-                #Later to be filled by the solver
+                # Later to be filled by the solver
                 case = {x: 0 for x in case}
                 case = solve(case=case,
                              descendants=self.descendants,
@@ -82,14 +93,16 @@ class CaseGenerator:
                              rank=self.rank,
                              taseeb=self.taseeb)
                 temp = pd.DataFrame({'Case': [case]})
-                base=base.append(temp)
-                n_cases+=1
+                base = base.append(temp)
+                n_cases += 1
                 if n_cases % chunk_size == 0:
                     base.to_csv(output, mode='a', index=False, header=False)
                     base = pd.DataFrame(columns=columns)
-        #Add     the remainder to the csv, unless it stopped exactly on a chunk_size multiple.
+        # Add the remainder to the csv,
+        # unless it stopped exactly on a chunk_size multiple.
         if n_cases % chunk_size != 0:
             base.to_csv(output, mode='a', index=False, header=False)
+
 
 def set_logging():
     """
@@ -99,16 +112,19 @@ def set_logging():
     logging.getLogger(__name__)
     coloredlogs.install(level='DEBUG')
 
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Case generator parameters')
     parser.add_argument("--config",
                         type=str,
                         required='True',
-                        help="Path to the csv file containing the list of inheritors")
+                        help="Path to the csv file "
+                             "containing the list of inheritors")
     parser.add_argument("--n_types",
                         type=int,
                         required='True',
-                        help="Size of the inheritance cases generated by type of inheritor.")
+                        help="Size of the inheritance cases "
+                             "generated by type of inheritor.")
     parser.add_argument("--output",
                         type=str,
                         required='True',
