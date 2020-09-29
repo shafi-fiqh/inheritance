@@ -448,5 +448,91 @@
     "maternal_halfsister_x2": "1/3",
     "maternal_halfbrother": "1/3",
     "sister": "1/2"
+  },
+  {
+    "mother": "1/6",
+    "maternal_halfsister": "1/6",
+    "sister": "1/2",
+    "paternal_halfbrother": "A"
+  },
+  {
+    "maternal_halfsister": "1/6",
+    "brother": "A",
+    "paternal_halfbrother": 0
+  },
+  {
+    "daughter": "1/2",
+    "daughter_of_son": "1/6",
+    "sister": "A",
+    "paternal_halfbrother": 0
+  },
+  {
+    "husband": "1/2",
+    "mother": "1/6",
+    "maternal_halfbrother": "1/6",
+    "paternal_halfbrother": "A"
+  },
+  {
+    "sister": "1/2",
+    "paternal_halfsister": "1/6",
+    "maternal_halfsister_x2": "1/3"
+  },
+  {
+    "wife": "1/4",
+    "paternal_halfsister": "1/2",
+    "maternal_halfsister": "1/6"
+  },
+  {
+    "daughter": "1/2",
+    "paternal_halfbrother": "A",
+    "maternal_halfsister_x2": "A"
+  },
+  {
+    "daughter": "1/2",
+    "mother": "1/6",
+    "father": "1/6 + A",
+    "paternal_halfsister": 0
+  },
+  {
+    "daughter_x2": "2/3",
+    "daughter_of_son_x2": 0,
+    "paternal_halfsister_x2": "A"
+  },
+  {
+    "husband": "1/2",
+    "paternal_halfsister": 0,
+    "brother": "A"
+  },
+  {
+    "daughter_of_son": "1/2",
+    "mother": "1/6",
+    "paternal_halfsister": "A"
+  },
+  {
+    "daughter_of_son": "1/2",
+    "mother": "1/6",
+    "maternal_halfsister": 0,
+    "maternal_halfbrother": 0,
+    "paternal_halfsister": "A"
+  },
+  {
+    "wife": "1/4",
+    "maternal_halfbrother": "1/6",
+    "paternal_halfsister_x2": "2/3"
+  },
+  {
+    "paternal_halfsister": 0,
+    "paternal_halfbrother": 0,
+    "son_of_son": "A"
+  },
+  {
+    "wife": "1/4",
+    "mother": "1/3",
+    "paternal_halfsister": "1/2"
+  },
+  {
+    "mother": "1/6",
+    "sister": "1/2",
+    "paternal_halfsister": "1/6"
   }
 ]
