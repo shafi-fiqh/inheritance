@@ -392,5 +392,61 @@
     "mother": "1/6",
     "maternal_halfsister_x2": "1/3",
     "brother": "1/3"
+  },
+  {
+    "husband": "1/2",
+    "sister": "1/2"
+  },
+  {
+    "wife": "1/4",
+    "sister": "1/2",
+    "maternal_halfbrother": "1/6"
+  },
+  {
+    "wife": "1/4",
+    "mother": "1/6",
+    "sister_x2": "2/3"
+  },
+  {
+    "daughter": "1/2",
+    "daughter_of_son": "1/6",
+    "sister": "A"
+  },
+  {
+    "daughter": "1/2",
+    "mother": "1/6",
+    "sister": "A",
+    "brother": "A"
+  },
+  {
+    "wife": "1/4",
+    "father": "A",
+    "sister": 0,
+    "brother": 0
+  },
+  {
+    "wife": "1/4",
+    "sister_x2": "2/3"
+  },
+  {
+    "wife": "1/4",
+    "mother": "1/6",
+    "maternal_halfbrother": "1/6",
+    "sister": "A",
+    "brother": "A"
+  },
+  {
+    "daughter": "1/2",
+    "daughter_of_son": "1/6",
+    "husband": "1/4",
+    "mother": "1/6",
+    "sister_x2": "A"
+  },
+  {
+    "husband": "1/2",
+    "mother": "1/6",
+    "maternal_halfsister_x2": "1/3",
+    "maternal_halfbrother": "1/3",
+    "sister": "1/2"
   }
 ]
