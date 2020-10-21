@@ -2,6 +2,7 @@
 Misc helper functions
 """
 import math
+from fractions import Fraction
 
 
 def is_redundant(case: dict) -> bool:
@@ -103,6 +104,44 @@ def is_omariyya(case: dict,
     return all([cond1, cond2, cond3, cond4, cond5])
 
 
+def is_akdariyya(case: dict) -> bool:
+    """
+    Check if this is an akdariyya problem
+    :param case:
+    :return:
+    """
+    cond1 = 'husband' in case
+    cond2 = ('sister' in case and 'brother' not in case) or \
+            ('paternal_halfsister' in case and
+             'paternal_halfbrother' not in case)
+    cond3 = 'mother' in case
+    invalidators = ['daughter', 'daughter_x2', 'daughter_of_son',
+                    'daughter_of_son_x2']
+    cond4 = all([inh not in case for inh in invalidators])
+    return all([cond1, cond2, cond3, cond4])
+
+
 def nCr(n, r):
     f = math.factorial
     return f(n) / f(r) / f(n - r)
+
+
+def calculate_remainder_grandfather(case: dict) -> dict:
+    """
+    Calculate the remainder from the forood of the case.
+    :param case:
+    :return:
+    """
+    inheritors_not_in_scope = ['father_of_father', 'brother', 'sister',
+                               'sister_x2', 'paternal_halfsister',
+                               'paternal_halfsister_x2']
+
+    scope = {x: case[x] for x in case if x not in inheritors_not_in_scope}
+    fard_basic = [share for share in scope.values() if share in
+                  ['1/8', '1/4', '1/2', '1/6', '1/3', '2/3']]
+    shares = sum(Fraction(share) for share in fard_basic)
+    if 'share 1/3' in case.values():
+        shares += Fraction('1/3')
+    if 'share 1/6' in case.values():
+        shares += Fraction('1/6')
+    return Fraction('1') - shares
