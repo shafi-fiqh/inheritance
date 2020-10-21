@@ -121,7 +121,7 @@ def nCr(n, r):
     f = math.factorial
     return f(n) / f(r) / f(n - r)
 
-def calculate_remainder(case: dict) -> dict:
+def calculate_remainder_grandfather(case: dict) -> dict:
     """
     Calculate the remainder from the forood of the case.
     :param case:
