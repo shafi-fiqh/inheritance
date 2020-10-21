@@ -2,7 +2,7 @@ Inheritor,Type,Asaba_Rank,descendant,blocked_by,Ignore,Asaba
 son,A,1,M,[],0,"['daughter','daughter_x2']"
 son_of_son,A,2,M,[],0,"['daughter_of_son', 'daughter_of_son_x2']"
 father,FA,3,,[],0,[]
-father_of_father,FA,0,,['father'],0,[]
+father_of_father,FA,4,,['father'],0,[]
 brother,A,5,,"['father', 'son', 'son_of_son']",0,"['sister', 'sister_x2']"
 paternal_halfbrother,A,6,,"['father', 'son', 'son_of_son', 'brother']",0,"['paternal_halfsister', 'paternal_halfsister_x2']"
 maternal_halfbrother,F,,,"['son', 'son_of_son', 'daughter', 'daughter_x2','daughter_of_son', 'daughter_of_son_x2', 'father', 'father_of_father']",0,[]

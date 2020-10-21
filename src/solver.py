@@ -296,7 +296,7 @@ def solve_asaba(case: dict,
     closest = min(case_ranks, key=case_ranks.get)
 
     # Father is a special case to be handled in another function
-    if closest != 'father':
+    if closest != 'father' and closest != 'father_of_father':
         case[closest] = 'A'
         for inheritor in taseeb[closest]:
             if inheritor in case:
