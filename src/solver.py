@@ -4,7 +4,7 @@ The function should take a tuple of inheritors, and return some shares.
 """
 from fractions import Fraction
 
-from utils.helpers import calculate_remainder
+from utils.helpers import calculate_remainder_grandfather
 from utils.helpers import calculate_share_of_maternal_siblings
 from utils.helpers import is_akdariyya
 from utils.helpers import is_full_sibling
@@ -361,6 +361,7 @@ def solve_omariyya(case: dict) -> dict:
         case['mother'] = '1/3 remainder'
     return case
 
+
 def solve_grandfather(case: dict,
                       descendants: dict) -> dict:
     """
@@ -372,14 +373,15 @@ def solve_grandfather(case: dict,
         return case
     if 'father' in case:
         return case
-    remainder = calculate_remainder(case)
+    remainder = calculate_remainder_grandfather(case)
     brothers = {'brother': 1,
                 'paternal_halfbrother': 1}
     sisters = {'sister': 1,
                'sister_x2': 2,
                'paternal_halfsister': 1,
                'paternal_halfsister_x2': 2}
-    if all([inh not in case for inh in brothers] + [inh not in case for inh in sisters]):
+    if all([inh not in case for inh in brothers] +
+           [inh not in case for inh in sisters]):
         if any([descendants[inh] == 'M' for inh in case]):
             case['father_of_father'] = '1/6'
         # Check for any female descendants
@@ -434,14 +436,3 @@ def solve_grandfather(case: dict,
     else:
         case['paternal_halfsister_x2'] = str(sister_share)
     return case
-
-
-
-
-
-
-
-
-
-
-
