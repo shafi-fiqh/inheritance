@@ -4,7 +4,7 @@ The function should take a tuple of inheritors, and return some shares.
 """
 from fractions import Fraction
 
-from utils.helpers import calculate_remainder
+from utils.helpers import calculate_remainder_grandfather
 from utils.helpers import calculate_share_of_maternal_siblings
 from utils.helpers import is_akdariyya
 from utils.helpers import is_full_sibling
@@ -49,7 +49,8 @@ def solve(case: dict,
                        taseeb=taseeb)
     case = solve_omariyya(case=case)
     case = solve_grandfather(case=case,
-                             descendants=descendants)
+                             descendants=descendants,
+                             taseeb=taseeb)
     # Add more here as we create more partial solvers
     return case
 
@@ -362,7 +363,8 @@ def solve_omariyya(case: dict) -> dict:
     return case
 
 def solve_grandfather(case: dict,
-                      descendants: dict) -> dict:
+                      descendants: dict,
+                      taseeb: dict) -> dict:
     """
     Solve for the grandfather
     :param case:
@@ -372,7 +374,7 @@ def solve_grandfather(case: dict,
         return case
     if 'father' in case:
         return case
-    remainder = calculate_remainder(case)
+    remainder = calculate_remainder_grandfather(case)
     brothers = {'brother': 1,
                 'paternal_halfbrother': 1}
     sisters = {'sister': 1,
@@ -404,6 +406,11 @@ def solve_grandfather(case: dict,
         return case
     case['father_of_father'] = str(best)
     if 'brother' in case:
+        case['brother'] = 'A'
+        for inheritor in taseeb['brother']:
+            if inheritor in case:
+                case[inheritor] = 'A'
+
         return case
     if 'sister' in case or 'sister_x2' in case:
         if 'sister' in case:
@@ -415,24 +422,24 @@ def solve_grandfather(case: dict,
 
         sister_share = max(Fraction('0'), remainder - best)
         if sister_share > base:
-            r = sister_share - base
             sister_share = base
-            for inh in case:
+        for inh in case:
                 if 'paternal' in inh:
-                    if r > 0:
-                        case[inh] = 'share ' + str(r)
-                    else:
-                        case[inh] = 0
+                    case[inh] = 'A'
 
         case[sister] = str(sister_share)
         return case
     if 'paternal_halfbrother' in case:
+        case['paternal_halfbrother'] = 'A'
+        for inheritor in taseeb['paternal_halfbrother']:
+            if inheritor in case:
+                case[inheritor] = 'A'
         return case
     sister_share = max(Fraction(0), remainder - best)
     if 'paternal_halfsister' in case:
-        case['paternal_halfsister'] = str(sister_share)
+        case['paternal_halfsister'] = 'A'
     else:
-        case['paternal_halfsister_x2'] = str(sister_share)
+        case['paternal_halfsister_x2'] = 'A'
     return case
 
 

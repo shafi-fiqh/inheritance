@@ -634,7 +634,7 @@
     "wife": "1/4",
     "mother": "1/3",
     "father_of_father": "5/18",
-    "paternal_halfsister": "5/36"
+    "paternal_halfsister": "A"
   },
   {
     "father_of_father": "1/3",
@@ -655,6 +655,6 @@
   {
   "father_of_father":  "1/3",
   "sister":  "1/2",
-  "paternal_halfbrother": "share 1/6",
-  "paternal_halfsister":  "share 1/6"}
+  "paternal_halfbrother": "A",
+  "paternal_halfsister":  "A"}
 ]
