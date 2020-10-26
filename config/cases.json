@@ -722,5 +722,10 @@
     "mother": "1/6",
     "maternal_halfsister_x2": 0,
     "father_of_father": "A"
+  },
+  {
+    "paternal_halfsister": 0,
+    "brother": "A",
+    "father_of_father": "2/5"
   }
 ]
