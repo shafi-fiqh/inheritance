@@ -126,7 +126,7 @@ def nCr(n, r):
     return f(n) / f(r) / f(n - r)
 
 
-def calculate_remainder_grandfather(case: dict) -> dict:
+def calculate_remainder_grandfather(case: dict) -> Fraction:
     """
     Calculate the remainder from the forood of the case.
     :param case:
@@ -145,3 +145,69 @@ def calculate_remainder_grandfather(case: dict) -> dict:
     if 'share 1/6' in case.values():
         shares += Fraction('1/6')
     return Fraction('1') - shares
+
+
+def solve_grandfather_no_siblings(case: dict, descendants: dict) -> dict:
+    if any([descendants[inh] == 'M' for inh in case]):
+        case['father_of_father'] = '1/6'
+    # Check for any female descendants
+    elif any([descendants[inh] == 'F' for inh in case]):
+        case['father_of_father'] = '1/6 + A'
+    else:
+        case['father_of_father'] = 'A'
+    return case
+
+
+def solve_akdariya(case: dict) -> dict:
+    sister = 'paternal_halfsister'
+    if 'sister' in case:
+        sister = 'sister'
+    case['mother'] = '6/27'
+    case['husband'] = '9/27'
+    case['father_of_father'] = '8/27'
+    case[sister] = '4/27'
+    return case
+
+
+def solve_grandfather_brother(case: dict, taseeb: dict) -> dict:
+    case['brother'] = 'A'
+    for inheritor in taseeb['brother']:
+        if inheritor in case:
+            case[inheritor] = 'A'
+    return case
+
+
+def solve_grandfather_sister(case: dict, remainder: Fraction,
+                             best: Fraction) -> dict:
+    if 'sister' in case:
+        base = Fraction('1/2')
+        sister = 'sister'
+    else:
+        base = Fraction('2/3')
+        sister = 'sister_x2'
+
+    sister_share = max(Fraction('0'), remainder - best)
+    if sister_share > base:
+        sister_share = base
+    for inh in case:
+        if 'paternal' in inh:
+            case[inh] = 'A'
+
+    case[sister] = str(sister_share)
+    return case
+
+
+def solve_grandfather_paternal_halfbrother(case: dict, taseeb: dict) -> dict:
+    case['paternal_halfbrother'] = 'A'
+    for inheritor in taseeb['paternal_halfbrother']:
+        if inheritor in case:
+            case[inheritor] = 'A'
+    return case
+
+
+def solve_grandfather_paternal_halfsister(case: dict) -> dict:
+    if 'paternal_halfsister' in case:
+        case['paternal_halfsister'] = 'A'
+    else:
+        case['paternal_halfsister_x2'] = 'A'
+    return case
