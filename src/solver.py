@@ -232,12 +232,18 @@ def solve_grandmother(case: dict, mahjoob: dict) -> dict:
                grandma in ['grandmother_mother', 'grandmother_father']):
         return case
 
+    if not any(blocker in case for blocker in mahjoob['grandmother_mother']) \
+    and 'grandmother_mother' in case and 'grandmother_father' in case:
+        case['grandmother_mother'] = 'share 1/6'
+        case['grandmother_father'] = 'share 1/6'
+        return case
+
     if not any(blocker in case for blocker in mahjoob['grandmother_father']) \
-            and 'grandmother_father' in case:
+    and 'grandmother_father' in case:
         case['grandmother_father'] = '1/6'
 
     if not any(blocker in case for blocker in mahjoob['grandmother_mother']) \
-            and 'grandmother_mother' in case:
+    and 'grandmother_mother' in case:
         case['grandmother_mother'] = '1/6'
 
     return case
@@ -263,6 +269,11 @@ def solve_maternal_siblings(case: dict, mahjoob: dict) -> dict:
     if len(maternal_siblings_in_case) > 0:
         maternal_sibling_share = \
             calculate_share_of_maternal_siblings(maternal_siblings_in_case)
+
+        if len(maternal_siblings_in_case) == 2 or \
+        maternal_siblings_in_case[0] == 'maternal_halfsister_x2':
+            maternal_sibling_share = 'share {}'.format(maternal_sibling_share)
+
         for maternal_sibling in maternal_siblings_in_case:
             case[maternal_sibling] = maternal_sibling_share
 
@@ -308,10 +319,10 @@ def solve_asaba(case: dict,
         maternal_siblings_in_case = [inh for inh in case if 'maternal' in inh]
         maternal_sibling_share = \
             calculate_share_of_maternal_siblings(maternal_siblings_in_case)
-        case[closest] = maternal_sibling_share
+        case[closest] = 'share {}'.format(maternal_sibling_share)
         for inheritor in taseeb[closest]:
             if inheritor in case:
-                case[inheritor] = maternal_sibling_share
+                case[inheritor] = 'share {}'.format(maternal_sibling_share)
 
     return case
 
