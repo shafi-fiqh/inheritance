@@ -30,13 +30,16 @@ def test_cases(case):
     casegen = CaseGenerator('config/family_config.csv')
     case_copy = copy.copy(case)
 
-    for inh in case_copy:
-        case_copy[inh] = 0
+    for inh in case_copy['initial_shares']:
+        case_copy['initial_shares'][inh] = 0
 
-    assert all([case[inh] == solve(case=case_copy,
-                                   descendants=casegen.descendants,
-                                   mahjoob=casegen.mahjoob,
-                                   rank=casegen.rank,
-                                   taseeb=casegen.taseeb)[inh]
-                for inh in case]), \
-        'Case %s failed solver returned %s' % (case, case_copy)
+    initial_shares_solution = solve(case=case_copy['initial_shares'],
+                                    descendants=casegen.descendants,
+                                    mahjoob=casegen.mahjoob,
+                                    rank=casegen.rank,
+                                    taseeb=casegen.taseeb)
+
+    assert all([case['initial_shares'][inh] == initial_shares_solution[inh]
+                for inh in case['initial_shares']]), \
+        'Case %s failed solver returned %s' % \
+        (case['initial_shares'], case_copy['initial_shares'])
