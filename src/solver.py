@@ -2,7 +2,11 @@
 Collection of functions to solve for various inheritors.
 The function should take a tuple of inheritors, and return some shares.
 """
+from fractions import Fraction
+
+from utils.helpers import calculate_remainder_grandfather
 from utils.helpers import calculate_share_of_maternal_siblings
+from utils.helpers import is_akdariyya
 from utils.helpers import is_full_sibling
 from utils.helpers import is_musharraka
 from utils.helpers import is_omariyya
@@ -44,6 +48,9 @@ def solve(case: dict,
                        rank=rank,
                        taseeb=taseeb)
     case = solve_omariyya(case=case)
+    case = solve_grandfather(case=case,
+                             descendants=descendants,
+                             taseeb=taseeb)
     # Add more here as we create more partial solvers
     return case
 
@@ -290,7 +297,7 @@ def solve_asaba(case: dict,
     closest = min(case_ranks, key=case_ranks.get)
 
     # Father is a special case to be handled in another function
-    if closest != 'father':
+    if closest != 'father' and closest != 'father_of_father':
         case[closest] = 'A'
         for inheritor in taseeb[closest]:
             if inheritor in case:
@@ -353,4 +360,119 @@ def solve_omariyya(case: dict) -> dict:
     if is_omariyya(case=case,
                    n_siblings=n_siblings):
         case['mother'] = '1/3 remainder'
+    return case
+
+
+def solve_grandfather_no_siblings(case: dict, descendants: dict) -> dict:
+    if any([descendants[inh] == 'M' for inh in case]):
+        case['father_of_father'] = '1/6'
+    # Check for any female descendants
+    elif any([descendants[inh] == 'F' for inh in case]):
+        case['father_of_father'] = '1/6 + A'
+    else:
+        case['father_of_father'] = 'A'
+    return case
+
+
+def solve_akdariya(case: dict) -> dict:
+    sister = 'paternal_halfsister'
+    if 'sister' in case:
+        sister = 'sister'
+    case['mother'] = '6/27'
+    case['husband'] = '9/27'
+    case['father_of_father'] = '8/27'
+    case[sister] = '4/27'
+    return case
+
+
+def solve_grandfather_brother(case: dict, taseeb: dict) -> dict:
+    case['brother'] = 'A'
+    for inheritor in taseeb['brother']:
+        if inheritor in case:
+            case[inheritor] = 'A'
+    return case
+
+
+def solve_grandfather_sister(case: dict, remainder: Fraction,
+                             best: Fraction) -> dict:
+    if 'sister' in case:
+        base = Fraction('1/2')
+        sister = 'sister'
+    else:
+        base = Fraction('2/3')
+        sister = 'sister_x2'
+
+    sister_share = max(Fraction('0'), remainder - best)
+    if sister_share > base:
+        sister_share = base
+    for inh in case:
+        if 'paternal' in inh:
+            case[inh] = 'A'
+
+    case[sister] = str(sister_share)
+    return case
+
+
+def solve_grandfather_paternal_halfbrother(case: dict, taseeb: dict) -> dict:
+    case['paternal_halfbrother'] = 'A'
+    for inheritor in taseeb['paternal_halfbrother']:
+        if inheritor in case:
+            case[inheritor] = 'A'
+    return case
+
+
+def solve_grandfather_paternal_halfsister(case: dict) -> dict:
+    if 'paternal_halfsister' in case:
+        case['paternal_halfsister'] = 'A'
+    else:
+        case['paternal_halfsister_x2'] = 'A'
+    return case
+
+
+def solve_grandfather(case: dict,
+                      descendants: dict,
+                      taseeb: dict) -> dict:
+    """
+    Solve for the grandfather
+    :param case:
+    :return:
+    """
+    if 'father_of_father' not in case:
+        return case
+    if 'father' in case:
+        return case
+    brothers = {'brother': 1,
+                'paternal_halfbrother': 1}
+    sisters = {'sister': 1,
+               'sister_x2': 2,
+               'paternal_halfsister': 1,
+               'paternal_halfsister_x2': 2}
+
+    n_brothers = sum(brothers[warith] for warith in case if warith in brothers)
+    n_sisters = sum(sisters[warith] for warith in case if warith in sisters)
+
+    if n_brothers == 0 and n_sisters == 0:
+        return solve_grandfather_no_siblings(case, descendants)
+
+    if is_akdariyya(case):
+        return solve_akdariya(case)
+
+    remainder = calculate_remainder_grandfather(case)
+    n_siblings = Fraction(1 + n_brothers + 0.5 * n_sisters)
+    best = max(remainder/3, Fraction('1/6'), remainder/n_siblings)
+
+    case['father_of_father'] = str(best)
+
+    if 'brother' in case:
+        return solve_grandfather_brother(case, taseeb)
+
+    if 'sister' in case or 'sister_x2' in case:
+        return solve_grandfather_sister(case, remainder, best)
+
+    if 'paternal_halfbrother' in case:
+        return solve_grandfather_paternal_halfbrother(case, taseeb)
+
+    if 'paternal_halfsister' or 'paternal_halfsister_x2' in case:
+        return solve_grandfather_paternal_halfsister(case)
+
     return case
