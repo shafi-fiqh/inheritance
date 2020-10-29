@@ -126,6 +126,19 @@ def nCr(n, r):
     return f(n) / f(r) / f(n - r)
 
 
+def sum_of_inheriting_shares(scope: dict) -> Fraction:
+
+    fard_basic = [share for share in scope.values() if share in
+                  ['1/8', '1/4', '1/2', '1/6', '1/3', '2/3']]
+    shares = sum(Fraction(share) for share in fard_basic)
+    if 'share 1/3' in scope.values():
+        shares += Fraction('1/3')
+    if 'share 1/6' in scope.values():
+        shares += Fraction('1/6')
+
+    return shares
+
+
 def calculate_remainder_grandfather(case: dict) -> Fraction:
     """
     Calculate the remainder from the forood of the case.
@@ -137,11 +150,5 @@ def calculate_remainder_grandfather(case: dict) -> Fraction:
                                'paternal_halfsister_x2']
 
     scope = {x: case[x] for x in case if x not in inheritors_not_in_scope}
-    fard_basic = [share for share in scope.values() if share in
-                  ['1/8', '1/4', '1/2', '1/6', '1/3', '2/3']]
-    shares = sum(Fraction(share) for share in fard_basic)
-    if 'share 1/3' in case.values():
-        shares += Fraction('1/3')
-    if 'share 1/6' in case.values():
-        shares += Fraction('1/6')
-    return Fraction('1') - shares
+
+    return 1 - sum_of_inheriting_shares(scope)
