@@ -152,3 +152,7 @@ def calculate_remainder_grandfather(case: dict) -> Fraction:
     scope = {x: case[x] for x in case if x not in inheritors_not_in_scope}
 
     return 1 - sum_of_inheriting_shares(scope)
+
+
+def is_radd(case: dict) -> dict:
+    return sum([Fraction(share) for share in case.values()]) < 1

@@ -1,6 +1,24 @@
 from fractions import Fraction
 
+from utils.helpers import is_radd
 from utils.helpers import sum_of_inheriting_shares
+
+
+def full_solver(case: dict) -> dict:
+    """
+    This is the final solver. In this step we solve for Asaba, Radd and
+    find the Asl (base shares) of the problem and finally assign integers to
+    each inheritor.
+    :param case: dictionary of inheritors and shares
+    :return: case with shares filled
+    """
+    if 'A' in case.values() or '1/6 + A' in case.values():
+        case = solve_asaba_shares(case)
+
+    elif is_radd(case):
+        case = solve_radd(case)
+
+    return case
 
 
 def solve_regular_asaba_shares(case: dict, asaba_inh: list,
@@ -55,10 +73,6 @@ def solve_asaba_shares(case: dict) -> dict:
     :return: dictionary representing the inheritors and respective shares.
     """
 
-    inheriting_shares = case.values()
-    if 'A' not in inheriting_shares and '1/6 + A' not in inheriting_shares:
-        return case
-
     asaba_inh = [inh for inh in case if case[inh] == 'A']
     sum_of_shares = sum_of_inheriting_shares(case)
 
@@ -66,3 +80,23 @@ def solve_asaba_shares(case: dict) -> dict:
         return solve_regular_asaba_shares(case, asaba_inh, 1 - sum_of_shares)
 
     return solve_grandfather_or_father_asaba_shares(case, sum_of_shares)
+
+
+def solve_radd(case: dict) -> dict:
+    """
+    Calculate the distribution of the remainder of shares if there's any left
+    :param case: dictionary of inheritors and shares
+    :return: dictionary representing the inheritors and respective shares.
+    """
+    sum_eligible_inh = sum([Fraction(case[inh]) for inh in case if
+                            inh not in ['husband', 'wife']])
+
+    scaled_inh = {inh: Fraction(case[inh]) / sum_eligible_inh for inh in case
+                  if inh not in ['husband', 'wife']}
+
+    remainder = 1 - sum([Fraction(case[inh]) for inh in case])
+
+    for inh in scaled_inh:
+        case[inh] = str(Fraction(case[inh]) + scaled_inh[inh] * remainder)
+
+    return case
