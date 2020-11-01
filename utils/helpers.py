@@ -3,6 +3,9 @@ Misc helper functions
 """
 import copy
 import math
+from typing import Tuple
+from typing import Union
+
 from fractions import Fraction
 
 
@@ -154,11 +157,6 @@ def calculate_remainder_grandfather(case: dict) -> Fraction:
 
     return 1 - sum_of_inheriting_shares(scope)
 
-
-def is_radd(case: dict) -> dict:
-    return sum([Fraction(share) if 'share' not in share else Fraction(share[-3:]) for share in case.values() ]) < 1
-
-
 def least_common_multiple(rationals):
     denominators = [r.denominator for r in rationals]
 
@@ -219,4 +217,37 @@ def calculate_asl(case: dict) -> dict:
 
 
 
+
+
+def is_radd(case: dict) -> bool:
+    share_fractions = ['share 1/3', 'share 1/6']
+    sum_of_shares = sum([Fraction(share) for share in case.values()
+                         if share not in share_fractions])
+
+    if 'share 1/3' in case.values():
+        sum_of_shares += Fraction('1/3')
+    if 'share 1/6' in case.values():
+        sum_of_shares += Fraction('1/6')
+
+    return sum_of_shares < 1
+
+
+def calc_share_radd_total(case: dict) -> Tuple[Union[Fraction, None],
+                                               Union[dict, None]]:
+    if 'share 1/3' not in case.values() and 'share 1/6' not in case.values():
+        return None, None
+
+    sum_of_shares = 0
+    share_inh = {}
+    if 'share 1/3' in case.values():
+        sum_of_shares += Fraction('1/3')
+
+    if 'share 1/6' in case.values():
+        sum_of_shares += Fraction('1/6')
+
+    for inh in case:
+        if 'share' in case[inh]:
+            share_inh[inh] = case[inh].split(' ')[1]
+
+    return sum_of_shares, share_inh
 
