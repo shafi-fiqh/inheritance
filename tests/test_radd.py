@@ -31,3 +31,35 @@ def test_with_spouse():
     }
 
     assert(solve_radd(input) == expected_output)
+
+
+def test_with_share_string():
+    input = {
+        "husband": "1/2",
+        "maternal_halfsister": "share 1/3",
+        "maternal_halfbrother": "share 1/3"
+    }
+
+    expected_output = {
+        "husband": "1/2",
+        "maternal_halfsister": "share 1/2",
+        "maternal_halfbrother": "share 1/2"
+    }
+
+    assert(solve_radd(input) == expected_output)
+
+
+def test_with_share_string_non_spouse():
+    input = {
+        "mother": "1/6",
+        "maternal_halfsister": "share 1/3",
+        "maternal_halfbrother": "share 1/3"
+    }
+
+    expected_output = {
+        "mother": "1/3",
+        "maternal_halfsister": "share 2/3",
+        "maternal_halfbrother": "share 2/3"
+    }
+
+    assert(solve_radd(input) == expected_output)

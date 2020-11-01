@@ -1,5 +1,6 @@
 from fractions import Fraction
 
+from utils.helpers import calc_share_radd_total
 from utils.helpers import is_radd
 from utils.helpers import sum_of_inheriting_shares
 
@@ -88,15 +89,37 @@ def solve_radd(case: dict) -> dict:
     :param case: dictionary of inheritors and shares
     :return: dictionary representing the inheritors and respective shares.
     """
-    sum_eligible_inh = sum([Fraction(case[inh]) for inh in case if
-                            inh not in ['husband', 'wife']])
+    share_fractions = ['share 1/3', 'share 1/6']
+
+    sum_eligible_inh = sum([Fraction(case[inh]) for inh in case if inh not in
+                            ['husband', 'wife'] and case[inh] not
+                            in share_fractions])
+
+    sum_of_share_inh, share_inh = calc_share_radd_total(case)
+
+    if sum_of_share_inh is not None:
+        sum_eligible_inh += sum_of_share_inh
 
     scaled_inh = {inh: Fraction(case[inh]) / sum_eligible_inh for inh in case
-                  if inh not in ['husband', 'wife']}
+                  if inh not in ['husband', 'wife'] and case[inh]
+                  not in share_fractions}
 
-    remainder = 1 - sum([Fraction(case[inh]) for inh in case])
+    share_scaled_inh = {}
+    if share_inh is not None:
+        for inh in share_inh:
+            share_scaled_inh[inh] = Fraction(share_inh[inh]) / sum_eligible_inh
+
+    remainder = 1 - sum([Fraction(case[inh]) for inh in case if case[inh]
+                         not in share_fractions])
+
+    if sum_of_share_inh is not None:
+        remainder -= sum_of_share_inh
 
     for inh in scaled_inh:
         case[inh] = str(Fraction(case[inh]) + scaled_inh[inh] * remainder)
+
+    for inh in share_scaled_inh:
+        case[inh] = "share {}".format(str(Fraction(share_inh[inh]) +
+                                          share_scaled_inh[inh] * remainder))
 
     return case
