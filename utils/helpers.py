@@ -1,6 +1,7 @@
 """
 Misc helper functions
 """
+import copy
 import math
 from fractions import Fraction
 
@@ -155,4 +156,67 @@ def calculate_remainder_grandfather(case: dict) -> Fraction:
 
 
 def is_radd(case: dict) -> dict:
-    return sum([Fraction(share) for share in case.values()]) < 1
+    return sum([Fraction(share) if 'share' not in share else Fraction(share[-3:]) for share in case.values() ]) < 1
+
+
+def least_common_multiple(rationals):
+    denominators = [r.denominator for r in rationals]
+
+    lcm = denominators[0]
+    if len(rationals) == 1:
+        return lcm
+    for d in denominators[1:]:
+        lcm = lcm // math.gcd(lcm, d) * d
+
+    return lcm
+
+def calculate_asl(case: dict) -> dict:
+    """
+    Calculate the base of the problem and the shares
+    :param case:
+    :return:
+    """
+    full_case = copy.copy(case)
+    maternal = {'maternal_halfbrother': 1,
+                'maternal_halfsister': 1,
+                'maternal_halfsister_x2': 2}
+    total_maternal = sum(maternal[inh] for inh in full_case if inh in maternal)
+    if total_maternal > 1:
+        for inh in maternal:
+            if inh in full_case:
+                full_case[inh] = Fraction(1,3)*maternal[inh]/total_maternal
+    if 'share 1/6' in full_case.values():
+        full_case['grandmother_father'] = Fraction(1,12)
+        full_case['grandmother_mother'] = Fraction(1,12)
+    if 'mother' in full_case and full_case['mother'] == '1/3 remainder':
+        remainder = '1/2' if 'husband' in case else '3/4'
+        full_case['mother'] = Fraction(1,3)*Fraction(remainder)
+    full_case = {inh: Fraction(full_case[inh]) for inh in full_case}
+    x2 = [inh for inh in full_case if 'x2' in inh]
+    for inh in x2:
+            share = full_case[inh]
+            share = share/2
+            name = inh[:-3]
+            full_case.pop(inh)
+            full_case[name + '_1'] = share
+            full_case[name + '_2'] = share
+    rationals = [full_case[inh] for inh in full_case if full_case[inh] > 0]
+    lcm = least_common_multiple(rationals)
+    for inh in full_case:
+        if full_case[inh] > 0:
+            full_case[inh] = lcm/full_case[inh].denominator*full_case[inh].numerator
+    full_case['total_shares'] = sum(full_case[inh] for inh in full_case)
+    return full_case
+
+
+
+
+
+
+
+
+
+
+
+
+
