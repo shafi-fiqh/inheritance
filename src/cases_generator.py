@@ -98,7 +98,9 @@ class CaseGenerator:
                 case_copy = copy.copy(case)
                 case_asaba_rad = full_solver(case_copy)
                 full_case = calculate_asl(case=case_asaba_rad)
-                temp = pd.DataFrame({'Case': [case], 'Asaba_Rad': [case_asaba_rad], 'Full_case': [full_case]})
+                temp = pd.DataFrame({'Case': [case],
+                                     'Asaba_Rad': [case_asaba_rad],
+                                     'Full_case': [full_case]})
                 base = base.append(temp)
                 n_cases += 1
                 if n_cases % chunk_size == 0:

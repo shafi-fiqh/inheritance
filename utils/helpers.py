@@ -157,6 +157,7 @@ def calculate_remainder_grandfather(case: dict) -> Fraction:
 
     return 1 - sum_of_inheriting_shares(scope)
 
+
 def least_common_multiple(rationals):
     denominators = [r.denominator for r in rationals]
 
@@ -167,6 +168,7 @@ def least_common_multiple(rationals):
         lcm = lcm // math.gcd(lcm, d) * d
 
     return lcm
+
 
 def calculate_asl(case: dict) -> dict:
     """
@@ -182,31 +184,40 @@ def calculate_asl(case: dict) -> dict:
     if total_maternal > 1:
         for inh in maternal:
             if inh in full_case:
-                full_case[inh] = Fraction(full_case[inh][-3:])*maternal[inh]/total_maternal
+                full_case[inh] = Fraction(full_case[inh][-3:]) * \
+                                 maternal[inh] / total_maternal
+
     if 'grandmother_father' in full_case and 'grandmother_mother' in case:
-        full_case['grandmother_father'] = Fraction(full_case['grandmother_father'][-3:])/2
-        full_case['grandmother_mother'] = Fraction(full_case['grandmother_mother'][-3:])/2
+        full_case['grandmother_father'] = Fraction(full_case['grandmother_father'][-3:]) / 2
+        full_case['grandmother_mother'] = Fraction(full_case['grandmother_mother'][-3:]) / 2
+
     if 'mother' in full_case and full_case['mother'] == '1/3 remainder':
         remainder = '1/2' if 'husband' in case else '3/4'
-        full_case['mother'] = Fraction(1,3)*Fraction(remainder)
+        full_case['mother'] = Fraction(1, 3) * Fraction(remainder)
+
     full_case = {inh: Fraction(full_case[inh]) for inh in full_case}
     x2 = [inh for inh in full_case if 'x2' in inh]
+
     for inh in x2:
-            share = full_case[inh]
-            share = share/2
-            name = inh[:-3]
-            full_case.pop(inh)
-            full_case[name + '_1'] = share
-            full_case[name + '_2'] = share
+        share = full_case[inh]
+        share = share/2
+        name = inh[:-3]
+        full_case.pop(inh)
+        full_case[name + '_1'] = share
+        full_case[name + '_2'] = share
+
     rationals = [full_case[inh] for inh in full_case if full_case[inh] > 0]
     lcm = least_common_multiple(rationals)
+
     for inh in full_case:
         if full_case[inh] > 0:
-            full_case[inh] = int(lcm/full_case[inh].denominator*full_case[inh].numerator)
+            full_case[inh] = int(lcm / full_case[inh].denominator *
+                                 full_case[inh].numerator)
         else:
             full_case[inh] = 0
     full_case['total_shares'] = int(sum(full_case[inh] for inh in full_case))
     return full_case
+
 
 def is_radd(case: dict) -> bool:
     share_fractions = ['share 1/3', 'share 1/6']
@@ -240,3 +251,22 @@ def calc_share_radd_total(case: dict) -> Tuple[Union[Fraction, None],
 
     return sum_of_shares, share_inh
 
+
+def solve_asaba_omariyya(case: dict) -> dict:
+    shares = {
+        'wife': {
+            'father': '1/2',
+            'mother': '1/4'
+        },
+        'husband': {
+            'father': '1/3',
+            'mother': '1/6'
+        }
+    }
+
+    for spouse in shares:
+        if spouse in case:
+            for inh in shares[spouse]:
+                case[inh] = shares[spouse][inh]
+
+    return case

@@ -2,7 +2,9 @@ from fractions import Fraction
 
 from utils.helpers import calc_share_radd_total
 from utils.helpers import is_radd
+from utils.helpers import is_omariyya
 from utils.helpers import sum_of_inheriting_shares
+from utils.helpers import solve_asaba_omariyya
 
 
 def full_solver(case: dict) -> dict:
@@ -24,6 +26,10 @@ def full_solver(case: dict) -> dict:
 
 def solve_regular_asaba_shares(case: dict, asaba_inh: list,
                                asaba_share: Fraction) -> dict:
+
+    if is_omariyya(case):
+        return solve_asaba_omariyya(case)
+
     asaba_normalize_for_inh = {}
     for inh in asaba_inh:
         if inh in ['daughter_x2', 'daughter_of_son_x2', 'sister_x2',
@@ -53,7 +59,6 @@ def solve_grandfather_or_father_asaba_shares(case: dict,
                                              sum_of_shares: Fraction) -> dict:
 
     sum_of_shares += Fraction('1/6')
-
 
     inheriting_ancestor = 'father' if 'father' in case else 'father_of_father'
 
