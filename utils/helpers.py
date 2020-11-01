@@ -89,6 +89,17 @@ def calculate_share_of_maternal_siblings(maternal_siblings_lst: list) -> str:
     return '1/6'
 
 
+def calc_num_siblings(case: dict) -> int:
+    siblings_dict = {}
+    for inh in case:
+        if 'brother' in inh or 'sister' in inh:
+            if 'x2' in inh:
+                siblings_dict[inh] = 2
+            else:
+                siblings_dict[inh] = 1
+    return sum([siblings_dict[inh] for inh in siblings_dict])
+
+
 def is_omariyya(case: dict,
                 n_siblings: int) -> bool:
     """

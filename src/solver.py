@@ -4,6 +4,7 @@ The function should take a tuple of inheritors, and return some shares.
 """
 from fractions import Fraction
 
+from utils.helpers import calc_num_siblings
 from utils.helpers import calculate_remainder_grandfather
 from utils.helpers import calculate_share_of_maternal_siblings
 from utils.helpers import is_akdariyya
@@ -360,14 +361,7 @@ def solve_omariyya(case: dict) -> dict:
     :param case:
     :return:
     """
-    siblings_dict = {}
-    for inh in case:
-        if 'brother' in inh or 'sister' in inh:
-            if 'x2' in inh:
-                siblings_dict[inh] = 2
-            else:
-                siblings_dict[inh] = 1
-    n_siblings = sum([siblings_dict[inh] for inh in siblings_dict])
+    n_siblings = calc_num_siblings(case)
     if is_omariyya(case=case,
                    n_siblings=n_siblings):
         case['mother'] = '1/3 remainder'

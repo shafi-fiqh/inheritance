@@ -1,5 +1,6 @@
 from fractions import Fraction
 
+from utils.helpers import calc_num_siblings
 from utils.helpers import calc_share_radd_total
 from utils.helpers import is_radd
 from utils.helpers import is_omariyya
@@ -27,7 +28,8 @@ def full_solver(case: dict) -> dict:
 def solve_regular_asaba_shares(case: dict, asaba_inh: list,
                                asaba_share: Fraction) -> dict:
 
-    if is_omariyya(case):
+    n_siblings = calc_num_siblings(case)
+    if is_omariyya(case, n_siblings):
         return solve_asaba_omariyya(case)
 
     asaba_normalize_for_inh = {}
