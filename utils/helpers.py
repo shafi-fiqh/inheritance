@@ -202,10 +202,10 @@ def calculate_asl(case: dict) -> dict:
     lcm = least_common_multiple(rationals)
     for inh in full_case:
         if full_case[inh] > 0:
-            full_case[inh] = lcm/full_case[inh].denominator*full_case[inh].numerator
+            full_case[inh] = int(lcm/full_case[inh].denominator*full_case[inh].numerator)
         else:
             full_case[inh] = 0
-    full_case['total_shares'] = sum(full_case[inh] for inh in full_case)
+    full_case['total_shares'] = int(sum(full_case[inh] for inh in full_case))
     return full_case
 
 def is_radd(case: dict) -> bool:
