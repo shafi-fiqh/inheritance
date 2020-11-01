@@ -28,10 +28,10 @@ def test_cases(case):
     :return:
     """
     casegen = CaseGenerator('config/family_config.csv')
-    case_copy = copy.copy(case)
+    case_copy = copy.deepcopy(case)
 
     for inh in case_copy['initial_shares']:
-        case_copy['initial_shares'][inh] = 0
+        case_copy['initial_shares'][inh] = '0'
 
     initial_shares_solution = solve(case=case_copy['initial_shares'],
                                     descendants=casegen.descendants,

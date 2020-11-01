@@ -175,11 +175,11 @@ def solve_granddaughter(case: dict) -> dict:
         inh = 'daughter_of_son_x2'
         share = '2/3'
     if 'son' in case:
-        case[inh] = 0
+        case[inh] = '0'
     elif 'son_of_son' in case:
         case[inh] = 'A'
     elif 'daughter_x2' in case:
-        case[inh] = 0
+        case[inh] = '0'
     elif 'daughter' in case:
         case[inh] = '1/6'
     else:
@@ -232,7 +232,7 @@ def solve_grandmother(case: dict, mahjoob: dict) -> dict:
                grandma in ['grandmother_mother', 'grandmother_father']):
         return case
 
-    if not any(blocker in case for blocker in mahjoob['grandmother_mother']) \
+    if not any(blocker in case for blocker in mahjoob['grandmother_father']) \
        and 'grandmother_mother' in case and 'grandmother_father' in case:
         case['grandmother_mother'] = 'share 1/6'
         case['grandmother_father'] = 'share 1/6'

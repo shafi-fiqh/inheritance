@@ -53,7 +53,6 @@ def solve_grandfather_or_father_asaba_shares(case: dict,
 
     sum_of_shares += Fraction('1/6')
 
-    print('sum_of_shares: {}'.format(sum_of_shares))
 
     inheriting_ancestor = 'father' if 'father' in case else 'father_of_father'
 
