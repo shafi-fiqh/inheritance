@@ -91,3 +91,23 @@ def test_multiple_women_asaba():
     }
 
     assert(expected == solve_asaba_shares(input))
+
+
+def test_omariyya():
+    input = {
+        "wife": "1/4",
+        "mother": "1/3 remainder",
+        "grandmother_mother": "0",
+        "father": "A",
+        "father_of_father": "0"
+    }
+
+    expected = {
+        "wife": "1/4",
+        "father": "1/2",
+        "mother": "1/4",
+        "grandmother_mother": "0",
+        "father_of_father": "0"
+    }
+
+    assert(expected == solve_asaba_shares(input))

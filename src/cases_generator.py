@@ -6,6 +6,7 @@ Saving the cases to a csv is an option.
 """
 import argparse
 import ast
+import copy
 import logging
 import itertools
 import os
@@ -14,8 +15,10 @@ import pandas as pd
 import tqdm
 
 from src.solver import solve
+from src.full_solver import full_solver
 from utils.helpers import is_redundant
 from utils.helpers import nCr
+from utils.helpers import calculate_asl
 
 
 class CaseGenerator:
@@ -75,7 +78,7 @@ class CaseGenerator:
         :param output: string for the csv filepath
         :return: None
         """
-        columns = ['Case']
+        columns = ['Case', 'Asaba_Rad', 'Full_Case']
         base = pd.DataFrame(columns=columns)
         logging.info('Saving output to %s, %s rows at a time',
                      output, chunk_size)
@@ -86,13 +89,18 @@ class CaseGenerator:
                                         r=self.n_types)):
             if not is_redundant(case):
                 # Later to be filled by the solver
-                case = {x: 0 for x in case}
+                case = {x: '0' for x in case}
                 case = solve(case=case,
                              descendants=self.descendants,
                              mahjoob=self.mahjoob,
                              rank=self.rank,
                              taseeb=self.taseeb)
-                temp = pd.DataFrame({'Case': [case]})
+                case_copy = copy.copy(case)
+                case_asaba_rad = full_solver(case_copy)
+                full_case = calculate_asl(case=case_asaba_rad)
+                temp = pd.DataFrame({'Case': [case],
+                                     'Asaba_Rad': [case_asaba_rad],
+                                     'Full_case': [full_case]})
                 base = base.append(temp)
                 n_cases += 1
                 if n_cases % chunk_size == 0:

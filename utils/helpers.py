@@ -1,6 +1,7 @@
 """
 Misc helper functions
 """
+import copy
 import math
 from typing import Tuple
 from typing import Union
@@ -88,6 +89,17 @@ def calculate_share_of_maternal_siblings(maternal_siblings_lst: list) -> str:
     return '1/6'
 
 
+def calc_num_siblings(case: dict) -> int:
+    siblings_dict = {}
+    for inh in case:
+        if 'brother' in inh or 'sister' in inh:
+            if 'x2' in inh:
+                siblings_dict[inh] = 2
+            else:
+                siblings_dict[inh] = 1
+    return sum([siblings_dict[inh] for inh in siblings_dict])
+
+
 def is_omariyya(case: dict,
                 n_siblings: int) -> bool:
     """
@@ -157,6 +169,81 @@ def calculate_remainder_grandfather(case: dict) -> Fraction:
     return 1 - sum_of_inheriting_shares(scope)
 
 
+def least_common_multiple(rationals):
+    denominators = [r.denominator for r in rationals]
+
+    lcm = denominators[0]
+    if len(rationals) == 1:
+        return lcm
+    for d in denominators[1:]:
+        lcm = lcm // math.gcd(lcm, d) * d
+
+    return lcm
+
+
+def calculate_asl(case: dict) -> dict:
+    """
+    Calculate the base of the problem and the shares
+    :param case:
+    :return:
+    """
+    full_case = copy.copy(case)
+    maternal = {'maternal_halfbrother': 1,
+                'maternal_halfsister': 1,
+                'maternal_halfsister_x2': 2}
+    siblings = {'brother': 1,
+                'sister': 1,
+                'sister_x2': 2}
+    total_maternal = sum(maternal[inh] for inh in full_case if inh in maternal)
+
+    if is_musharraka(case):
+        total_maternal += sum(siblings[inh] for inh in full_case
+                              if inh in siblings)
+
+    mat_in_case = [inh for inh in maternal if inh in full_case]
+    if total_maternal > 1 and full_case[mat_in_case[0]][:5] == 'share':
+        for inh in maternal:
+            if inh in full_case:
+                full_case[inh] = Fraction(full_case[inh].split(' ')[1]) * \
+                                 maternal[inh] / total_maternal
+        if is_musharraka(case):
+            for inh in siblings:
+                if inh in full_case:
+                    full_case[inh] = Fraction(full_case[inh].split(' ')[1]) * \
+                                     siblings[inh] / total_maternal
+
+    if 'grandmother_father' in full_case and 'grandmother_mother' in case and full_case['grandmother_father'][:5] == 'share':
+        full_case['grandmother_father'] = Fraction(full_case['grandmother_father'].split(' ')[1]) / 2
+        full_case['grandmother_mother'] = Fraction(full_case['grandmother_mother'].split(' ')[1]) / 2
+
+    if 'mother' in full_case and full_case['mother'] == '1/3 remainder':
+        remainder = '1/2' if 'husband' in case else '3/4'
+        full_case['mother'] = Fraction(1, 3) * Fraction(remainder)
+
+    full_case = {inh: Fraction(full_case[inh]) for inh in full_case}
+    x2 = [inh for inh in full_case if 'x2' in inh]
+
+    for inh in x2:
+        share = full_case[inh]
+        share = share/2
+        name = inh[:-3]
+        full_case.pop(inh)
+        full_case[name + '_1'] = share
+        full_case[name + '_2'] = share
+
+    rationals = [full_case[inh] for inh in full_case if full_case[inh] > 0]
+    lcm = least_common_multiple(rationals)
+
+    for inh in full_case:
+        if full_case[inh] > 0:
+            full_case[inh] = int(lcm / full_case[inh].denominator *
+                                 full_case[inh].numerator)
+        else:
+            full_case[inh] = 0
+    full_case['total_shares'] = int(sum(full_case[inh] for inh in full_case))
+    return full_case
+
+
 def is_radd(case: dict) -> bool:
     share_fractions = ['share 1/3', 'share 1/6']
     sum_of_shares = sum([Fraction(share) for share in case.values()
@@ -188,3 +275,23 @@ def calc_share_radd_total(case: dict) -> Tuple[Union[Fraction, None],
             share_inh[inh] = case[inh].split(' ')[1]
 
     return sum_of_shares, share_inh
+
+
+def solve_asaba_omariyya(case: dict) -> dict:
+    shares = {
+        'wife': {
+            'father': '1/2',
+            'mother': '1/4'
+        },
+        'husband': {
+            'father': '1/3',
+            'mother': '1/6'
+        }
+    }
+
+    for spouse in shares:
+        if spouse in case:
+            for inh in shares[spouse]:
+                case[inh] = shares[spouse][inh]
+
+    return case
