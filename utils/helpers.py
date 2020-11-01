@@ -178,14 +178,25 @@ def calculate_asl(case: dict) -> dict:
     maternal = {'maternal_halfbrother': 1,
                 'maternal_halfsister': 1,
                 'maternal_halfsister_x2': 2}
+    siblings = {'brother': 1,
+                'sister': 1,
+                'sister_x2': 2}
     total_maternal = sum(maternal[inh] for inh in full_case if inh in maternal)
-    if total_maternal > 1:
+    if is_musharraka(case):
+        total_maternal += sum(siblings[inh] for inh in full_case if inh in siblings)
+    mat_in_case = [inh for inh in maternal if inh in full_case]
+    if total_maternal > 1 and full_case[mat_in_case[0]][:5] == 'share':
         for inh in maternal:
             if inh in full_case:
-                full_case[inh] = Fraction(full_case[inh][-3:])*maternal[inh]/total_maternal
-    if 'grandmother_father' in full_case and 'grandmother_mother' in case:
-        full_case['grandmother_father'] = Fraction(full_case['grandmother_father'][-3:])/2
-        full_case['grandmother_mother'] = Fraction(full_case['grandmother_mother'][-3:])/2
+                full_case[inh] = Fraction(full_case[inh].split(' ')[1])*maternal[inh]/total_maternal
+        if is_musharraka(case):
+            for inh in siblings:
+                if inh in full_case:
+                    full_case[inh] = Fraction(full_case[inh].split(' ')[1]) * siblings[inh] / total_maternal
+
+    if 'grandmother_father' in full_case and 'grandmother_mother' in case and full_case['grandmother_father'][:5] == 'share':
+        full_case['grandmother_father'] = Fraction(full_case['grandmother_father'].split(' ')[1])/2
+        full_case['grandmother_mother'] = Fraction(full_case['grandmother_mother'].split(' ')[1])/2
     if 'mother' in full_case and full_case['mother'] == '1/3 remainder':
         remainder = '1/2' if 'husband' in case else '3/4'
         full_case['mother'] = Fraction(1,3)*Fraction(remainder)
