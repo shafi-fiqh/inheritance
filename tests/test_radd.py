@@ -63,3 +63,18 @@ def test_with_share_string_non_spouse():
     }
 
     assert(solve_radd(input) == expected_output)
+
+def test_2_with_share_string_non_spouse():
+    input = {
+        "mother": "1/6",
+        "maternal_halfsister_x2": "share 1/3",
+        "maternal_halfbrother": "share 1/3"
+    }
+
+    expected_output = {
+        "mother": "1/3",
+        "maternal_halfsister_x2": "share 2/3",
+        "maternal_halfbrother": "share 2/3"
+    }
+
+    assert(solve_radd(input) == expected_output)

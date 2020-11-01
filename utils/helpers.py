@@ -182,10 +182,10 @@ def calculate_asl(case: dict) -> dict:
     if total_maternal > 1:
         for inh in maternal:
             if inh in full_case:
-                full_case[inh] = Fraction(1,3)*maternal[inh]/total_maternal
-    if 'share 1/6' in full_case.values():
-        full_case['grandmother_father'] = Fraction(1,12)
-        full_case['grandmother_mother'] = Fraction(1,12)
+                full_case[inh] = Fraction(full_case[inh][-3:])*maternal[inh]/total_maternal
+    if 'grandmother_father' in full_case and 'grandmother_mother' in case:
+        full_case['grandmother_father'] = Fraction(full_case['grandmother_father'][-3:])/2
+        full_case['grandmother_mother'] = Fraction(full_case['grandmother_mother'][-3:])/2
     if 'mother' in full_case and full_case['mother'] == '1/3 remainder':
         remainder = '1/2' if 'husband' in case else '3/4'
         full_case['mother'] = Fraction(1,3)*Fraction(remainder)
@@ -203,21 +203,10 @@ def calculate_asl(case: dict) -> dict:
     for inh in full_case:
         if full_case[inh] > 0:
             full_case[inh] = lcm/full_case[inh].denominator*full_case[inh].numerator
+        else:
+            full_case[inh] = 0
     full_case['total_shares'] = sum(full_case[inh] for inh in full_case)
     return full_case
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 def is_radd(case: dict) -> bool:
     share_fractions = ['share 1/3', 'share 1/6']
