@@ -143,8 +143,8 @@ def nCr(n, r):
 
 def sum_of_inheriting_shares(scope: dict) -> Fraction:
 
-    fard_basic = [share for share in scope.values() if share in
-                  ['1/8', '1/4', '1/2', '1/6', '1/3', '2/3']]
+    fard_basic = [share for share in scope.values() if share not in
+                  ['share 1/3', 'share 1/6', '1/3 remainder', 'A', '1/6 + A']]
     shares = sum(Fraction(share) for share in fard_basic)
     if 'share 1/3' in scope.values():
         shares += Fraction('1/3')
@@ -240,6 +240,7 @@ def calculate_asl(case: dict) -> dict:
                                  full_case[inh].numerator)
         else:
             full_case[inh] = 0
+
     full_case['total_shares'] = int(sum(full_case[inh] for inh in full_case))
     return full_case
 
