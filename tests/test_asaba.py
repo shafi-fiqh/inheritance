@@ -111,3 +111,23 @@ def test_omariyya():
     }
 
     assert(expected == solve_asaba_shares(input))
+
+
+def test_grandfather_siblings():
+    input = {
+        "mother": "1/6",
+        "father_of_father": "5/18",
+        "sister": "1/2",
+        "paternal_halfsister_x2": "A",
+        "paternal_halfbrother": "A"
+    }
+
+    expected = {
+        "mother": "1/6",
+        "father_of_father": "5/18",
+        "sister": "1/2",
+        "paternal_halfsister_x2": "1/36",
+        "paternal_halfbrother": "1/36"
+    }
+
+    assert(expected == solve_asaba_shares(input))

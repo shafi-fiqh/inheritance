@@ -6,7 +6,9 @@ import json
 import pytest
 
 from src.cases_generator import CaseGenerator
+from src.full_solver import full_solver
 from src.solver import solve
+from utils.helpers import calculate_asl
 
 
 def pytest_generate_tests(metafunc):
@@ -42,4 +44,29 @@ def test_cases(case):
     assert all([case['initial_shares'][inh] == initial_shares_solution[inh]
                 for inh in case['initial_shares']]), \
         'Case %s failed solver returned %s' % \
-        (case['initial_shares'], case_copy['initial_shares'])
+        (case['initial_shares'], initial_shares_solution)
+
+
+def test_full_solver_cases(case):
+    """
+    Test that the full solver returns expected results.
+    Cases can be added to the cases.json file.
+    :return:
+    """
+    casegen = CaseGenerator('config/family_config.csv')
+    case_copy = copy.deepcopy(case)
+
+    initial_shares_solution = solve(case=case_copy['initial_shares'],
+                                    descendants=casegen.descendants,
+                                    mahjoob=casegen.mahjoob,
+                                    rank=casegen.rank,
+                                    taseeb=casegen.taseeb)
+
+    asba_radd_copy = copy.copy(initial_shares_solution)
+    asba_radd_copy = full_solver(asba_radd_copy)
+    full_shares_solution = calculate_asl(asba_radd_copy)
+
+    assert all([case['full_shares'][inh] == full_shares_solution[inh]
+                for inh in case['full_shares']]), \
+        'Case %s failed solver returned %s' % \
+        (case['full_shares'], full_shares_solution)

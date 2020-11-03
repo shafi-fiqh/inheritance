@@ -6,10 +6,10 @@
             "husband": "1/4"
         },
         "full_shares": {
-            "total_shares": "0",
-            "son": "0",
-            "daughter": "0",
-            "husband": "0"
+            "total_shares": 4,
+            "son": 2,
+            "daughter": 1,
+            "husband": 1
         }
     },
     {
@@ -18,9 +18,10 @@
             "wife": "1/8"
         },
         "full_shares": {
-            "total_shares": "0",
-            "daughter_x2": "0",
-            "wife": "0"
+            "total_shares": 16,
+            "daughter_1": 7,
+            "daughter_2": 7,
+            "wife": 2
         }
     },
     {
@@ -30,10 +31,11 @@
             "daughter_of_son": "0"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "daughter_x2": "0",
-            "daughter_of_son": "0"
+            "total_shares": 8,
+            "husband": 2,
+            "daughter_1": 3,
+            "daughter_2": 3,
+            "daughter_of_son": 0
         }
     },
     {
@@ -44,11 +46,11 @@
             "paternal_halfbrother": "0"
         },
         "full_shares": {
-            "total_shares": "0",
-            "maternal_halfsister": "0",
-            "maternal_halfbrother": "0",
-            "brother": "0",
-            "paternal_halfbrother": "0"
+            "total_shares": 6,
+            "maternal_halfsister": 1,
+            "maternal_halfbrother": 1,
+            "brother": 4,
+            "paternal_halfbrother": 0
         }
     },
     {
@@ -58,10 +60,10 @@
             "mother": "1/3 remainder"
         },
         "full_shares": {
-            "total_shares": "0",
-            "father": "0",
-            "husband": "0",
-            "mother": "0"
+            "total_shares": 6,
+            "father": 2,
+            "husband": 3,
+            "mother": 1
         }
     },
     {
@@ -71,10 +73,10 @@
             "paternal_halfsister": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "daughter": "0",
-            "paternal_halfbrother": "0",
-            "paternal_halfsister": "0"
+            "total_shares": 6,
+            "daughter": 3,
+            "paternal_halfbrother": 2,
+            "paternal_halfsister": 1
         }
     },
     {
@@ -86,12 +88,12 @@
             "paternal_halfsister": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "daughter_of_son": "0",
-            "mother": "0",
-            "maternal_halfbrother": "0",
-            "maternal_halfsister": "0",
-            "paternal_halfsister": "0"
+            "total_shares": 6,
+            "daughter_of_son": 3,
+            "mother": 1,
+            "maternal_halfbrother": 0,
+            "maternal_halfsister": 0,
+            "paternal_halfsister": 2
         }
     },
     {
@@ -102,11 +104,11 @@
             "paternal_halfsister": "0"
         },
         "full_shares": {
-            "total_shares": "0",
-            "daughter": "0",
-            "mother": "0",
-            "father": "0",
-            "paternal_halfsister": "0"
+            "total_shares": 6,
+            "daughter": 3,
+            "mother": 1,
+            "father": 2,
+            "paternal_halfsister": 0
         }
     },
     {
@@ -115,9 +117,10 @@
             "sister": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "daughter_x2": "0",
-            "sister": "0"
+            "total_shares": 3,
+            "daughter_1": 1,
+            "daughter_2": 1,
+            "sister": 1
         }
     },
     {
@@ -127,23 +130,11 @@
             "paternal_halfsister": "0"
         },
         "full_shares": {
-            "total_shares": "0",
-            "daughter_x2": "0",
-            "sister": "0",
-            "paternal_halfsister": "0"
-        }
-    },
-    {
-        "initial_shares": {
-            "daughter_of_son_x2": "2/3",
-            "sister": "A",
-            "paternal_halfsister": "0"
-        },
-        "full_shares": {
-            "total_shares": "0",
-            "daughter_of_son_x2": "0",
-            "sister": "0",
-            "paternal_halfsister": "0"
+            "total_shares": 3,
+            "daughter_1": 1,
+            "daughter_2": 1,
+            "sister": 1,
+            "paternal_halfsister": 0
         }
     },
     {
@@ -157,14 +148,14 @@
             "maternal_halfsister": "share 1/3"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "mother": "0",
-            "grandmother_father": "0",
-            "grandmother_mother": "0",
-            "brother": "0",
-            "maternal_halfbrother": "0",
-            "maternal_halfsister": "0"
+            "total_shares": 18,
+            "husband": 9,
+            "mother": 3,
+            "grandmother_father": 0,
+            "grandmother_mother": 0,
+            "brother": 2,
+            "maternal_halfbrother": 2,
+            "maternal_halfsister": 2
         }
     },
     {
@@ -177,13 +168,13 @@
             "maternal_halfbrother": "1/6"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "mother": "0",
-            "grandmother_father": "0",
-            "grandmother_mother": "0",
-            "brother": "0",
-            "maternal_halfbrother": "0"
+            "total_shares": 6,
+            "husband": 3,
+            "mother": 1,
+            "grandmother_father": 0,
+            "grandmother_mother": 0,
+            "brother": 1,
+            "maternal_halfbrother": 1
         }
     },
     {
@@ -193,10 +184,10 @@
             "son": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "father": "0",
-            "son": "0"
+            "total_shares": 12,
+            "husband": 3,
+            "father": 2,
+            "son": 7
         }
     },
     {
@@ -208,12 +199,12 @@
             "sister": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "mother": "0",
-            "daughter": "0",
-            "daughter_of_son": "0",
-            "sister": "0"
+            "total_shares": 24,
+            "wife": 3,
+            "mother": 4,
+            "daughter": 12,
+            "daughter_of_son": 4,
+            "sister": 1
         }
     },
     {
@@ -225,12 +216,12 @@
             "daughter": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "father": "0",
-            "mother": "0",
-            "son": "0",
-            "daughter": "0"
+            "total_shares": 36,
+            "husband": 9,
+            "father": 6,
+            "mother": 6,
+            "son": 10,
+            "daughter": 5
         }
     },
     {
@@ -242,12 +233,12 @@
             "daughter": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "father": "0",
-            "mother": "0",
-            "son": "0",
-            "daughter": "0"
+            "total_shares": 72,
+            "wife": 9,
+            "father": 12,
+            "mother": 12,
+            "son": 26,
+            "daughter": 13
         }
     },
     {
@@ -256,9 +247,9 @@
             "son": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "son": "0"
+            "total_shares": 4,
+            "husband": 1,
+            "son": 3
         }
     },
     {
@@ -267,9 +258,9 @@
             "son": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "son": "0"
+            "total_shares": 8,
+            "wife": 1,
+            "son": 7
         }
     },
     {
@@ -277,8 +268,8 @@
             "son_of_son": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "son_of_son": "0"
+            "total_shares": 1,
+            "son_of_son": 1
         }
     },
     {
@@ -287,9 +278,9 @@
             "daughter": "1/2"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "daughter": "0"
+            "total_shares": 8,
+            "wife": 1,
+            "daughter": 7
         }
     },
     {
@@ -298,9 +289,10 @@
             "daughter_x2": "2/3"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "daughter_x2": "0"
+            "total_shares": 8,
+            "husband": 2,
+            "daughter_1": 3,
+            "daughter_2": 3
         }
     },
     {
@@ -310,10 +302,11 @@
             "son": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "daughter_x2": "0",
-            "son": "0"
+            "total_shares": 32,
+            "wife": 4,
+            "daughter_1": 7,
+            "daughter_2": 7,
+            "son": 14
         }
     },
     {
@@ -323,10 +316,10 @@
             "son_of_son": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "daughter": "0",
-            "son_of_son": "0"
+            "total_shares": 8,
+            "wife": 1,
+            "daughter": 4,
+            "son_of_son": 3
         }
     },
     {
@@ -336,10 +329,11 @@
             "daughter_of_son": "0"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "daughter_x2": "0",
-            "daughter_of_son": "0"
+            "total_shares": 8,
+            "husband": 2,
+            "daughter_1": 3,
+            "daughter_2": 3,
+            "daughter_of_son": 0
         }
     },
     {
@@ -349,10 +343,10 @@
             "daughter_of_son": "1/6"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "daughter": "0",
-            "daughter_of_son": "0"
+            "total_shares": 16,
+            "husband": 4,
+            "daughter": 9,
+            "daughter_of_son": 3
         }
     },
     {
@@ -362,10 +356,10 @@
             "daughter_of_son": "1/6"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "daughter": "0",
-            "daughter_of_son": "0"
+            "total_shares": 32,
+            "wife": 4,
+            "daughter": 21,
+            "daughter_of_son": 7
         }
     },
     {
@@ -375,10 +369,10 @@
             "daughter_of_son": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "son_of_son": "0",
-            "daughter_of_son": "0"
+            "total_shares": 4,
+            "husband": 1,
+            "son_of_son": 2,
+            "daughter_of_son": 1
         }
     },
     {
@@ -388,10 +382,10 @@
             "daughter_of_son": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "daughter": "0",
-            "son_of_son": "0",
-            "daughter_of_son": "0"
+            "total_shares": 6,
+            "daughter": 3,
+            "son_of_son": 2,
+            "daughter_of_son": 1
         }
     },
     {
@@ -402,11 +396,11 @@
             "daughter_of_son": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "daughter": "0",
-            "son_of_son": "0",
-            "daughter_of_son": "0"
+            "total_shares": 12,
+            "husband": 3,
+            "daughter": 6,
+            "son_of_son": 2,
+            "daughter_of_son": 1
         }
     },
     {
@@ -417,11 +411,12 @@
             "daughter_of_son": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "daughter_x2": "0",
-            "son_of_son": "0",
-            "daughter_of_son": "0"
+            "total_shares": 36,
+            "husband": 9,
+            "daughter_1": 12,
+            "daughter_2": 12,
+            "son_of_son": 2,
+            "daughter_of_son": 1
         }
     },
     {
@@ -431,10 +426,11 @@
             "daughter_of_son": "0"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "daughter_x2": "0",
-            "daughter_of_son": "0"
+            "total_shares": 8,
+            "husband": 2,
+            "daughter_1": 3,
+            "daughter_2": 3,
+            "daughter_of_son": 0
         }
     },
     {
@@ -447,13 +443,13 @@
             "daughter_of_son": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "mother": "0",
-            "father": "0",
-            "daughter": "0",
-            "son_of_son": "0",
-            "daughter_of_son": "0"
+            "total_shares": 13,
+            "husband": 3,
+            "mother": 2,
+            "father": 2,
+            "daughter": 6,
+            "son_of_son": 0,
+            "daughter_of_son": 0
         }
     },
     {
@@ -465,12 +461,12 @@
             "daughter_of_son": "1/6"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "mother": "0",
-            "father": "0",
-            "daughter": "0",
-            "daughter_of_son": "0"
+            "total_shares": 15,
+            "husband": 3,
+            "mother": 2,
+            "father": 2,
+            "daughter": 6,
+            "daughter_of_son": 2
         }
     },
     {
@@ -480,10 +476,12 @@
             "daughter_of_son_x2": "0"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "daughter_x2": "0",
-            "daughter_of_son_x2": "0"
+            "total_shares": 16,
+            "wife": 2,
+            "daughter_1": 7,
+            "daughter_2": 7,
+            "daughter_of_son_1": 0,
+            "daughter_of_son_2": 0
         }
     },
     {
@@ -492,9 +490,10 @@
             "daughter_of_son_x2": "2/3"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "daughter_of_son_x2": "0"
+            "total_shares": 16,
+            "wife": 2,
+            "daughter_of_son_1": 7,
+            "daughter_of_son_2": 7
         }
     },
     {
@@ -503,9 +502,9 @@
             "father": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "father": "0"
+            "total_shares": 4,
+            "wife": 1,
+            "father": 3
         }
     },
     {
@@ -515,10 +514,10 @@
             "son": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "father": "0",
-            "son": "0"
+            "total_shares": 12,
+            "husband": 3,
+            "father": 2,
+            "son": 7
         }
     },
     {
@@ -528,10 +527,10 @@
             "father": "1/6 + A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "daughter": "0",
-            "father": "0"
+            "total_shares": 4,
+            "husband": 1,
+            "daughter": 2,
+            "father": 1
         }
     },
     {
@@ -542,11 +541,11 @@
             "father": "1/6 + A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "daughter": "0",
-            "daughter_of_son": "0",
-            "father": "0"
+            "total_shares": 24,
+            "wife": 3,
+            "daughter": 12,
+            "daughter_of_son": 4,
+            "father": 5
         }
     },
     {
@@ -557,11 +556,11 @@
             "son_of_son": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "father": "0",
-            "daughter": "0",
-            "son_of_son": "0"
+            "total_shares": 24,
+            "wife": 3,
+            "father": 4,
+            "daughter": 12,
+            "son_of_son": 5
         }
     },
     {
@@ -571,10 +570,11 @@
             "father": "1/6 + A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "daughter_x2": "0",
-            "father": "0"
+            "total_shares": 13,
+            "husband": 3,
+            "daughter_1": 4,
+            "daughter_2": 4,
+            "father": 2
         }
     },
     {
@@ -585,11 +585,12 @@
             "son": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "father": "0",
-            "daughter_x2": "0",
-            "son": "0"
+            "total_shares": 96,
+            "wife": 12,
+            "father": 16,
+            "daughter_1": 17,
+            "daughter_2": 17,
+            "son": 34
         }
     },
     {
@@ -599,10 +600,10 @@
             "son": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "mother": "0",
-            "son": "0"
+            "total_shares": 12,
+            "husband": 3,
+            "mother": 2,
+            "son": 7
         }
     },
     {
@@ -613,11 +614,11 @@
             "father": "1/6 + A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "daughter": "0",
-            "mother": "0",
-            "father": "0"
+            "total_shares": 24,
+            "wife": 3,
+            "daughter": 12,
+            "mother": 4,
+            "father": 5
         }
     },
     {
@@ -628,11 +629,11 @@
             "mother": "1/6"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "daughter": "0",
-            "daughter_of_son": "0",
-            "mother": "0"
+            "total_shares": 13,
+            "husband": 3,
+            "daughter": 6,
+            "daughter_of_son": 2,
+            "mother": 2
         }
     },
     {
@@ -641,9 +642,9 @@
             "mother": "1/3"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "mother": "0"
+            "total_shares": 2,
+            "husband": 1,
+            "mother": 1
         }
     },
     {
@@ -655,12 +656,14 @@
             "brother": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "daughter_x2": "0",
-            "daughter_of_son_x2": "0",
-            "mother": "0",
-            "brother": "0"
+            "total_shares": 24,
+            "wife": 3,
+            "daughter_1": 8,
+            "daughter_2": 8,
+            "daughter_of_son_1": 0,
+            "daughter_of_son_2": 0,
+            "mother": 4,
+            "brother": 1
         }
     },
     {
@@ -672,12 +675,12 @@
             "son_of_son": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "daughter": "0",
-            "mother": "0",
-            "father": "0",
-            "son_of_son": "0"
+            "total_shares": 13,
+            "husband": 3,
+            "daughter": 6,
+            "mother": 2,
+            "father": 2,
+            "son_of_son": 0
         }
     },
     {
@@ -689,12 +692,12 @@
             "father": "1/6 + A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "daughter": "0",
-            "daughter_of_son": "0",
-            "mother": "0",
-            "father": "0"
+            "total_shares": 15,
+            "husband": 3,
+            "daughter": 6,
+            "daughter_of_son": 2,
+            "mother": 2,
+            "father": 2
         }
     },
     {
@@ -704,10 +707,10 @@
             "father": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "mother": "0",
-            "father": "0"
+            "total_shares": 4,
+            "wife": 1,
+            "mother": 1,
+            "father": 2
         }
     },
     {
@@ -717,10 +720,10 @@
             "father": "1/6 + A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "daughter_of_son": "0",
-            "grandmother_mother": "0",
-            "father": "0"
+            "total_shares": 6,
+            "daughter_of_son": 3,
+            "grandmother_mother": 1,
+            "father": 2
         }
     },
     {
@@ -730,10 +733,10 @@
             "grandmother_mother": "1/6"
         },
         "full_shares": {
-            "total_shares": "0",
-            "daughter": "0",
-            "daughter_of_son": "0",
-            "grandmother_mother": "0"
+            "total_shares": 5,
+            "daughter": 3,
+            "daughter_of_son": 1,
+            "grandmother_mother": 1
         }
     },
     {
@@ -742,9 +745,9 @@
             "grandmother_mother": "1/6"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "grandmother_mother": "0"
+            "total_shares": 4,
+            "wife": 1,
+            "grandmother_mother": 3
         }
     },
     {
@@ -756,12 +759,12 @@
             "son_of_son": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "daughter": "0",
-            "grandmother_mother": "0",
-            "grandmother_father": "0",
-            "son_of_son": "0"
+            "total_shares": 12,
+            "husband": 3,
+            "daughter": 6,
+            "grandmother_mother": 1,
+            "grandmother_father": 1,
+            "son_of_son": 1
         }
     },
     {
@@ -773,12 +776,13 @@
             "daughter_of_son": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "daughter_x2": "0",
-            "grandmother_mother": "0",
-            "grandmother_father": "0",
-            "son_of_son": "0",
-            "daughter_of_son": "0"
+            "total_shares": 36,
+            "daughter_1": 12,
+            "daughter_2": 12,
+            "grandmother_mother": 3,
+            "grandmother_father": 3,
+            "son_of_son": 4,
+            "daughter_of_son": 2
         }
     },
     {
@@ -788,10 +792,10 @@
             "maternal_halfbrother": "1/6"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "mother": "0",
-            "maternal_halfbrother": "0"
+            "total_shares": 4,
+            "wife": 1,
+            "mother": 2,
+            "maternal_halfbrother": 1
         }
     },
     {
@@ -801,10 +805,11 @@
             "maternal_halfsister_x2": "share 1/3"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "mother": "0",
-            "maternal_halfsister_x2": "0"
+            "total_shares": 6,
+            "husband": 3,
+            "mother": 1,
+            "maternal_halfsister_1": 1,
+            "maternal_halfsister_2": 1
         }
     },
     {
@@ -815,11 +820,11 @@
             "father": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "maternal_halfbrother": "0",
-            "maternal_halfsister": "0",
-            "father": "0"
+            "total_shares": 4,
+            "wife": 1,
+            "maternal_halfbrother": 0,
+            "maternal_halfsister": 0,
+            "father": 3
         }
     },
     {
@@ -830,11 +835,11 @@
             "maternal_halfbrother": "0"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "daughter_of_son": "0",
-            "mother": "0",
-            "maternal_halfbrother": "0"
+            "total_shares": 16,
+            "husband": 4,
+            "daughter_of_son": 9,
+            "mother": 3,
+            "maternal_halfbrother": 0
         }
     },
     {
@@ -845,11 +850,11 @@
             "son_of_son": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "mother": "0",
-            "maternal_halfsister": "0",
-            "son_of_son": "0"
+            "total_shares": 24,
+            "wife": 3,
+            "mother": 4,
+            "maternal_halfsister": 0,
+            "son_of_son": 17
         }
     },
     {
@@ -860,11 +865,11 @@
             "maternal_halfsister": "share 1/3"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "mother": "0",
-            "maternal_halfbrother": "0",
-            "maternal_halfsister": "0"
+            "total_shares": 6,
+            "husband": 3,
+            "mother": 1,
+            "maternal_halfbrother": 1,
+            "maternal_halfsister": 1
         }
     },
     {
@@ -873,9 +878,10 @@
             "maternal_halfsister_x2": "share 1/3"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "maternal_halfsister_x2": "0"
+            "total_shares": 4,
+            "husband": 2,
+            "maternal_halfsister_1": 1,
+            "maternal_halfsister_2": 1
         }
     },
     {
@@ -885,10 +891,10 @@
             "maternal_halfsister": "1/6"
         },
         "full_shares": {
-            "total_shares": "0",
-            "mother": "0",
-            "grandmother_father": "0",
-            "maternal_halfsister": "0"
+            "total_shares": 3,
+            "mother": 2,
+            "grandmother_father": 0,
+            "maternal_halfsister": 1
         }
     },
     {
@@ -899,11 +905,12 @@
             "father": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "mother": "0",
-            "maternal_halfsister_x2": "0",
-            "father": "0"
+            "total_shares": 6,
+            "husband": 3,
+            "mother": 1,
+            "maternal_halfsister_1": 0,
+            "maternal_halfsister_2": 0,
+            "father": 2
         }
     },
     {
@@ -914,11 +921,11 @@
             "brother": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "mother": "0",
-            "maternal_halfbrother": "0",
-            "brother": "0"
+            "total_shares": 12,
+            "wife": 3,
+            "mother": 2,
+            "maternal_halfbrother": 2,
+            "brother": 5
         }
     },
     {
@@ -928,10 +935,10 @@
             "brother": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "daughter": "0",
-            "brother": "0"
+            "total_shares": 4,
+            "husband": 1,
+            "daughter": 2,
+            "brother": 1
         }
     },
     {
@@ -943,12 +950,13 @@
             "brother": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "daughter_x2": "0",
-            "maternal_halfsister": "0",
-            "mother": "0",
-            "daughter_of_son": "0",
-            "brother": "0"
+            "total_shares": 6,
+            "daughter_1": 2,
+            "daughter_2": 2,
+            "maternal_halfsister": 0,
+            "mother": 1,
+            "daughter_of_son": 0,
+            "brother": 1
         }
     },
     {
@@ -960,12 +968,12 @@
             "brother": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "daughter": "0",
-            "daughter_of_son": "0",
-            "maternal_halfbrother": "0",
-            "brother": "0"
+            "total_shares": 12,
+            "husband": 3,
+            "daughter": 6,
+            "daughter_of_son": 2,
+            "maternal_halfbrother": 0,
+            "brother": 1
         }
     },
     {
@@ -977,12 +985,13 @@
             "brother": "0"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "father": "0",
-            "daughter_of_son_x2": "0",
-            "son_of_son": "0",
-            "brother": "0"
+            "total_shares": 96,
+            "wife": 12,
+            "father": 16,
+            "daughter_of_son_1": 17,
+            "daughter_of_son_2": 17,
+            "son_of_son": 34,
+            "brother": 0
         }
     },
     {
@@ -993,11 +1002,12 @@
             "brother": "share 1/3"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "mother": "0",
-            "maternal_halfsister_x2": "0",
-            "brother": "0"
+            "total_shares": 18,
+            "husband": 9,
+            "mother": 3,
+            "maternal_halfsister_1": 2,
+            "maternal_halfsister_2": 2,
+            "brother": 2
         }
     },
     {
@@ -1006,9 +1016,9 @@
             "sister": "1/2"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "sister": "0"
+            "total_shares": 2,
+            "husband": 1,
+            "sister": 1
         }
     },
     {
@@ -1018,10 +1028,10 @@
             "maternal_halfbrother": "1/6"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "sister": "0",
-            "maternal_halfbrother": "0"
+            "total_shares": 16,
+            "wife": 4,
+            "sister": 9,
+            "maternal_halfbrother": 3
         }
     },
     {
@@ -1031,10 +1041,11 @@
             "sister_x2": "2/3"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "mother": "0",
-            "sister_x2": "0"
+            "total_shares": 13,
+            "wife": 3,
+            "mother": 2,
+            "sister_1": 4,
+            "sister_2": 4
         }
     },
     {
@@ -1044,10 +1055,10 @@
             "sister": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "daughter": "0",
-            "daughter_of_son": "0",
-            "sister": "0"
+            "total_shares": 6,
+            "daughter": 3,
+            "daughter_of_son": 1,
+            "sister": 2
         }
     },
     {
@@ -1058,11 +1069,11 @@
             "brother": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "daughter": "0",
-            "mother": "0",
-            "sister": "0",
-            "brother": "0"
+            "total_shares": 18,
+            "daughter": 9,
+            "mother": 3,
+            "sister": 2,
+            "brother": 4
         }
     },
     {
@@ -1073,11 +1084,11 @@
             "brother": "0"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "father": "0",
-            "sister": "0",
-            "brother": "0"
+            "total_shares": 4,
+            "wife": 1,
+            "father": 3,
+            "sister": 0,
+            "brother": 0
         }
     },
     {
@@ -1086,9 +1097,10 @@
             "sister_x2": "2/3"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "sister_x2": "0"
+            "total_shares": 8,
+            "wife": 2,
+            "sister_1": 3,
+            "sister_2": 3
         }
     },
     {
@@ -1100,12 +1112,12 @@
             "brother": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "mother": "0",
-            "maternal_halfbrother": "0",
-            "sister": "0",
-            "brother": "0"
+            "total_shares": 36,
+            "wife": 9,
+            "mother": 6,
+            "maternal_halfbrother": 6,
+            "sister": 5,
+            "brother": 10
         }
     },
     {
@@ -1117,12 +1129,13 @@
             "sister_x2": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "daughter": "0",
-            "daughter_of_son": "0",
-            "husband": "0",
-            "mother": "0",
-            "sister_x2": "0"
+            "total_shares": 13,
+            "daughter": 6,
+            "daughter_of_son": 2,
+            "husband": 3,
+            "mother": 2,
+            "sister_1": 0,
+            "sister_2": 0
         }
     },
     {
@@ -1134,12 +1147,13 @@
             "sister": "1/2"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "mother": "0",
-            "maternal_halfsister_x2": "0",
-            "maternal_halfbrother": "0",
-            "sister": "0"
+            "total_shares": 27,
+            "husband": 9,
+            "mother": 3,
+            "maternal_halfsister_1": 2,
+            "maternal_halfsister_2": 2,
+            "maternal_halfbrother": 2,
+            "sister": 9
         }
     },
     {
@@ -1150,11 +1164,11 @@
             "paternal_halfbrother": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "mother": "0",
-            "maternal_halfsister": "0",
-            "sister": "0",
-            "paternal_halfbrother": "0"
+            "total_shares": 6,
+            "mother": 1,
+            "maternal_halfsister": 1,
+            "sister": 3,
+            "paternal_halfbrother": 1
         }
     },
     {
@@ -1164,10 +1178,10 @@
             "paternal_halfbrother": "0"
         },
         "full_shares": {
-            "total_shares": "0",
-            "maternal_halfsister": "0",
-            "brother": "0",
-            "paternal_halfbrother": "0"
+            "total_shares": 6,
+            "maternal_halfsister": 1,
+            "brother": 5,
+            "paternal_halfbrother": 0
         }
     },
     {
@@ -1178,11 +1192,11 @@
             "paternal_halfbrother": "0"
         },
         "full_shares": {
-            "total_shares": "0",
-            "daughter": "0",
-            "daughter_of_son": "0",
-            "sister": "0",
-            "paternal_halfbrother": "0"
+            "total_shares": 6,
+            "daughter": 3,
+            "daughter_of_son": 1,
+            "sister": 2,
+            "paternal_halfbrother": 0
         }
     },
     {
@@ -1193,11 +1207,11 @@
             "paternal_halfbrother": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "mother": "0",
-            "maternal_halfbrother": "0",
-            "paternal_halfbrother": "0"
+            "total_shares": 6,
+            "husband": 3,
+            "mother": 1,
+            "maternal_halfbrother": 1,
+            "paternal_halfbrother": 1
         }
     },
     {
@@ -1207,10 +1221,11 @@
             "maternal_halfsister_x2": "share 1/3"
         },
         "full_shares": {
-            "total_shares": "0",
-            "sister": "0",
-            "paternal_halfsister": "0",
-            "maternal_halfsister_x2": "0"
+            "total_shares": 6,
+            "sister": 3,
+            "paternal_halfsister": 1,
+            "maternal_halfsister_1": 1,
+            "maternal_halfsister_2": 1
         }
     },
     {
@@ -1220,10 +1235,10 @@
             "maternal_halfsister": "1/6"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "paternal_halfsister": "0",
-            "maternal_halfsister": "0"
+            "total_shares": 16,
+            "wife": 4,
+            "paternal_halfsister": 9,
+            "maternal_halfsister": 3
         }
     },
     {
@@ -1233,10 +1248,11 @@
             "maternal_halfsister_x2": "0"
         },
         "full_shares": {
-            "total_shares": "0",
-            "daughter": "0",
-            "paternal_halfbrother": "0",
-            "maternal_halfsister_x2": "0"
+            "total_shares": 2,
+            "daughter": 1,
+            "paternal_halfbrother": 1,
+            "maternal_halfsister_1": 0,
+            "maternal_halfsister_2": 0
         }
     },
     {
@@ -1247,11 +1263,11 @@
             "paternal_halfsister": "0"
         },
         "full_shares": {
-            "total_shares": "0",
-            "daughter": "0",
-            "mother": "0",
-            "father": "0",
-            "paternal_halfsister": "0"
+            "total_shares": 6,
+            "daughter": 3,
+            "mother": 1,
+            "father": 2,
+            "paternal_halfsister": 0
         }
     },
     {
@@ -1261,10 +1277,13 @@
             "paternal_halfsister_x2": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "daughter_x2": "0",
-            "daughter_of_son_x2": "0",
-            "paternal_halfsister_x2": "0"
+            "total_shares": 6,
+            "daughter_1": 2,
+            "daughter_2": 2,
+            "daughter_of_son_1": 0,
+            "daughter_of_son_2": 0,
+            "paternal_halfsister_1": 1,
+            "paternal_halfsister_2": 1
         }
     },
     {
@@ -1274,10 +1293,10 @@
             "brother": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "paternal_halfsister": "0",
-            "brother": "0"
+            "total_shares": 2,
+            "husband": 1,
+            "paternal_halfsister": 0,
+            "brother": 1
         }
     },
     {
@@ -1287,10 +1306,10 @@
             "paternal_halfsister": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "daughter_of_son": "0",
-            "mother": "0",
-            "paternal_halfsister": "0"
+            "total_shares": 6,
+            "daughter_of_son": 3,
+            "mother": 1,
+            "paternal_halfsister": 2
         }
     },
     {
@@ -1302,12 +1321,12 @@
             "paternal_halfsister": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "daughter_of_son": "0",
-            "mother": "0",
-            "maternal_halfsister": "0",
-            "maternal_halfbrother": "0",
-            "paternal_halfsister": "0"
+            "total_shares": 6,
+            "daughter_of_son": 3,
+            "mother": 1,
+            "maternal_halfsister": 0,
+            "maternal_halfbrother": 0,
+            "paternal_halfsister": 2
         }
     },
     {
@@ -1317,10 +1336,11 @@
             "paternal_halfsister_x2": "2/3"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "maternal_halfbrother": "0",
-            "paternal_halfsister_x2": "0"
+            "total_shares": 13,
+            "wife": 3,
+            "maternal_halfbrother": 2,
+            "paternal_halfsister_1": 4,
+            "paternal_halfsister_2": 4
         }
     },
     {
@@ -1330,10 +1350,10 @@
             "son_of_son": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "paternal_halfsister": "0",
-            "paternal_halfbrother": "0",
-            "son_of_son": "0"
+            "total_shares": 1,
+            "paternal_halfsister": 0,
+            "paternal_halfbrother": 0,
+            "son_of_son": 1
         }
     },
     {
@@ -1343,10 +1363,10 @@
             "paternal_halfsister": "1/2"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "mother": "0",
-            "paternal_halfsister": "0"
+            "total_shares": 13,
+            "wife": 3,
+            "mother": 4,
+            "paternal_halfsister": 6
         }
     },
     {
@@ -1356,10 +1376,10 @@
             "paternal_halfsister": "1/6"
         },
         "full_shares": {
-            "total_shares": "0",
-            "mother": "0",
-            "sister": "0",
-            "paternal_halfsister": "0"
+            "total_shares": 5,
+            "mother": 1,
+            "sister": 3,
+            "paternal_halfsister": 1
         }
     },
     {
@@ -1371,12 +1391,12 @@
             "paternal_halfbrother": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "mother": "0",
-            "daughter": "0",
-            "daughter_of_son": "0",
-            "paternal_halfbrother": "0"
+            "total_shares": 13,
+            "husband": 3,
+            "mother": 2,
+            "daughter": 6,
+            "daughter_of_son": 2,
+            "paternal_halfbrother": 0
         }
     },
     {
@@ -1385,9 +1405,9 @@
             "sister": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "daughter": "0",
-            "sister": "0"
+            "total_shares": 2,
+            "daughter": 1,
+            "sister": 1
         }
     },
     {
@@ -1396,9 +1416,9 @@
             "sister": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "daughter_of_son": "0",
-            "sister": "0"
+            "total_shares": 2,
+            "daughter_of_son": 1,
+            "sister": 1
         }
     },
     {
@@ -1407,20 +1427,9 @@
             "paternal_halfsister": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "daughter": "0",
-            "paternal_halfsister": "0"
-        }
-    },
-    {
-        "initial_shares": {
-            "daughter_of_son": "1/2",
-            "paternal_halfsister": "A"
-        },
-        "full_shares": {
-            "total_shares": "0",
-            "daughter_of_son": "0",
-            "paternal_halfsister": "0"
+            "total_shares": 2,
+            "daughter": 1,
+            "paternal_halfsister": 1
         }
     },
     {
@@ -1430,10 +1439,10 @@
             "son": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "daughter_of_son": "0",
-            "daughter": "0",
-            "son": "0"
+            "total_shares": 3,
+            "daughter_of_son": 0,
+            "daughter": 1,
+            "son": 2
         }
     },
     {
@@ -1445,27 +1454,13 @@
             "sister": "share 1/3"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "mother": "0",
-            "maternal_halfsister_x2": "0",
-            "brother": "0",
-            "sister": "0"
-        }
-    },
-    {
-        "initial_shares": {
-            "husband": "9/27",
-            "mother": "6/27",
-            "father_of_father": "8/27",
-            "sister": "4/27"
-        },
-        "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "mother": "0",
-            "father_of_father": "0",
-            "sister": "0"
+            "total_shares": 12,
+            "husband": 6,
+            "mother": 2,
+            "maternal_halfsister_1": 1,
+            "maternal_halfsister_2": 1,
+            "brother": 1,
+            "sister": 1
         }
     },
     {
@@ -1476,11 +1471,11 @@
             "paternal_halfsister": "4/27"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "mother": "0",
-            "father_of_father": "0",
-            "paternal_halfsister": "0"
+            "total_shares": 27,
+            "husband": 9,
+            "mother": 6,
+            "father_of_father": 8,
+            "paternal_halfsister": 4
         }
     },
     {
@@ -1489,9 +1484,9 @@
             "brother": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "father_of_father": "0",
-            "brother": "0"
+            "total_shares": 2,
+            "father_of_father": 1,
+            "brother": 1
         }
     },
     {
@@ -1500,9 +1495,9 @@
             "sister": "1/3"
         },
         "full_shares": {
-            "total_shares": "0",
-            "father_of_father": "0",
-            "sister": "0"
+            "total_shares": 3,
+            "father_of_father": 2,
+            "sister": 1
         }
     },
     {
@@ -1511,9 +1506,10 @@
             "sister_x2": "1/2"
         },
         "full_shares": {
-            "total_shares": "0",
-            "father_of_father": "0",
-            "sister_x2": "0"
+            "total_shares": 4,
+            "father_of_father": 2,
+            "sister_1": 1,
+            "sister_2": 1
         }
     },
     {
@@ -1523,10 +1519,10 @@
             "sister": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "father_of_father": "0",
-            "brother": "0",
-            "sister": "0"
+            "total_shares": 5,
+            "father_of_father": 2,
+            "brother": 2,
+            "sister": 1
         }
     },
     {
@@ -1536,10 +1532,10 @@
             "brother": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "father_of_father": "0",
-            "brother": "0"
+            "total_shares": 4,
+            "husband": 2,
+            "father_of_father": 1,
+            "brother": 1
         }
     },
     {
@@ -1550,11 +1546,11 @@
             "brother": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "grandmother_father": "0",
-            "father_of_father": "0",
-            "brother": "0"
+            "total_shares": 6,
+            "husband": 3,
+            "grandmother_father": 1,
+            "father_of_father": 1,
+            "brother": 1
         }
     },
     {
@@ -1566,12 +1562,13 @@
             "brother": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "daughter_x2": "0",
-            "mother": "0",
-            "father_of_father": "0",
-            "brother": "0"
+            "total_shares": 15,
+            "husband": 3,
+            "daughter_1": 4,
+            "daughter_2": 4,
+            "mother": 2,
+            "father_of_father": 2,
+            "brother": 0
         }
     },
     {
@@ -1583,27 +1580,13 @@
             "paternal_halfbrother": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "daughter_x2": "0",
-            "mother": "0",
-            "father_of_father": "0",
-            "paternal_halfbrother": "0"
-        }
-    },
-    {
-        "initial_shares": {
-            "wife": "1/4",
-            "mother": "1/3",
-            "father_of_father": "5/18",
-            "sister": "5/36"
-        },
-        "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "mother": "0",
-            "father_of_father": "0",
-            "sister": "0"
+            "total_shares": 15,
+            "husband": 3,
+            "daughter_1": 4,
+            "daughter_2": 4,
+            "mother": 2,
+            "father_of_father": 2,
+            "paternal_halfbrother": 0
         }
     },
     {
@@ -1614,11 +1597,11 @@
             "paternal_halfsister": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "mother": "0",
-            "father_of_father": "0",
-            "paternal_halfsister": "0"
+            "total_shares": 36,
+            "wife": 9,
+            "mother": 12,
+            "father_of_father": 10,
+            "paternal_halfsister": 5
         }
     },
     {
@@ -1628,10 +1611,10 @@
             "paternal_halfbrother": "0"
         },
         "full_shares": {
-            "total_shares": "0",
-            "father_of_father": "0",
-            "brother": "0",
-            "paternal_halfbrother": "0"
+            "total_shares": 3,
+            "father_of_father": 1,
+            "brother": 2,
+            "paternal_halfbrother": 0
         }
     },
     {
@@ -1642,11 +1625,11 @@
             "paternal_halfbrother": "0"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "father_of_father": "0",
-            "brother": "0",
-            "paternal_halfbrother": "0"
+            "total_shares": 4,
+            "wife": 1,
+            "father_of_father": 1,
+            "brother": 2,
+            "paternal_halfbrother": 0
         }
     },
     {
@@ -1656,10 +1639,11 @@
             "paternal_halfbrother": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "father_of_father": "0",
-            "sister_x2": "0",
-            "paternal_halfbrother": "0"
+            "total_shares": 3,
+            "father_of_father": 1,
+            "sister_1": 1,
+            "sister_2": 1,
+            "paternal_halfbrother": 0
         }
     },
     {
@@ -1670,11 +1654,11 @@
             "paternal_halfsister": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "father_of_father": "0",
-            "sister": "0",
-            "paternal_halfbrother": "0",
-            "paternal_halfsister": "0"
+            "total_shares": 18,
+            "father_of_father": 6,
+            "sister": 9,
+            "paternal_halfbrother": 2,
+            "paternal_halfsister": 1
         }
     },
     {
@@ -1684,10 +1668,10 @@
             "paternal_halfsister": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "father_of_father": "0",
-            "mother": "0",
-            "paternal_halfsister": "0"
+            "total_shares": 9,
+            "father_of_father": 4,
+            "mother": 3,
+            "paternal_halfsister": 2
         }
     },
     {
@@ -1696,9 +1680,9 @@
             "brother": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "father_of_father": "0",
-            "brother": "0"
+            "total_shares": 2,
+            "father_of_father": 1,
+            "brother": 1
         }
     },
     {
@@ -1708,10 +1692,11 @@
             "brother": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "father_of_father": "0",
-            "sister_x2": "0",
-            "brother": "0"
+            "total_shares": 6,
+            "father_of_father": 2,
+            "sister_1": 1,
+            "sister_2": 1,
+            "brother": 2
         }
     },
     {
@@ -1721,10 +1706,10 @@
             "sister": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "father_of_father": "0",
-            "brother": "0",
-            "sister": "0"
+            "total_shares": 5,
+            "father_of_father": 2,
+            "brother": 2,
+            "sister": 1
         }
     },
     {
@@ -1734,10 +1719,10 @@
             "son_of_son": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "father_of_father": "0",
-            "son_of_son": "0"
+            "total_shares": 12,
+            "husband": 3,
+            "father_of_father": 2,
+            "son_of_son": 7
         }
     },
     {
@@ -1747,10 +1732,10 @@
             "father_of_father": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "mother": "0",
-            "father_of_father": "0"
+            "total_shares": 12,
+            "wife": 3,
+            "mother": 4,
+            "father_of_father": 5
         }
     },
     {
@@ -1762,12 +1747,12 @@
             "father_of_father": "0"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "mother": "0",
-            "grandmother_mother": "0",
-            "father": "0",
-            "father_of_father": "0"
+            "total_shares": 4,
+            "wife": 1,
+            "mother": 1,
+            "grandmother_mother": 0,
+            "father": 2,
+            "father_of_father": 0
         }
     },
     {
@@ -1779,12 +1764,12 @@
             "father_of_father": "1/6 + A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "daughter": "0",
-            "daughter_of_son": "0",
-            "mother": "0",
-            "father_of_father": "0"
+            "total_shares": 27,
+            "wife": 3,
+            "daughter": 12,
+            "daughter_of_son": 4,
+            "mother": 4,
+            "father_of_father": 4
         }
     },
     {
@@ -1795,11 +1780,12 @@
             "father_of_father": "1/6 + A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "daughter_x2": "0",
-            "daughter_of_son": "0",
-            "father_of_father": "0"
+            "total_shares": 24,
+            "wife": 3,
+            "daughter_1": 8,
+            "daughter_2": 8,
+            "daughter_of_son": 0,
+            "father_of_father": 5
         }
     },
     {
@@ -1809,10 +1795,10 @@
             "father_of_father": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "grandmother_mother": "0",
-            "father_of_father": "0"
+            "total_shares": 6,
+            "husband": 3,
+            "grandmother_mother": 1,
+            "father_of_father": 2
         }
     },
     {
@@ -1822,10 +1808,10 @@
             "father_of_father": "1/6 + A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "daughter_of_son": "0",
-            "father_of_father": "0"
+            "total_shares": 8,
+            "wife": 1,
+            "daughter_of_son": 4,
+            "father_of_father": 3
         }
     },
     {
@@ -1836,11 +1822,12 @@
             "father_of_father": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "mother": "0",
-            "maternal_halfsister_x2": "0",
-            "father_of_father": "0"
+            "total_shares": 6,
+            "husband": 3,
+            "mother": 1,
+            "maternal_halfsister_1": 0,
+            "maternal_halfsister_2": 0,
+            "father_of_father": 2
         }
     },
     {
@@ -1850,10 +1837,10 @@
             "father_of_father": "2/5"
         },
         "full_shares": {
-            "total_shares": "0",
-            "paternal_halfsister": "0",
-            "brother": "0",
-            "father_of_father": "0"
+            "total_shares": 5,
+            "paternal_halfsister": 0,
+            "brother": 3,
+            "father_of_father": 2
         }
     },
     {
@@ -1863,10 +1850,10 @@
             "paternal_halfbrother": "0"
         },
         "full_shares": {
-            "total_shares": "0",
-            "father_of_father": "0",
-            "brother": "0",
-            "paternal_halfbrother": "0"
+            "total_shares": 3,
+            "father_of_father": 1,
+            "brother": 2,
+            "paternal_halfbrother": 0
         }
     },
     {
@@ -1876,10 +1863,11 @@
             "paternal_halfbrother": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "father_of_father": "0",
-            "sister_x2": "0",
-            "paternal_halfbrother": "0"
+            "total_shares": 3,
+            "father_of_father": 1,
+            "sister_1": 1,
+            "sister_2": 1,
+            "paternal_halfbrother": 0
         }
     },
     {
@@ -1889,10 +1877,10 @@
             "paternal_halfsister": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "father_of_father": "0",
-            "sister": "0",
-            "paternal_halfsister": "0"
+            "total_shares": 2,
+            "father_of_father": 1,
+            "sister": 1,
+            "paternal_halfsister": 0
         }
     },
     {
@@ -1902,10 +1890,10 @@
             "paternal_halfbrother": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "father_of_father": "0",
-            "sister": "0",
-            "paternal_halfbrother": "0"
+            "total_shares": 10,
+            "father_of_father": 4,
+            "sister": 5,
+            "paternal_halfbrother": 1
         }
     },
     {
@@ -1915,10 +1903,11 @@
             "paternal_halfsister_x2": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "father_of_father": "0",
-            "sister": "0",
-            "paternal_halfsister_x2": "0"
+            "total_shares": 20,
+            "father_of_father": 8,
+            "sister": 10,
+            "paternal_halfsister_1": 1,
+            "paternal_halfsister_2": 1
         }
     },
     {
@@ -1928,10 +1917,10 @@
             "brother": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "father_of_father": "0",
-            "brother": "0"
+            "total_shares": 4,
+            "husband": 2,
+            "father_of_father": 1,
+            "brother": 1
         }
     },
     {
@@ -1942,11 +1931,11 @@
             "brother": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "father_of_father": "0",
-            "grandmother_mother": "0",
-            "brother": "0"
+            "total_shares": 6,
+            "husband": 3,
+            "father_of_father": 1,
+            "grandmother_mother": 1,
+            "brother": 1
         }
     },
     {
@@ -1957,11 +1946,13 @@
             "brother": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "daughter_x2": "0",
-            "father_of_father": "0",
-            "sister_x2": "0",
-            "brother": "0"
+            "total_shares": 24,
+            "daughter_1": 8,
+            "daughter_2": 8,
+            "father_of_father": 4,
+            "sister_1": 1,
+            "sister_2": 1,
+            "brother": 2
         }
     },
     {
@@ -1973,12 +1964,13 @@
             "brother": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "daughter_x2": "0",
-            "father_of_father": "0",
-            "mother": "0",
-            "brother": "0"
+            "total_shares": 15,
+            "husband": 3,
+            "daughter_1": 4,
+            "daughter_2": 4,
+            "father_of_father": 2,
+            "mother": 2,
+            "brother": 0
         }
     },
     {
@@ -1989,11 +1981,12 @@
             "brother": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "daughter_x2": "0",
-            "father_of_father": "0",
-            "brother": "0"
+            "total_shares": 13,
+            "husband": 3,
+            "daughter_1": 4,
+            "daughter_2": 4,
+            "father_of_father": 2,
+            "brother": 0
         }
     },
     {
@@ -2003,10 +1996,11 @@
             "sister": "1/9"
         },
         "full_shares": {
-            "total_shares": "0",
-            "daughter_x2": "0",
-            "father_of_father": "0",
-            "sister": "0"
+            "total_shares": 9,
+            "daughter_1": 3,
+            "daughter_2": 3,
+            "father_of_father": 2,
+            "sister": 1
         }
     },
     {
@@ -2016,10 +2010,10 @@
             "sister": "2/9"
         },
         "full_shares": {
-            "total_shares": "0",
-            "mother": "0",
-            "father_of_father": "0",
-            "sister": "0"
+            "total_shares": 9,
+            "mother": 3,
+            "father_of_father": 4,
+            "sister": 2
         }
     },
     {
@@ -2031,12 +2025,12 @@
             "paternal_halfbrother": "0"
         },
         "full_shares": {
-            "total_shares": "0",
-            "husband": "0",
-            "daughter": "0",
-            "father_of_father": "0",
-            "brother": "0",
-            "paternal_halfbrother": "0"
+            "total_shares": 12,
+            "husband": 3,
+            "daughter": 6,
+            "father_of_father": 2,
+            "brother": 1,
+            "paternal_halfbrother": 0
         }
     },
     {
@@ -2048,12 +2042,13 @@
             "paternal_halfbrother": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "mother": "0",
-            "father_of_father": "0",
-            "sister": "0",
-            "paternal_halfsister_x2": "0",
-            "paternal_halfbrother": "0"
+            "total_shares": 72,
+            "mother": 12,
+            "father_of_father": 20,
+            "sister": 36,
+            "paternal_halfsister_1": 1,
+            "paternal_halfsister_2": 1,
+            "paternal_halfbrother": 2
         }
     },
     {
@@ -2064,11 +2059,11 @@
             "paternal_halfsister": "A"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "father_of_father": "0",
-            "sister": "0",
-            "paternal_halfsister": "0"
+            "total_shares": 8,
+            "wife": 2,
+            "father_of_father": 3,
+            "sister": 3,
+            "paternal_halfsister": 0
         }
     },
     {
@@ -2080,42 +2075,26 @@
             "sister": "0"
         },
         "full_shares": {
-            "total_shares": "0",
-            "wife": "0",
-            "daughter_of_son_x2": "0",
-            "mother": "0",
-            "father_of_father": "0",
-            "sister": "0"
+            "total_shares": 27,
+            "wife": 3,
+            "daughter_of_son_1": 8,
+            "daughter_of_son_2": 8,
+            "mother": 4,
+            "father_of_father": 4,
+            "sister": 0
         }
     },
     {
-        "initial_shares": {
-            "mother": "1/6",
-            "father_of_father": "5/18",
-            "sister": "1/2",
-            "paternal_halfsister_x2": "A",
-            "paternal_halfbrother": "A"
-        },
-        "full_shares": {
-            "total_shares": "0",
-            "mother": "0",
-            "father_of_father": "0",
-            "sister": "0",
-            "paternal_halfsister_x2": "0",
-            "paternal_halfbrother": "0"
-        }
-    },
-        {
         "initial_shares": {
             "father": "A",
             "grandmother_father": "0",
             "grandmother_mother": "1/6"
         },
         "full_shares": {
-            "total_shares": "0",
-            "father": "0",
-            "grandmother_father": "0",
-            "grandmother_mother": "0"
+            "total_shares": 6,
+            "father": 5,
+            "grandmother_father": 0,
+            "grandmother_mother": 1
         }
     }
 ]
