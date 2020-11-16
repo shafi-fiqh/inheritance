@@ -14,5 +14,3 @@ def read_mapping_file(filepath, encoding='utf-8'):
 def get_translation(word):
     mapping_dict = read_mapping_file(MAP_FILE)
     return mapping_dict.get(word)
-
-print(get_translation("أم"))
