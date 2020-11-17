@@ -29,7 +29,9 @@ def test_cases(case):
     Rest are fractions in double quotes or the integer 0 without quotes.
     :return:
     """
-    casegen = CaseGenerator('config/family_config.csv')
+    casegen = CaseGenerator('config/family_config.csv',
+                            filter='config/filter.yml',
+                            filter_bool=False)
     case_copy = copy.deepcopy(case)
 
     for inh in case_copy['initial_shares']:
@@ -53,7 +55,9 @@ def test_full_solver_cases(case):
     Cases can be added to the cases.json file.
     :return:
     """
-    casegen = CaseGenerator('config/family_config.csv')
+    casegen = CaseGenerator('config/family_config.csv',
+                            filter='config/filter.yml',
+                            filter_bool=False)
     case_copy = copy.deepcopy(case)
 
     initial_shares_solution = solve(case=case_copy['initial_shares'],
