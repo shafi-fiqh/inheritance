@@ -1,0 +1,17 @@
+must_have:
+  - father
+  - son
+ignore:
+  - father_of_father
+  - brother
+  - paternal_halfbrother
+  - maternal_halfbrother
+  - nephew_brother
+  - nephew_paternal_halfbrother
+  - fathers_brother
+  - fathers_paternal_halfbrother
+  - son_of_fathers_brother
+  - son_of_fathers_paternal_halfbrother
+  - husband
+  - atiq
+  - daughter

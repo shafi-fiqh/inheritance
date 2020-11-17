@@ -13,6 +13,7 @@ import os
 import coloredlogs
 import pandas as pd
 import tqdm
+import yaml
 
 from src.solver import solve
 from src.full_solver import full_solver
@@ -29,7 +30,9 @@ class CaseGenerator:
     """
 
     def __init__(self,
-                 config: str) -> None:
+                 config: str,
+                 filter: str,
+                 filter_bool = False) -> None:
         """
         Initialize the list of inheritors.
         This can increase to more sophisticated levels in the future.
@@ -51,6 +54,13 @@ class CaseGenerator:
                                  index=inheritors_df.Inheritor).to_dict()
         self.n_types = None
         self.generator = None
+        self.must_have = []
+        if filter_bool:
+            with open(filter) as filter_file:
+                filter_dict = yaml.load(filter_file, Loader=yaml.FullLoader)
+            self.must_have = filter_dict['must_have']
+            self.ignore = filter_dict['ignore']
+            self.inheritors = [inh for inh in self.inheritors if inh not in self.ignore and inh not in self.must_have]
 
     def generate_cases(self,
                        n_types: int) -> itertools.combinations:
@@ -64,7 +74,8 @@ class CaseGenerator:
         logging.info('Generating cases for cases with %s types of inheritors',
                      n_types)
         self.n_types = n_types
-        self.generator = itertools.combinations(self.inheritors, n_types)
+        assert self.n_types > len(self.must_have), 'Number of types must be greater than the must have list of inheritors'
+        self.generator = itertools.combinations(self.inheritors, n_types - len(self.must_have))
         return self.generator
 
     def save_cases(self,
@@ -86,7 +97,8 @@ class CaseGenerator:
         n_cases = 0
         for case in tqdm.tqdm(self.generator,
                               total=nCr(n=len(self.inheritors),
-                                        r=self.n_types)):
+                                        r=self.n_types - len(self.must_have))):
+            case = case + tuple(self.must_have)
             if not is_redundant(case):
                 # Later to be filled by the solver
                 case = {x: '0' for x in case}
@@ -137,9 +149,14 @@ if __name__ == '__main__':
                         type=str,
                         required='True',
                         help="Output filename for the generated cases")
+    parser.add_argument("--filter",
+                        type=str,
+                        required='True',
+                        help="Path to the filter yml")
     set_logging()
     args = parser.parse_args()
-    casegen = CaseGenerator(config=args.config)
+    casegen = CaseGenerator(config=args.config,
+                            filter=args.filter)
     casegen.generate_cases(n_types=args.n_types)
     casegen.save_cases(output=os.path.join('output', args.output),
                        chunk_size=10000)
