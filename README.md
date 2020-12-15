@@ -4,14 +4,35 @@
 
 In the Name of Allah, the Most Merciful and Compassionate,
 
-The purpose of this repository is to provide educational resources for students of inheritance laws under the Shafi school of jurispudence.
+This repository builds an inheritance solver for a reduced list of inheritors under the Shafi school of islamic jurispudence. 
+
+It consists of 3 main pieces: 
+
+1. [cases_geneator.py](src/cases_generator.py)
+
+    This generates all valid inheritance cases of a certain size permuting the list of inheritors found in [family_config.csv](config/family_config.csv). 
+    These are unsolved cases and are meant for practice and as input to the solver. An optional filter yml can be passed to 
+    force certain inheritors to be present and others to be excluded. A sample file can be found [here](config/filter.yml).
+2. [solver.py](src/solver.py)
+
+    This solver produces the fractional shares of each inheritor without asaba and radd. Asaba is left only as 'A'. 
+3. [full_solver.py](src/full_solver.py)
+
+    This is the final solver. In this step we solve for Asaba, Radd and
+    find the Asl (base shares) of the problem and finally assign integers to
+    each inheritor.
 
 ## Sample Usage 
 
 ```buildoutcfg
-python -m src.cases_generator --config config/family_config.csv --n_types 2 --output inheritance_2.csv
+python -m src.cases_generator --config config/family_config.csv \
+                              --n_types 3 \
+                              --output inheritance_3_filtered.csv \
+                              --filter config/filter.yml
 ```   
-where n_types is the number of inheritors. 
+This command uses all the inheritors found in [family_config.csv](config/family_config.csv), 
+generates all valid cases of size 3, and output the fully solved cases to the output file inheritance_3_filtered.csv.
+It will also filter using the filtration yml file.  
 
 
 ## Contributing 
