@@ -62,14 +62,30 @@ To contribute to the repository please adhere to the following protocol:
     ```
     git checkout -b feature/add_grandfather_rules
     ```
-
-5. After you make your changes, commit them to the branch 
+5. After completing your changes add a testing module under the [tests](tests) folder. Sample tests can be found, 
+    with the appropriate naming convention. If logic is added, additional test cases for inheritors can be added [here](config/cases.json).
+    
+    Ensure tests pass by running 
+    ```buildoutcfg
+    python -m pytest    
+    ```
+   
+6. Install black with 
+    ```buildoutcfg
+    pip install black
+    ```
+   and run 
+   ```
+   black . 
+   ``` 
+   from the root directory. 
+7. After you make your changes, commit them to the branch 
     ```
     git commit
     ```
     
-6. Push your changes to the repository: 
+8. Push your changes to the repository: 
    ```
    git push 
    ```
-7. Create a pull request to merge your feature to the master branch. 
+9. Create a pull request to merge your feature to the master branch. 
