@@ -31,8 +31,6 @@ def test_regular_remainder():
     assert expected == solve_asaba_shares(sample_case)
 
 
-
-
 def test_father_asaba_no_asaba_share():
     input = {
         "husband": "1/4",
