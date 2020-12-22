@@ -134,8 +134,6 @@ def solve_radd(case: dict) -> dict:
         [Fraction(case[inh]) for inh in case if case[inh] not in share_fractions]
     )
 
-
-
     if sum_of_share_inh is not None:
         remainder -= sum_of_share_inh
 
