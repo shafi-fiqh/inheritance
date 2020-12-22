@@ -86,6 +86,8 @@ class CaseGenerator:
         )
         return self.generator
 
+
+
     def save_cases(self, output: str, chunk_size: int) -> None:
         """
         Append cases to an output file.
