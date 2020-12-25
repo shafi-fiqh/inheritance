@@ -28,16 +28,14 @@ jobs:
         python -m pip install --upgrade pip
         pip install black pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Run black --check .
-      run: black --check .
-    - name: If needed, commit black changes to the pull request
-      if: failure()
+    - name: Commit black changes to the pull request
       run: |
         black .
         git config --global user.name 'autoblack'
         git config --global user.email 'omkhalil@users.noreply.github.com'
         git commit -am "fixup: Format Python code with Black"
         git push
+      continue-on-error: true
     - name: Test with pytest
       run: |
         pytest
