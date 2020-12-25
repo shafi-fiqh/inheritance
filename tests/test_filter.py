@@ -1,12 +1,9 @@
 """
 Testing module
 """
-import copy
 import os
 import ast
-import json
 import pandas as pd
-import pytest
 import yaml
 
 from src.cases_generator import CaseGenerator

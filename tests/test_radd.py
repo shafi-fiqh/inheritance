@@ -1,5 +1,3 @@
-import pytest
-
 from src.full_solver import solve_radd
 
 

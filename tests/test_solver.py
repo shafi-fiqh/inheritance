@@ -3,7 +3,6 @@ Testing module
 """
 import copy
 import json
-import pytest
 
 from src.cases_generator import CaseGenerator
 from src.full_solver import full_solver
