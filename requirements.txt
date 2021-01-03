@@ -1,7 +1,8 @@
 argparse
-pandas
 coloredlogs
-pytest
 coverage
-tqdm
+flask
+pandas
+pytest
 pyyaml
+tqdm
