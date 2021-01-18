@@ -46,3 +46,7 @@ def asl_shares():
         abort(400, "Inheritors must correspond to the config definition")
 
     return calculate_asl(case)
+
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0')
