@@ -48,5 +48,5 @@ def asl_shares():
     return calculate_asl(case)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run()
