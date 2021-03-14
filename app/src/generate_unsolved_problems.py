@@ -7,11 +7,11 @@ from utils.helpers import is_redundant
 from utils.helpers import nCr
 
 
-def generate_problems_lst(inheritors:list, must_haves: list, not_haves: list, n_types: int):
+def generate_problems_lst(
+    inheritors: list, must_haves: list, not_haves: list, n_types: int
+):
     inheritors = [
-        inh
-        for inh in inheritors
-        if inh not in not_haves and inh not in must_haves
+        inh for inh in inheritors if inh not in not_haves and inh not in must_haves
     ]
 
     generator = itertools.combinations(inheritors, n_types - len(must_haves))
