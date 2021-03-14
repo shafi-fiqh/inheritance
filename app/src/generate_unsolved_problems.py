@@ -8,8 +8,15 @@ from utils.helpers import nCr
 
 
 def generate_problems_lst(inheritors:list, must_haves: list, not_haves: list, n_types: int):
+    inheritors = [
+        inh
+        for inh in inheritors
+        if inh not in not_haves and inh not in must_haves
+    ]
+
     generator = itertools.combinations(inheritors, n_types - len(must_haves))
     total_cases = []
+
     for case in tqdm.tqdm(
         generator,
         total=nCr(n=len(inheritors), r=n_types - len(must_haves)),
