@@ -3,6 +3,7 @@ from flask import request
 
 from src.cases_generator import CaseGenerator
 from src.full_solver import full_solver
+from src.generate_unsolved_problems import generate_problems_lst
 from src.solver import solve
 from utils.helpers import calculate_asl
 
@@ -46,6 +47,17 @@ def asl_shares():
         abort(400, "Inheritors must correspond to the config definition")
 
     return calculate_asl(case)
+
+
+@app.route("/generate_problems", methods=["POST"])
+def generate_problems():
+    problem_specs = request.json
+    return generate_problems_lst(
+        inheritors=CASE_GEN.inheritors,
+        must_haves=problem_specs['must_haves'],
+        not_haves=problem_specs['not_haves'],
+        n_types=int(problem_specs['n_types'])
+    )
 
 
 if __name__ == "__main__":
