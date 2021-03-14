@@ -53,11 +53,17 @@ def asl_shares():
 def generate_problems():
     problem_specs = request.json
 
-    if int(problem_specs['n_types']) < len(problem_specs['must_haves']):
-        abort(400, "The total number of inheritos in the case should be greater than the number of inheritors who must be included")
+    if int(problem_specs["n_types"]) < len(problem_specs["must_haves"]):
+        abort(
+            400,
+            "The total number of inheritos in the case should be greater than the number of inheritors who must be included",
+        )
 
-    if len(set(CASE_GEN.inheritors) - set(problem_specs['not_haves'])) == 0:
-        abort(400, "Cannot generate cases where all inheritors have been asked to be excluded")
+    if len(set(CASE_GEN.inheritors) - set(problem_specs["not_haves"])) == 0:
+        abort(
+            400,
+            "Cannot generate cases where all inheritors have been asked to be excluded",
+        )
 
     return generate_problems_lst(
         inheritors=CASE_GEN.inheritors,
