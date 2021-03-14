@@ -1,3 +1,4 @@
+from flask import abort
 from flask import Flask
 from flask import request
 
@@ -52,6 +53,18 @@ def asl_shares():
 @app.route("/generate_problems", methods=["POST"])
 def generate_problems():
     problem_specs = request.json
+
+    if int(problem_specs["n_types"]) < 1:
+        abort(
+            400,
+            "The number of inheritors in a problem should be greater than or equal to 1",
+        )
+
+    if not(set(problem_specs["must_haves"]) - set(problem_specs["not_haves"]) or set(problem_specs["not_haves"]) - set(problem_specs["must_haves"])):
+        abort(
+            400,
+            "An inheritor cannot be in both the must have and ignore list at the same time",
+        )
 
     if int(problem_specs["n_types"]) < len(problem_specs["must_haves"]):
         abort(
