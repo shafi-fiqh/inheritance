@@ -60,7 +60,10 @@ def generate_problems():
             "The number of inheritors in a problem should be greater than or equal to 1",
         )
 
-    if not(set(problem_specs["must_haves"]) - set(problem_specs["not_haves"]) or set(problem_specs["not_haves"]) - set(problem_specs["must_haves"])):
+    if not (
+        set(problem_specs["must_haves"]) - set(problem_specs["not_haves"])
+        or set(problem_specs["not_haves"]) - set(problem_specs["must_haves"])
+    ):
         abort(
             400,
             "An inheritor cannot be in both the must have and ignore list at the same time",
