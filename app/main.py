@@ -37,17 +37,9 @@ def complete_solver():
     if not all(inh in CASE_GEN.inheritors for inh in case):
         abort(400, "Inheritors must correspond to the config definition")
 
-    return full_solver(case)
+    radd_or_asaba_solved = full_solver(case)
 
-
-@app.route("/asl_shares", methods=["POST"])
-def asl_shares():
-    case = request.json
-
-    if not all(inh in CASE_GEN.inheritors for inh in case):
-        abort(400, "Inheritors must correspond to the config definition")
-
-    return calculate_asl(case)
+    return calculate_asl(radd_or_asaba_solved)
 
 
 @app.route("/generate_problems", methods=["POST"])
