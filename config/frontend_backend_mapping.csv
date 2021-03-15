@@ -1,0 +1,32 @@
+Arabic Front end content,Front end content,Back end translation
+زوج,Husband,husband
+زوجة,Wife,wife
+بنت,Daughter,daughter
+بنتان,Two Daughters,daughter_x2
+ابن,Son,son
+ابن ابن,Grandson,son_of_son
+بنت ابن,Granddaughter,daughter_of_son
+بنتا ابن,Two Granddaughters,daughter_of_son_x2
+أب,Father,father
+أم,Mother,mother
+جد,Grandfather [father's father],father_of_father
+جدة,Grandmother [father's mother],grandmother_father
+جدة,Grandmother [mother's mother],grandmother_mother
+أخ ش,Brother [full],brother
+أخ لأب,Brother [paternal],paternal_halfbrother
+أخ لأم,Brother [maternal],maternal_halfbrother
+أخت ش,Sister [full],paternal_halfsister
+أختان,Two sisters [full],sister_x2
+أخت لأب,Sister [paternal],paternal_halfsister
+أختان لأب,Two sisters [paternal],paternal_halfsister_x2
+أخت لأم,Sister [maternal],maternal_halfsister
+إبن أخ ش,Nephew [full brother's son],nephew_brother
+إبن أخ لأب,Nephew [paternal brother's son],nephew_paternal_halfbrother
+عم ش,Uncle [father's full brother],fathers_brother
+عم لأب,Uncle [paternal brother of father],fathers_paternal_halfbrother
+ابن عم ش,Cousin [son of father's full brother],son_of_fathers_brother
+ابن عم لأب,Cousin [son of father's paternal brother],son_of_fathers_paternal_halfbrother
+أخت لأم,Sister [maternal],maternal_halfsister
+أختان لأم,Two sisters [maternal],maternal_halfsister_x2
+معتق,,atiq
+معتقة,,mutiqa
