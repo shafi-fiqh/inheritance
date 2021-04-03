@@ -86,7 +86,9 @@ def generate_problems():
         must_haves=problem_specs["must_haves"],
         not_haves=problem_specs["not_haves"],
         n_types=int(problem_specs["n_types"]),
-        grand_father_and_siblings=bool(problem_specs.get("grand_father_and_siblings", "False"))
+        grand_father_and_siblings=bool(
+            problem_specs.get("grand_father_and_siblings", "False")
+        ),
     )
 
 
