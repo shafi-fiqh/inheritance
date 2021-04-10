@@ -1,3 +1,5 @@
+import copy
+
 from flask import abort
 from flask import Flask
 from flask import request
@@ -35,7 +37,7 @@ def solver():
 
     solved_case = {'basic_shares': basic_shares_soln, 'intermediate_shares': intermediate_shares_soln}
     if need_final_solver(intermediate_shares_soln):
-        solved_case['final_shares'] = calculate_asl(full_solver(basic_shares_soln))
+        solved_case['final_shares'] = calculate_asl(full_solver(copy.deepcopy(basic_shares_soln)))
 
     return solved_case
 
@@ -82,7 +84,8 @@ def generate_problems():
     if int(problem_specs["n_types"]) < len(problem_specs["must_haves"]):
         abort(
             400,
-            "The total number of inheritos in the case should be greater than the number of inheritors who must be included",
+            "The total number of inheritors in the case should be greater than the number of inheritors who must be "
+            "included",
         )
 
     if len(set(CASE_GEN.inheritors) - set(problem_specs["not_haves"])) == 0:
