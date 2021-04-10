@@ -15,7 +15,7 @@ It consists of 3 main pieces:
     force certain inheritors to be present and others to be excluded. A sample file can be found [here](config/filter.yml).
 2. [solver.py](src/solver.py)
 
-    This solver produces the fractional shares of each inheritor without asaba and radd. Asaba is left only as 'A'. 
+    This solver produces the fractional shares of each inheritor without asaba and radd. Asaba is left only as 'U'. 
 3. [full_solver.py](src/full_solver.py)
 
     This is the final solver. In this step we solve for Asaba, Radd and

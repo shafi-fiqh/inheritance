@@ -24,7 +24,7 @@ def test_regular_shares():
 
 
 def test_regular_asaba_shares():
-    input_share = {"daughter": "A", "father": "1/6", "son": "A"}
+    input_share = {"daughter": "U", "father": "1/6", "son": "U"}
     expected_output = {
         'inheritance_pool': {
             'father': 'pool_1',
@@ -47,7 +47,7 @@ def test_regular_asaba_shares():
 
 def test_maternal_grandmother_shares():
     input_share = {"maternal_halfbrother": "share 1/3", "maternal_halfsister": "share 1/3",
-                   "grandmother_mother": "share 1/6", "grandmother_father": "share 1/6", "son_of_son": "A"}
+                   "grandmother_mother": "share 1/6", "grandmother_father": "share 1/6", "son_of_son": "U"}
     expected_output = {
         'inheritance_pool': {
             'maternal_halfbrother': 'pool_1',
@@ -72,7 +72,7 @@ def test_maternal_grandmother_shares():
 
 
 def test_father_asaba():
-    input_share = {"daughter": "1/2", "father": "1/6 + A"}
+    input_share = {"daughter": "1/2", "father": "1/6 + U"}
     expected_output = {
         'inheritance_pool': {
             'daughter': 'pool_1',
@@ -98,7 +98,7 @@ def test_awl_needs_final_solver():
         "daughter_x2": "2/3",
         "mother": "1/6",
         "father_of_father": "1/6",
-        "brother": "A"
+        "brother": "U"
     }
 
     actual_output = calculate_intermittent_asl(input_share)

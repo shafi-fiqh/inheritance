@@ -263,12 +263,12 @@ def calculate_intermittent_asl(case: dict) -> dict:
         pool_id += 1
 
     for inh in case:
-        if 'A' not in case[inh] and case[inh][:5] != 'share' and case[inh] != '1/3 remainder':
+        if 'U' not in case[inh] and case[inh][:5] != 'share' and case[inh] != '1/3 remainder':
             inheritance_pool[inh] = "pool_{id}".format(id=pool_id)
             share_pool["pool_{id}".format(id=pool_id)] = Fraction(case[inh])
             pool_id += 1
 
-    asaba_inheritors = [inh for inh in case if 'A' in case[inh]]
+    asaba_inheritors = [inh for inh in case if 'U' in case[inh]]
     total_fixed_share_sum = sum([share_pool[id] for id in share_pool])
     for inh in asaba_inheritors:
         if inh == 'father':
