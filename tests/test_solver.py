@@ -24,7 +24,7 @@ def test_cases(case):
     """
     Test that the solver returns expected results.
     Cases can be added to the cases.json file.
-    Asaba should receive "A", third of remainder is '1/3 remainder'
+    Asaba should receive "U", third of remainder is '1/3 remainder'
     Rest are fractions in double quotes or the integer 0 without quotes.
     :return:
     """
