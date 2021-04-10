@@ -156,7 +156,7 @@ def sum_of_inheriting_shares(scope: dict) -> Fraction:
     fard_basic = [
         share
         for share in scope.values()
-        if share not in ["share 1/3", "share 1/6", "1/3 remainder", "A", "1/6 + A"]
+        if share not in ["share 1/3", "share 1/6", "1/3 remainder", "U", "1/6 + U"]
     ]
     shares = sum(Fraction(share) for share in fard_basic)
     if "share 1/3" in scope.values():

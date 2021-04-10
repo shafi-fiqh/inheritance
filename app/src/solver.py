@@ -62,9 +62,9 @@ def solve_father(case: dict, descendants: dict) -> dict:
         case["father"] = "1/6"
     # Check for any female descendants
     elif any([descendants[inh] == "F" for inh in case]):
-        case["father"] = "1/6 + A"
+        case["father"] = "1/6 + U"
     else:
-        case["father"] = "A"
+        case["father"] = "U"
     return case
 
 
@@ -118,7 +118,7 @@ def solve_daughter(case: dict) -> dict:
         inh = "daughter_x2"
         share = "2/3"
     if "son" in case:
-        case[inh] = "A"
+        case[inh] = "U"
     else:
         case[inh] = share
     return case
@@ -166,7 +166,7 @@ def solve_granddaughter(case: dict) -> dict:
     if "son" in case:
         case[inh] = "0"
     elif "son_of_son" in case:
-        case[inh] = "A"
+        case[inh] = "U"
     elif "daughter_x2" in case:
         case[inh] = "0"
     elif "daughter" in case:
@@ -306,10 +306,10 @@ def solve_asaba(case: dict, rank: dict, taseeb: dict) -> dict:
 
     # Father is a special case to be handled in another function
     if closest != "father" and closest != "father_of_father":
-        case[closest] = "A"
+        case[closest] = "U"
         for inheritor in taseeb[closest]:
             if inheritor in case:
-                case[inheritor] = "A"
+                case[inheritor] = "U"
 
     # Musharraka is a special case
     if is_full_sibling(closest) and is_musharraka(case):
@@ -369,9 +369,9 @@ def solve_grandfather_no_siblings(case: dict, descendants: dict) -> dict:
         case["father_of_father"] = "1/6"
     # Check for any female descendants
     elif any([descendants[inh] == "F" for inh in case]):
-        case["father_of_father"] = "1/6 + A"
+        case["father_of_father"] = "1/6 + U"
     else:
-        case["father_of_father"] = "A"
+        case["father_of_father"] = "U"
     return case
 
 
@@ -387,10 +387,10 @@ def solve_akdariya(case: dict) -> dict:
 
 
 def solve_grandfather_brother(case: dict, taseeb: dict) -> dict:
-    case["brother"] = "A"
+    case["brother"] = "U"
     for inheritor in taseeb["brother"]:
         if inheritor in case:
-            case[inheritor] = "A"
+            case[inheritor] = "U"
     return case
 
 
@@ -407,25 +407,25 @@ def solve_grandfather_sister(case: dict, remainder: Fraction, best: Fraction) ->
         sister_share = base
     for inh in case:
         if "paternal" in inh:
-            case[inh] = "A"
+            case[inh] = "U"
 
     case[sister] = str(sister_share)
     return case
 
 
 def solve_grandfather_paternal_halfbrother(case: dict, taseeb: dict) -> dict:
-    case["paternal_halfbrother"] = "A"
+    case["paternal_halfbrother"] = "U"
     for inheritor in taseeb["paternal_halfbrother"]:
         if inheritor in case:
-            case[inheritor] = "A"
+            case[inheritor] = "U"
     return case
 
 
 def solve_grandfather_paternal_halfsister(case: dict) -> dict:
     if "paternal_halfsister" in case:
-        case["paternal_halfsister"] = "A"
+        case["paternal_halfsister"] = "U"
     else:
-        case["paternal_halfsister_x2"] = "A"
+        case["paternal_halfsister_x2"] = "U"
     return case
 
 

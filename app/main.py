@@ -72,7 +72,8 @@ def generate_problems():
     if int(problem_specs["n_types"]) < len(problem_specs["must_haves"]):
         abort(
             400,
-            "The total number of inheritos in the case should be greater than the number of inheritors who must be included",
+            "The total number of inheritos in the case should be greater than the number of inheritors who must be "
+            "included",
         )
 
     if len(set(CASE_GEN.inheritors) - set(problem_specs["not_haves"])) == 0:
