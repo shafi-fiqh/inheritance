@@ -16,7 +16,7 @@ def full_solver(case: dict) -> dict:
     :param case: dictionary of inheritors and shares
     :return: case with shares filled
     """
-    if "A" in case.values() or "1/6 + A" in case.values():
+    if "U" in case.values() or "1/6 + U" in case.values():
         case = solve_asaba_shares(case)
 
     elif is_radd(case):
@@ -89,7 +89,7 @@ def solve_asaba_shares(case: dict) -> dict:
     :return: dictionary representing the inheritors and respective shares.
     """
 
-    asaba_inh = [inh for inh in case if case[inh] == "A"]
+    asaba_inh = [inh for inh in case if case[inh] == "U"]
     sum_of_shares = sum_of_inheriting_shares(case)
 
     if len(asaba_inh) > 0:

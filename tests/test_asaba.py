@@ -12,8 +12,8 @@ def test_asaba_shares_calc():
         "husband": "1/4",
         "father": "1/6",
         "mother": "1/6",
-        "son": "A",
-        "daughter": "A",
+        "son": "U",
+        "daughter": "U",
     }
 
     expected = {
@@ -28,7 +28,7 @@ def test_asaba_shares_calc():
 
 
 def test_regular_remainder():
-    sample_case = {"wife": "1/8", "daughter": "1/2", "son_of_son": "A"}
+    sample_case = {"wife": "1/8", "daughter": "1/2", "son_of_son": "U"}
 
     expected = {"wife": "1/8", "daughter": "1/2", "son_of_son": "3/8"}
 
@@ -39,7 +39,7 @@ def test_father_asaba_no_asaba_share():
     input = {
         "husband": "1/4",
         "mother": "1/6",
-        "father": "1/6 + A",
+        "father": "1/6 + U",
         "daughter": "1/2",
         "daughter_of_son": "1/6",
     }
@@ -56,7 +56,7 @@ def test_father_asaba_no_asaba_share():
 
 
 def test_father_asaba():
-    input = {"husband": "1/4", "daughter": "1/2", "father": "1/6 + A"}
+    input = {"husband": "1/4", "daughter": "1/2", "father": "1/6 + U"}
 
     expected = {"husband": "1/4", "daughter": "1/2", "father": "1/4"}
 
@@ -64,7 +64,7 @@ def test_father_asaba():
 
 
 def test_multiple_women_asaba():
-    input = {"wife": "1/8", "father": "1/6", "daughter_x2": "A", "son": "A"}
+    input = {"wife": "1/8", "father": "1/6", "daughter_x2": "U", "son": "U"}
 
     expected = {"wife": "1/8", "father": "1/6", "daughter_x2": "17/48", "son": "17/48"}
 
@@ -76,7 +76,7 @@ def test_omariyya():
         "wife": "1/4",
         "mother": "1/3 remainder",
         "grandmother_mother": "0",
-        "father": "A",
+        "father": "U",
         "father_of_father": "0",
     }
 
@@ -96,8 +96,8 @@ def test_grandfather_siblings():
         "mother": "1/6",
         "father_of_father": "5/18",
         "sister": "1/2",
-        "paternal_halfsister_x2": "A",
-        "paternal_halfbrother": "A",
+        "paternal_halfsister_x2": "U",
+        "paternal_halfbrother": "U",
     }
 
     expected = {

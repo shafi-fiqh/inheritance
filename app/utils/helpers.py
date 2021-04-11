@@ -3,6 +3,7 @@ Misc helper functions
 """
 import copy
 import math
+from functools import reduce
 from typing import Tuple
 from typing import Union
 
@@ -152,11 +153,10 @@ def nCr(n, r):
 
 
 def sum_of_inheriting_shares(scope: dict) -> Fraction:
-
     fard_basic = [
         share
         for share in scope.values()
-        if share not in ["share 1/3", "share 1/6", "1/3 remainder", "A", "1/6 + A"]
+        if share not in ["share 1/3", "share 1/6", "1/3 remainder", "U", "1/6 + U"]
     ]
     shares = sum(Fraction(share) for share in fard_basic)
     if "share 1/3" in scope.values():
@@ -197,6 +197,129 @@ def least_common_multiple(rationals):
         lcm = lcm // math.gcd(lcm, d) * d
 
     return lcm
+
+
+def need_final_solver(case: dict) -> bool:
+    is_case_radd = case["share_pool"][case["inheritance_pool"]["remainder"]] > 0
+    need_normalization = len(case["inheritance_pool"].values()) != len(
+        set(case["inheritance_pool"].values())
+    )
+
+    case_inh = list(
+        filter(
+            lambda x: x != "remainder" and x != "total_shares",
+            case["inheritance_pool"].keys(),
+        )
+    )
+    shares = list(
+        map(lambda x: case["share_pool"][case["inheritance_pool"][x]], case_inh)
+    )
+    unique_shares = reduce(lambda x, y: x + [y] if y not in x else x, shares, [])
+    is_awl = (
+        sum(unique_shares)
+        > case["share_pool"][case["inheritance_pool"]["total_shares"]]
+    )
+
+    return is_case_radd or need_normalization or is_awl
+
+
+def assign_whole_shares(lcm, case):
+    for p_id in case:
+        if case[p_id] > 0:
+            case[p_id] = int(lcm / case[p_id].denominator * case[p_id].numerator)
+        else:
+            case[p_id] = 0
+    return case
+
+
+def calculate_intermittent_asl(case: dict) -> dict:
+    """
+    Calculate the intermittent base of the problem and the shares
+    :param case:
+    :return:
+    """
+    maternal = {
+        "maternal_halfbrother": 1,
+        "maternal_halfsister": 1,
+        "maternal_halfsister_x2": 2,
+    }
+
+    inheritance_pool = {}
+    share_pool = {}
+
+    pool_id = 1
+
+    mat_in_case = [inh for inh in maternal if inh in case]
+    if len(mat_in_case) > 1 and case[mat_in_case[0]][:5] == "share":
+        share_pool["pool_{id}".format(id=pool_id)] = Fraction(
+            case[mat_in_case[0]].split(" ")[1]
+        )
+        for inh in mat_in_case:
+            inheritance_pool[inh] = "pool_{id}".format(id=pool_id)
+        pool_id += 1
+
+    if (
+        "grandmother_father" in case
+        and "grandmother_mother" in case
+        and case["grandmother_father"][:5] == "share"
+    ):
+        share_pool["pool_{id}".format(id=pool_id)] = Fraction(
+            case["grandmother_mother"].split(" ")[1]
+        )
+        inheritance_pool["grandmother_mother"] = "pool_{id}".format(id=pool_id)
+        inheritance_pool["grandmother_father"] = "pool_{id}".format(id=pool_id)
+        pool_id += 1
+
+    if "mother" in case and case["mother"] == "1/3 remainder":
+        remainder = "1/2" if "husband" in case else "3/4"
+        inheritance_pool["mother"] = "pool_{id}".format(id=pool_id)
+        share_pool["pool_{id}".format(id=pool_id)] = Fraction(1, 3) * Fraction(
+            remainder
+        )
+        pool_id += 1
+
+    for inh in case:
+        if (
+            "U" not in case[inh]
+            and case[inh][:5] != "share"
+            and case[inh] != "1/3 remainder"
+        ):
+            inheritance_pool[inh] = "pool_{id}".format(id=pool_id)
+            share_pool["pool_{id}".format(id=pool_id)] = Fraction(case[inh])
+            pool_id += 1
+
+    asaba_inheritors = [inh for inh in case if "U" in case[inh]]
+    total_fixed_share_sum = sum([share_pool[id] for id in share_pool])
+    for inh in asaba_inheritors:
+        if inh == "father":
+            total_fixed_share_sum += Fraction(1, 6)
+            inheritance_pool["father"] = "pool_{id}".format(id=pool_id)
+            share_pool["pool_{id}".format(id=pool_id)] = Fraction(1, 6) + (
+                1 - total_fixed_share_sum
+            )
+            break
+        else:
+            inheritance_pool[inh] = "pool_{id}".format(id=pool_id)
+            share_pool["pool_{id}".format(id=pool_id)] = 1 - total_fixed_share_sum
+
+    if len(asaba_inheritors):
+        pool_id += 1
+
+    rationals = [
+        share_pool[pool_id] for pool_id in share_pool if share_pool[pool_id] > 0
+    ]
+    lcm = least_common_multiple(rationals)
+    share_pool = assign_whole_shares(lcm, share_pool)
+    total_shares_sum = sum([share_pool[pool_id] for pool_id in share_pool])
+    remainder = 0 if total_shares_sum >= lcm else lcm - total_shares_sum
+
+    inheritance_pool["remainder"] = "pool_{id}".format(id=pool_id)
+    share_pool["pool_{id}".format(id=pool_id)] = remainder
+
+    pool_id += 1
+    inheritance_pool["total_shares"] = "pool_{id}".format(id=pool_id)
+    share_pool["pool_{id}".format(id=pool_id)] = lcm
+    return {"inheritance_pool": inheritance_pool, "share_pool": share_pool}
 
 
 def calculate_asl(case: dict) -> dict:
@@ -264,15 +387,7 @@ def calculate_asl(case: dict) -> dict:
 
     rationals = [full_case[inh] for inh in full_case if full_case[inh] > 0]
     lcm = least_common_multiple(rationals)
-
-    for inh in full_case:
-        if full_case[inh] > 0:
-            full_case[inh] = int(
-                lcm / full_case[inh].denominator * full_case[inh].numerator
-            )
-        else:
-            full_case[inh] = 0
-
+    full_case = assign_whole_shares(lcm, full_case)
     full_case["total_shares"] = int(sum(full_case[inh] for inh in full_case))
     return full_case
 
