@@ -1,3 +1,5 @@
+import copy
+
 from flask import abort
 from flask import Flask
 from flask import request
@@ -7,6 +9,8 @@ from src.full_solver import full_solver
 from src.generate_unsolved_problems import generate_problems_lst
 from src.solver import solve
 from utils.helpers import calculate_asl
+from utils.helpers import calculate_intermittent_asl
+from utils.helpers import need_final_solver
 
 app = Flask(__name__)
 CASE_GEN = CaseGenerator(
@@ -15,19 +19,27 @@ CASE_GEN = CaseGenerator(
 
 
 @app.route("/solve", methods=["POST"])
-def initial_solver():
+def solver():
     case = request.json
 
     if not all(inh in CASE_GEN.inheritors for inh in case):
         abort(400, "Inheritors must correspond to the config definition")
 
-    return solve(
+    basic_shares_soln = solve(
         case=case,
         descendants=CASE_GEN.descendants,
         mahjoob=CASE_GEN.mahjoob,
         rank=CASE_GEN.rank,
         taseeb=CASE_GEN.taseeb,
     )
+
+    intermediate_shares_soln = calculate_intermittent_asl(case=case)
+
+    solved_case = {'basic_shares': basic_shares_soln, 'intermediate_shares': intermediate_shares_soln}
+    if need_final_solver(intermediate_shares_soln):
+        solved_case['final_shares'] = calculate_asl(full_solver(copy.deepcopy(basic_shares_soln)))
+
+    return solved_case
 
 
 @app.route("/full_solver", methods=["POST"])
@@ -72,7 +84,7 @@ def generate_problems():
     if int(problem_specs["n_types"]) < len(problem_specs["must_haves"]):
         abort(
             400,
-            "The total number of inheritos in the case should be greater than the number of inheritors who must be "
+            "The total number of inheritors in the case should be greater than the number of inheritors who must be "
             "included",
         )
 
