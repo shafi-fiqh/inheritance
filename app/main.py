@@ -35,9 +35,14 @@ def solver():
 
     intermediate_shares_soln = calculate_intermittent_asl(case=case)
 
-    solved_case = {'basic_shares': basic_shares_soln, 'intermediate_shares': intermediate_shares_soln}
+    solved_case = {
+        "basic_shares": basic_shares_soln,
+        "intermediate_shares": intermediate_shares_soln,
+    }
     if need_final_solver(intermediate_shares_soln):
-        solved_case['final_shares'] = calculate_asl(full_solver(copy.deepcopy(basic_shares_soln)))
+        solved_case["final_shares"] = calculate_asl(
+            full_solver(copy.deepcopy(basic_shares_soln))
+        )
 
     return solved_case
 
