@@ -66,4 +66,4 @@ def generate_problems_lst(
         case = keep_asaba_at_end(case)
         case = {x: "0" for x in case}
         total_cases.append(case)
-    return json.dumps(total_cases)
+    return total_cases
