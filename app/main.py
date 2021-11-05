@@ -112,7 +112,7 @@ def generate_problems():
             )
         ret.append(case_obj)
 
-    return ret
+    return json.dumps(ret)
 
 
 if __name__ == "__main__":
