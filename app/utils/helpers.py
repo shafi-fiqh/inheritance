@@ -388,6 +388,7 @@ def calculate_asl(case: dict) -> dict:
     rationals = [full_case[inh] for inh in full_case if full_case[inh] > 0]
     lcm = least_common_multiple(rationals)
     full_case = assign_whole_shares(lcm, full_case)
+    full_case["remainder"] = 0
     full_case["total_shares"] = int(sum(full_case[inh] for inh in full_case))
     return full_case
 
