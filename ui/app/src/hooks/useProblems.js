@@ -21,8 +21,21 @@ const useProblems = (problems) => {
   });
 
   const inheritorsSortedBySharePool = _.sortBy(inheritors, 'sharePool');
+  const intermediateShareGroups = _.groupBy(inheritorsSortedBySharePool, 'sharePool');
+  const sortedIntermediateShareGroups = _.map(intermediateShareGroups, (g, k) => {
+    return { pool: k, groupSize: g.length, answer: sharePools[k] };
+  });
 
-  const [basicShareAnswers, setBasicShareAnswers] = useState(_.map(inheritors, () => null));
+  const emptyBasicShareAnswers = new Array(inheritors.length).fill(null);
+  const emptyIntermediateShareAnswers = new Array(_.size(intermediateShareGroups)).fill('');
+  const emptyFinalShareAnswers = new Array(inheritors.length).fill('');
+
+  const [basicShareAnswers, setBasicShareAnswers] = useState(emptyBasicShareAnswers);
+  const [intermediateShareAnswers, setIntermediateShareAnswers] = useState(
+    emptyIntermediateShareAnswers
+  );
+  const [finalShareAnswers, setFinalShareAnswers] = useState(emptyFinalShareAnswers);
+
   const basicShareInputProps = _.map(basicShareAnswers, (answer, i) => {
     const resultBackgroundColor =
       problem.basic_shares[inheritorsSortedBySharePool[i].key] === answer ? '#CFE5C9' : '#ECB9B1';
@@ -32,13 +45,6 @@ const useProblems = (problems) => {
     };
   });
 
-  const intermediateShareGroups = _.groupBy(inheritorsSortedBySharePool, 'sharePool');
-  const [intermediateShareAnswers, setIntermediateShareAnswers] = useState(
-    _.map(intermediateShareGroups, () => '')
-  );
-  const sortedIntermediateShareGroups = _.map(intermediateShareGroups, (g, k) => {
-    return { pool: k, groupSize: g.length, answer: sharePools[k] };
-  });
   const intermediateShareInputProps = _.map(intermediateShareAnswers, (answer, i) => {
     const resultBackgroundColor =
       sortedIntermediateShareGroups[i].answer == answer ? '#CFE5C9' : '#ECB9B1';
@@ -49,7 +55,6 @@ const useProblems = (problems) => {
     };
   });
 
-  const [finalShareAnswers, setFinalShareAnswers] = useState(_.map(inheritors, () => ''));
   const finalShareInputProps = _.map(finalShareAnswers, (answer, i) => {
     const inheritor = inheritorsSortedBySharePool[i].key;
     const resultBackgroundColor = problem.final_shares[inheritor] == answer ? '#CFE5C9' : '#ECB9B1';
@@ -60,8 +65,7 @@ const useProblems = (problems) => {
   });
 
   const checkAnswers = () => {
-    setShowResults(true);
-
+    //   TODO: Show loading
     const areBasicSharesCorrect = _.every(
       _.map(
         basicShareAnswers,
@@ -101,6 +105,9 @@ const useProblems = (problems) => {
     ) {
       alert('Success');
     }
+
+    //   TODO: Hide loading
+    setShowResults(true);
   };
 
   const updateBasicShareAnswers = (answers) => {
