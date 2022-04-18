@@ -2,16 +2,24 @@ body {
   padding: 10px
 }
 
+.problem-container {
+  display: flex;
+}
+
+.inheritor {
+  padding: 10px;
+  width: 80px;
+  height: 40px;
+}
+
 .basic-share-select {
   padding: 10px;
   width: 80px;
   height: 40px;
-  text-align: center;
 }
 
 .intermediate-share-input {
   padding: 10px;
   width: 160px;
-  text-align: center;
 }
 
