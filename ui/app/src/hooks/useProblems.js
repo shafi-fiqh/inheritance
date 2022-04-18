@@ -1,10 +1,12 @@
 import _ from 'lodash';
 import { useState } from 'react';
 
+import { answerColors, levels } from '../constants';
+
 const levelNames = ['Shares', 'Problem Base', 'Problem Base 2'];
 
 const useProblems = (problems) => {
-  const [level, setLevel] = useState(0);
+  const [level, setLevel] = useState(levels.ONE);
   const [problemIndex, setProblemIndex] = useState(0);
   const [showResults, setShowResults] = useState(false);
 
@@ -44,29 +46,34 @@ const useProblems = (problems) => {
 
   const basicShareInputProps = _.map(basicShareAnswers, (answer, i) => {
     const resultBackgroundColor =
-      problem.basic_shares[inheritorsSortedBySharePool[i].key] === answer ? '#CFE5C9' : '#ECB9B1';
+      problem.basic_shares[inheritorsSortedBySharePool[i].key] === answer
+        ? answerColors.CORRECT
+        : answerColors.INCORRECT;
     return {
       value: answer,
-      backgroundColor: showResults ? resultBackgroundColor : '#F5FBFA'
+      backgroundColor: showResults ? resultBackgroundColor : answerColors.NOT_ANSWERED
     };
   });
 
   const intermediateShareInputProps = _.map(intermediateShareAnswers, (answer, i) => {
     const resultBackgroundColor =
-      sortedIntermediateShareGroups[i].answer == answer ? '#CFE5C9' : '#ECB9B1';
+      sortedIntermediateShareGroups[i].answer == answer
+        ? answerColors.CORRECT
+        : answerColors.INCORRECT;
     return {
       value: answer,
       size: sortedIntermediateShareGroups[i].groupSize,
-      backgroundColor: showResults ? resultBackgroundColor : '#F5FBFA'
+      backgroundColor: showResults ? resultBackgroundColor : answerColors.NOT_ANSWERED
     };
   });
 
   const finalShareInputProps = _.map(finalShareAnswers, (answer, i) => {
     const inheritor = inheritorsSortedBySharePool[i].key;
-    const resultBackgroundColor = problem.final_shares[inheritor] == answer ? '#CFE5C9' : '#ECB9B1';
+    const resultBackgroundColor =
+      problem.final_shares[inheritor] == answer ? answerColors.CORRECT : answerColors.INCORRECT;
     return {
       value: answer,
-      backgroundColor: showResults ? resultBackgroundColor : '#F5FBFA'
+      backgroundColor: showResults ? resultBackgroundColor : answerColors.NOT_ANSWERED
     };
   });
 
@@ -94,12 +101,12 @@ const useProblems = (problems) => {
     );
 
     // Move to level 1 if at level 0 and answers are correct
-    if (areBasicSharesCorrect && level === 0) {
+    if (areBasicSharesCorrect && level === levels.ONE) {
       setLevel(1);
     }
 
     // Move to level 1 if at level 0 and answers are correct
-    if (areBasicSharesCorrect && areIntermediateSharesCorrect && level === 1) {
+    if (areBasicSharesCorrect && areIntermediateSharesCorrect && level === levels.TWO) {
       setLevel(2);
     }
 
@@ -108,7 +115,7 @@ const useProblems = (problems) => {
       areBasicSharesCorrect &&
       areIntermediateSharesCorrect &&
       areFinalSharesCorrect &&
-      level === 2
+      level === levels.THREE
     ) {
       alert('Success');
     }
