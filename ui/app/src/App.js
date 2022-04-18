@@ -5,6 +5,8 @@ import './App.css';
 
 import problemSet from './problems.json';
 
+// TODO: Is total shares for the last level an input? How will they know what to put there
+
 function App() {
   const {
     inheritors,
@@ -14,7 +16,9 @@ function App() {
     updateBasicShareAnswers,
     checkAnswers,
     intermediateShareInputProps,
-    updateIntermediateShareAnswers
+    updateIntermediateShareAnswers,
+    finalShareInputProps,
+    updateFinalShareAnswers
   } = useProblems(problemSet);
 
   const inheritorsDisplay = _.map(inheritors, (inheritor, i) => (
@@ -76,6 +80,27 @@ function App() {
     );
   });
 
+  const onFinalSharesChange = (changedIndex, value) => {
+    const answers = _.map(finalShareInputProps, 'value');
+    answers[changedIndex] = value;
+    updateFinalShareAnswers(answers);
+  };
+
+  const finalShareInputs = _.map(finalShareInputProps, (input, i) => {
+    const style = {
+      backgroundColor: input.backgroundColor
+    };
+    return (
+      <div key={i} className="final-share-input" style={style}>
+        <input
+          type="number"
+          value={input.value}
+          onChange={(e) => onFinalSharesChange(i, e.target.value)}
+        />
+      </div>
+    );
+  });
+
   return (
     <div className="App">
       <h2>Problem: {problem}</h2>
@@ -84,6 +109,7 @@ function App() {
         <div className="column">{inheritorsDisplay}</div>
         <div className="column">{basicShareDropdowns}</div>
         <div className="column">{intermediateShareInputs}</div>
+        <div className="column">{finalShareInputs}</div>
       </div>
       <input type="button" value="Check Answer" onClick={checkAnswers} />
     </div>

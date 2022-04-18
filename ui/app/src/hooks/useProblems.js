@@ -49,8 +49,19 @@ const useProblems = (problems) => {
     };
   });
 
+  const [finalShareAnswers, setFinalShareAnswers] = useState(_.map(inheritors, () => ''));
+  const finalShareInputProps = _.map(finalShareAnswers, (answer, i) => {
+    const inheritor = inheritorsSortedBySharePool[i].key;
+    const resultBackgroundColor = problem.final_shares[inheritor] == answer ? '#CFE5C9' : '#ECB9B1';
+    return {
+      value: answer,
+      backgroundColor: showResults ? resultBackgroundColor : '#F5FBFA'
+    };
+  });
+
   const checkAnswers = () => {
     setShowResults(true);
+
     const areBasicSharesCorrect = _.every(
       _.map(
         basicShareAnswers,
@@ -64,7 +75,12 @@ const useProblems = (problems) => {
         (answer, i) => sortedIntermediateShareGroups[i].answer == answer
       )
     );
-    const areFinalSharesCorrect = false;
+    const areFinalSharesCorrect = _.every(
+      _.map(
+        finalShareAnswers,
+        (answer, i) => problem.final_shares[inheritorsSortedBySharePool[i].key] == answer
+      )
+    );
 
     // Move to level 1 if at level 0 and answers are correct
     if (areBasicSharesCorrect && level === 0) {
@@ -72,7 +88,6 @@ const useProblems = (problems) => {
     }
 
     // Move to level 1 if at level 0 and answers are correct
-    console.log(areBasicSharesCorrect, areIntermediateSharesCorrect);
     if (areBasicSharesCorrect && areIntermediateSharesCorrect && level === 1) {
       setLevel(2);
     }
@@ -98,6 +113,11 @@ const useProblems = (problems) => {
     setIntermediateShareAnswers(answers);
   };
 
+  const updateFinalShareAnswers = (answers) => {
+    setShowResults(false);
+    setFinalShareAnswers(answers);
+  };
+
   return {
     inheritors: inheritorsSortedBySharePool,
     problem: problemIndex,
@@ -106,6 +126,8 @@ const useProblems = (problems) => {
     updateBasicShareAnswers,
     intermediateShareInputProps,
     updateIntermediateShareAnswers,
+    finalShareInputProps,
+    updateFinalShareAnswers,
     checkAnswers
   };
 };

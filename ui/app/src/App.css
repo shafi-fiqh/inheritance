@@ -12,10 +12,14 @@ body {
   height: 40px;
 }
 
-.basic-share-select {
+.basic-share-select, .final-share-input {
   padding: 10px;
   width: 80px;
   height: 40px;
+}
+
+.final-share-input {
+  width: 160px;
 }
 
 .intermediate-share-input {
