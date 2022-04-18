@@ -13,18 +13,24 @@ const useProblems = (problems) => {
   const inheritancePool = problem.intermediate_shares.inheritance_pool;
   const sharePools = problem.intermediate_shares.share_pool;
 
-  const inheritors = _.map(problem.problem, (i, inheritorKey) => {
+  const normalizeInheritor = (index, inheritorKey) => {
     return {
       key: inheritorKey,
       sharePool: inheritancePool[inheritorKey]
     };
-  });
+  };
 
+  const normalizeSharePool = (group, poolKey) => {
+    return { pool: poolKey, groupSize: group.length, answer: sharePools[poolKey] };
+  };
+
+  const inheritors = _.map(problem.problem, normalizeInheritor);
   const inheritorsSortedBySharePool = _.sortBy(inheritors, 'sharePool');
-  const intermediateShareGroups = _.groupBy(inheritorsSortedBySharePool, 'sharePool');
-  const sortedIntermediateShareGroups = _.map(intermediateShareGroups, (g, k) => {
-    return { pool: k, groupSize: g.length, answer: sharePools[k] };
-  });
+  const intermediateShareGroups = _.chain(inheritors)
+    .sortBy('sharePool')
+    .groupBy('sharePool')
+    .value();
+  const sortedIntermediateShareGroups = _.map(intermediateShareGroups, normalizeSharePool);
 
   const emptyBasicShareAnswers = new Array(inheritors.length).fill(null);
   const emptyIntermediateShareAnswers = new Array(_.size(intermediateShareGroups)).fill('');
@@ -79,6 +85,7 @@ const useProblems = (problems) => {
         (answer, i) => sortedIntermediateShareGroups[i].answer == answer
       )
     );
+
     const areFinalSharesCorrect = _.every(
       _.map(
         finalShareAnswers,
