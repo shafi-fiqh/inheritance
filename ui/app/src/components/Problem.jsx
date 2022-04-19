@@ -18,7 +18,9 @@ const Problem = ({ problem, onProblemSolved }) => {
   } = useProblem(problem);
 
   useEffect(() => {
-    onProblemSolved();
+    if (isProblemSolved) {
+      onProblemSolved();
+    }
   }, [onProblemSolved, isProblemSolved]);
 
   const inheritorsDisplay = _.map(inheritors, (inheritor, i) => (

@@ -15,7 +15,7 @@ function App() {
   const [solvedProblems, setSolvedProblems] = useState({});
 
   const onProblemSolved = (problemIndex) => {
-    setSolvedProblems(_.assign(solvedProblems, { [problemIndex]: true }));
+    setSolvedProblems({ ...solvedProblems, [problemIndex]: true });
   };
 
   const goToPrevProblem = () => {
@@ -33,20 +33,22 @@ function App() {
   const problems = _.map(problemSet, (problem, i) => {
     return (
       <div key={i} style={{ display: currentProblem == i ? 'block' : 'none' }}>
-        <Problem problem={problem} onProblemSolved={() => onProblemSolved(0)} />
+        <Problem problem={problem} onProblemSolved={() => onProblemSolved(i)} />
       </div>
     );
   });
 
   return (
     <div className="App">
-      {/* <h2>Problem: {problem}</h2> */}
-      {/* <h2>Level: {level}</h2> */}
+      <h2>Problem: {currentProblem}</h2>
       {problems}
-      {/* TODO: Disable on first problem */}
-      <input type="button" value="Prev" onClick={goToPrevProblem} />
-      {/* TODO: Disable if no more problems or havent solved the next one */}
-      <input type="button" value="Next" onClick={goToNextProblem} />
+      <input type="button" value="Prev" onClick={goToPrevProblem} disabled={currentProblem === 0} />
+      <input
+        type="button"
+        value="Next"
+        onClick={goToNextProblem}
+        disabled={currentProblem === problemSet.length - 1 || !solvedProblems[currentProblem]}
+      />
     </div>
   );
 }
