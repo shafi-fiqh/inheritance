@@ -3,11 +3,10 @@ import { useState, useEffect } from 'react';
 
 import { answerColors, levels } from '../constants';
 
-const useProblems = (problems) => {
-  const [problemIndex, setProblemIndex] = useState(0);
+const useProblem = (problem) => {
   const [level, setLevel] = useState(levels.ONE);
   const [showResults, setShowResults] = useState(false);
-  const [problem, setProblem] = useState(problems[problemIndex]);
+  const [isProblemSolved, setIsProblemSolved] = useState(false);
 
   const [intermediateShareAnswers, setIntermediateShareAnswers] = useState(null);
   const [basicShareAnswers, setBasicShareAnswers] = useState(null);
@@ -21,14 +20,9 @@ const useProblems = (problems) => {
   const [finalShareInputProps, setFinalShareInputProps] = useState(null);
   const [areFinalSharesCorrect, setAreFinalSharesCorrect] = useState(null);
   const [problemData, setProblemData] = useState({});
-  const [solvedProblems, setSolvedProblems] = useState(false);
 
   useEffect(() => {
-    setProblem(problems[problemIndex]);
-  }, [problems, problemIndex]);
-
-  useEffect(() => {
-    const normalizeInheritor = (index, inheritorKey) => {
+    const normalizeInheritor = (i, inheritorKey) => {
       return {
         key: inheritorKey,
         sharePool: inheritancePool[inheritorKey]
@@ -156,7 +150,8 @@ const useProblems = (problems) => {
       areFinalSharesCorrect &&
       level === levels.THREE
     ) {
-      setSolvedProblems(_.assign(solvedProblems, { [problemIndex]: true }));
+      setIsProblemSolved(true);
+      // setSolvedProblems(_.assign(solvedProblems, { [problemIndex]: true }));
       alert('Success');
     }
     setShowResults(true);
@@ -178,8 +173,8 @@ const useProblems = (problems) => {
   };
 
   return {
+    isProblemSolved,
     inheritors: problemData?.inheritorsSortedBySharePool,
-    problem: problemIndex,
     level,
     basicShareInputProps,
     intermediateShareInputProps,
@@ -187,22 +182,8 @@ const useProblems = (problems) => {
     updateBasicShareAnswers,
     updateIntermediateShareAnswers,
     updateFinalShareAnswers,
-    checkAnswers,
-    goToPrevProblem: () => {
-      if (problemIndex > 0) {
-        setShowResults(false);
-        setProblemIndex(problemIndex - 1);
-        setLevel(levels.ONE);
-      }
-    },
-    goToNextProblem: () => {
-      if (solvedProblems[problemIndex] && problemIndex + 1 < problems.length) {
-        setShowResults(false);
-        setProblemIndex(problemIndex + 1);
-        setLevel(levels.ONE);
-      }
-    }
+    checkAnswers
   };
 };
 
-export default useProblems;
+export default useProblem;

@@ -1,8 +1,11 @@
 import _ from 'lodash';
+import { useEffect } from 'react';
 import { Inheritor, BasicShareSelect, IntermediateShareInput, FinalShareInput } from './components';
+import useProblem from '../hooks/useProblem';
 
-const Problem = (props) => {
+const Problem = ({ problem, onProblemSolved }) => {
   const {
+    isProblemSolved,
     inheritors,
     level,
     basicShareInputProps,
@@ -10,8 +13,13 @@ const Problem = (props) => {
     finalShareInputProps,
     updateBasicShareAnswers,
     updateIntermediateShareAnswers,
-    updateFinalShareAnswers
-  } = props;
+    updateFinalShareAnswers,
+    checkAnswers
+  } = useProblem(problem);
+
+  useEffect(() => {
+    onProblemSolved();
+  }, [onProblemSolved, isProblemSolved]);
 
   const inheritorsDisplay = _.map(inheritors, (inheritor, i) => (
     <Inheritor key={inheritor.key} inheritor={inheritor} />
@@ -75,12 +83,15 @@ const Problem = (props) => {
   });
 
   return (
-    <div className="problem-container">
-      <div className="column">{inheritorsDisplay}</div>
-      <div className="column">{basicShareSelects}</div>
-      <div className="column">{intermediateShareInputs}</div>
-      <div className="column">{finalShareInputs}</div>
-    </div>
+    <>
+      <div className="problem-container">
+        <div className="column">{inheritorsDisplay}</div>
+        <div className="column">{basicShareSelects}</div>
+        <div className="column">{intermediateShareInputs}</div>
+        <div className="column">{finalShareInputs}</div>
+      </div>
+      <input type="button" value="Check Answer" onClick={checkAnswers} />
+    </>
   );
 };
 
