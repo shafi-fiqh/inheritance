@@ -1,106 +1,166 @@
 import _ from 'lodash';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-const levelNames = ['Shares', 'Problem Base', 'Problem Base 2'];
+import { answerColors, levels } from '../constants';
 
 const useProblems = (problems) => {
-  const [level, setLevel] = useState(0);
+  const [level, setLevel] = useState(levels.ONE);
   const [problemIndex, setProblemIndex] = useState(0);
   const [showResults, setShowResults] = useState(false);
+  const [problem, setProblem] = useState(problems[problemIndex]);
 
-  const levelName = levelNames[level];
-  const problem = problems[problemIndex];
-  const inheritancePool = problem.intermediate_shares.inheritance_pool;
-  const sharePools = problem.intermediate_shares.share_pool;
+  const [intermediateShareAnswers, setIntermediateShareAnswers] = useState(null);
+  const [basicShareAnswers, setBasicShareAnswers] = useState(null);
+  const [basicShareInputProps, setBasicShareInputProps] = useState(null);
+  const [areBasicSharesCorrect, setAreBasicSharesCorrect] = useState(false);
 
-  const inheritors = _.map(problem.problem, (i, inheritorKey) => {
-    return {
-      key: inheritorKey,
-      sharePool: inheritancePool[inheritorKey]
+  const [intermediateShareInputProps, setIntermediateShareInputProps] = useState(null);
+  const [areIntermediateSharesCorrect, setAreIntermediateSharesCorrect] = useState(null);
+
+  const [finalShareAnswers, setFinalShareAnswers] = useState(null);
+  const [finalShareInputProps, setFinalShareInputProps] = useState(null);
+  const [areFinalSharesCorrect, setAreFinalSharesCorrect] = useState(null);
+  const [problemData, setProblemData] = useState({});
+
+  useEffect(() => {
+    setProblem(problems[problemIndex]);
+  }, [problems, problemIndex]);
+
+  useEffect(() => {
+    const normalizeInheritor = (index, inheritorKey) => {
+      return {
+        key: inheritorKey,
+        sharePool: inheritancePool[inheritorKey]
+      };
     };
-  });
 
-  const inheritorsSortedBySharePool = _.sortBy(inheritors, 'sharePool');
+    const inheritancePool = problem.intermediate_shares.inheritance_pool;
+    const sharePools = problem.intermediate_shares.share_pool;
 
-  const [basicShareAnswers, setBasicShareAnswers] = useState(_.map(inheritors, () => null));
-  const basicShareInputProps = _.map(basicShareAnswers, (answer, i) => {
-    const resultBackgroundColor =
-      problem.basic_shares[inheritorsSortedBySharePool[i].key] === answer ? '#CFE5C9' : '#ECB9B1';
-    return {
-      value: answer,
-      backgroundColor: showResults ? resultBackgroundColor : '#F5FBFA'
+    const normalizeSharePool = (group, poolKey) => {
+      return { pool: poolKey, groupSize: group.length };
     };
-  });
 
-  const intermediateShareGroups = _.groupBy(inheritorsSortedBySharePool, 'sharePool');
-  const [intermediateShareAnswers, setIntermediateShareAnswers] = useState(
-    _.map(intermediateShareGroups, () => '')
-  );
-  const sortedIntermediateShareGroups = _.map(intermediateShareGroups, (g, k) => {
-    return { pool: k, groupSize: g.length, answer: sharePools[k] };
-  });
-  const intermediateShareInputProps = _.map(intermediateShareAnswers, (answer, i) => {
-    const resultBackgroundColor =
-      sortedIntermediateShareGroups[i].answer == answer ? '#CFE5C9' : '#ECB9B1';
-    return {
-      value: answer,
-      size: sortedIntermediateShareGroups[i].groupSize,
-      backgroundColor: showResults ? resultBackgroundColor : '#F5FBFA'
-    };
-  });
+    const inheritors = _.map(problem.problem, normalizeInheritor);
+    const inheritorsSortedBySharePool = _.sortBy(inheritors, 'sharePool');
+    const sortedIntermediateShareGroups = _.chain(inheritors)
+      .sortBy('sharePool')
+      .groupBy('sharePool')
+      .map(normalizeSharePool)
+      .value();
 
-  const [finalShareAnswers, setFinalShareAnswers] = useState(_.map(inheritors, () => ''));
-  const finalShareInputProps = _.map(finalShareAnswers, (answer, i) => {
-    const inheritor = inheritorsSortedBySharePool[i].key;
-    const resultBackgroundColor = problem.final_shares[inheritor] == answer ? '#CFE5C9' : '#ECB9B1';
-    return {
-      value: answer,
-      backgroundColor: showResults ? resultBackgroundColor : '#F5FBFA'
-    };
-  });
+    setBasicShareAnswers(new Array(inheritors?.length).fill(null));
+    setIntermediateShareAnswers(new Array(sortedIntermediateShareGroups?.length).fill(''));
+    setFinalShareAnswers(new Array(inheritors?.length).fill(''));
+
+    const expectedBasicShareAnswers = _.map(
+      inheritorsSortedBySharePool,
+      (inheritor) => problem.basic_shares[inheritor.key]
+    );
+    const expectedIntermediateShareAnswers = _.map(
+      sortedIntermediateShareGroups,
+      (group) => sharePools[group.pool]
+    );
+
+    const expectedFinalShareAnswers = _.map(
+      inheritorsSortedBySharePool,
+      (inheritor) => problem.final_shares[inheritor.key]
+    );
+
+    setProblemData({
+      inheritorsSortedBySharePool,
+      sortedIntermediateShareGroups,
+      answers: {
+        basic: expectedBasicShareAnswers,
+        intermediate: expectedIntermediateShareAnswers,
+        final: expectedFinalShareAnswers
+      }
+    });
+  }, [problem]);
+
+  // TODO: isDisabled should be part of the input props
+  useEffect(() => {
+    const inputProps = _.map(basicShareAnswers, (answer, i) => {
+      const isCorrectAnswer = problemData.answers.basic[i] === answer;
+      const resultBackgroundColor = isCorrectAnswer ? answerColors.CORRECT : answerColors.INCORRECT;
+      return {
+        value: answer,
+        backgroundColor:
+          showResults && answer !== null ? resultBackgroundColor : answerColors.NOT_ANSWERED
+      };
+    });
+    setBasicShareInputProps(inputProps);
+  }, [problemData, basicShareAnswers, showResults]);
+
+  useEffect(() => {
+    const inputProps = _.map(intermediateShareAnswers, (answer, i) => {
+      const isCorrectAnswer = problemData.answers.intermediate[i] == answer;
+      const resultBackgroundColor = isCorrectAnswer ? answerColors.CORRECT : answerColors.INCORRECT;
+      return {
+        value: answer,
+        size: problemData.sortedIntermediateShareGroups[i].groupSize,
+        backgroundColor:
+          showResults && level >= levels.TWO && answer !== ''
+            ? resultBackgroundColor
+            : answerColors.NOT_ANSWERED
+      };
+    });
+    setIntermediateShareInputProps(inputProps);
+  }, [problemData, intermediateShareAnswers, level, showResults]);
+
+  useEffect(() => {
+    const inputProps = _.map(finalShareAnswers, (answer, i) => {
+      const isCorrectAnswer = problemData.answers.final[i] == answer;
+      const resultBackgroundColor = isCorrectAnswer ? answerColors.CORRECT : answerColors.INCORRECT;
+      return {
+        value: answer,
+        backgroundColor:
+          showResults && level === levels.THREE && answer !== ''
+            ? resultBackgroundColor
+            : answerColors.NOT_ANSWERED
+      };
+    });
+    setFinalShareInputProps(inputProps);
+  }, [finalShareAnswers, problemData, showResults, level]);
+
+  useEffect(() => {
+    const areCorrect = _.every(
+      _.map(basicShareAnswers, (answer, i) => problemData.answers.basic[i] === answer)
+    );
+    setAreBasicSharesCorrect(areCorrect);
+  }, [basicShareAnswers, problemData]);
+
+  useEffect(() => {
+    const areCorrect = _.every(
+      _.map(intermediateShareAnswers, (answer, i) => problemData.answers.intermediate[i] == answer)
+    );
+    setAreIntermediateSharesCorrect(areCorrect);
+  }, [intermediateShareAnswers, problemData]);
+
+  useEffect(() => {
+    const areCorrect = _.every(
+      _.map(finalShareAnswers, (answer, i) => problemData.answers.final[i] == answer)
+    );
+    setAreFinalSharesCorrect(areCorrect);
+  }, [finalShareAnswers, problem, problemData]);
 
   const checkAnswers = () => {
-    setShowResults(true);
-
-    const areBasicSharesCorrect = _.every(
-      _.map(
-        basicShareAnswers,
-        (answer, i) => problem.basic_shares[inheritorsSortedBySharePool[i].key] === answer
-      )
-    );
-
-    const areIntermediateSharesCorrect = _.every(
-      _.map(
-        intermediateShareAnswers,
-        (answer, i) => sortedIntermediateShareGroups[i].answer == answer
-      )
-    );
-    const areFinalSharesCorrect = _.every(
-      _.map(
-        finalShareAnswers,
-        (answer, i) => problem.final_shares[inheritorsSortedBySharePool[i].key] == answer
-      )
-    );
-
-    // Move to level 1 if at level 0 and answers are correct
-    if (areBasicSharesCorrect && level === 0) {
-      setLevel(1);
-    }
-
-    // Move to level 1 if at level 0 and answers are correct
-    if (areBasicSharesCorrect && areIntermediateSharesCorrect && level === 1) {
-      setLevel(2);
-    }
-
-    // Show success
-    if (
+    if (areBasicSharesCorrect && level === levels.ONE) {
+      setLevel(levels.TWO);
+    } else if (areBasicSharesCorrect && areIntermediateSharesCorrect && level === levels.TWO) {
+      setLevel(levels.THREE);
+    } else if (
       areBasicSharesCorrect &&
       areIntermediateSharesCorrect &&
       areFinalSharesCorrect &&
-      level === 2
+      level === levels.THREE
     ) {
       alert('Success');
+      // setShowResults(false)
+      // setProblemIndex(problemIndex + 1)
+      // setLevel(levels.ONE)
     }
+    setShowResults(true);
   };
 
   const updateBasicShareAnswers = (answers) => {
@@ -119,14 +179,14 @@ const useProblems = (problems) => {
   };
 
   return {
-    inheritors: inheritorsSortedBySharePool,
+    inheritors: problemData?.inheritorsSortedBySharePool,
     problem: problemIndex,
-    level: levelName,
+    level,
     basicShareInputProps,
-    updateBasicShareAnswers,
     intermediateShareInputProps,
-    updateIntermediateShareAnswers,
     finalShareInputProps,
+    updateBasicShareAnswers,
+    updateIntermediateShareAnswers,
     updateFinalShareAnswers,
     checkAnswers
   };
