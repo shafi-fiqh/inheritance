@@ -1,5 +1,6 @@
 import _ from 'lodash';
 
+import { levels } from './constants';
 import useProblems from './hooks/useProblems';
 import './App.css';
 
@@ -69,9 +70,11 @@ function App() {
       paddingTop: `${input.size * 10}.px`,
       paddingBottom: `${input.size * 10}.px`
     };
+    const isDisabled = level < levels.TWO;
     return (
       <div key={i} className="intermediate-share-input" style={style}>
         <input
+          disabled={isDisabled}
           type="number"
           value={input.value}
           onChange={(e) => onIntermediateSharesChange(i, e.target.value)}
@@ -90,9 +93,11 @@ function App() {
     const style = {
       backgroundColor: input.backgroundColor
     };
+    const isDisabled = level !== levels.THREE;
     return (
       <div key={i} className="final-share-input" style={style}>
         <input
+          disabled={isDisabled}
           type="number"
           value={input.value}
           onChange={(e) => onFinalSharesChange(i, e.target.value)}
