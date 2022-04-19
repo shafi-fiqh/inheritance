@@ -20,12 +20,11 @@ const useProblems = (problems) => {
   const [finalShareAnswers, setFinalShareAnswers] = useState(null);
   const [finalShareInputProps, setFinalShareInputProps] = useState(null);
   const [areFinalSharesCorrect, setAreFinalSharesCorrect] = useState(null);
+  const [problemData, setProblemData] = useState({});
 
   useEffect(() => {
     setProblem(problems[problemIndex]);
   }, [problems, problemIndex]);
-
-  const [problemData, setProblemData] = useState({});
 
   useEffect(() => {
     const normalizeInheritor = (index, inheritorKey) => {
