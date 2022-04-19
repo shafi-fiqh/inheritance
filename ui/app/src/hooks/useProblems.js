@@ -69,6 +69,7 @@ const useProblems = (problems) => {
     setFinalShareAnswers(new Array(problemData?.inheritors?.length).fill(''));
   }, [problemData]);
 
+  // TODO: isDisabled should be part of the input props
   useEffect(() => {
     const inputProps = _.map(basicShareAnswers, (answer, i) => {
       const resultBackgroundColor =
