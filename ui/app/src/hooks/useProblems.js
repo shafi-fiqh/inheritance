@@ -39,19 +39,23 @@ const useProblems = (problems) => {
   //   setBasicShareAnswers(new Array(inheritors.length).fill(null));
   // }, [inheritors])
 
+  const emptyBasicShareAnswers = new Array(inheritors.length).fill(null);
   const emptyIntermediateShareAnswers = new Array(_.size(intermediateShareGroups)).fill('');
   const emptyFinalShareAnswers = new Array(inheritors.length).fill('');
 
-  const emptyBasicShareAnswers = new Array(inheritors.length).fill(null);
   const [basicShareAnswers, setBasicShareAnswers] = useState(emptyBasicShareAnswers);
-  const [intermediateShareAnswers, setIntermediateShareAnswers] = useState(
-    emptyIntermediateShareAnswers
-  );
-  const [finalShareAnswers, setFinalShareAnswers] = useState(emptyFinalShareAnswers);
   const [basicShareInputProps, setBasicShareInputProps] = useState(null);
   const [areBasicSharesCorrect, setAreBasicSharesCorrect] = useState(false);
+
   const [intermediateShareInputProps, setIntermediateShareInputProps] = useState(null);
+  const [intermediateShareAnswers, setIntermediateShareAnswers] = useState(
+    emptyIntermediateShareAnswers
+    );
+  const [areIntermediateSharesCorrect, setAreIntermediateSharesCorrect] = useState(null);
+
+  const [finalShareAnswers, setFinalShareAnswers] = useState(emptyFinalShareAnswers);
   const [finalShareInputProps, setFinalShareInputProps] = useState(null);
+  const [areFinalSharesCorrect, setAreFinalSharesCorrect] = useState(null);
 
   useEffect(() => {
     const inputProps = _.map(basicShareAnswers, (answer, i) => {
@@ -96,7 +100,6 @@ const useProblems = (problems) => {
     setFinalShareInputProps(inputProps);
   }, [finalShareAnswers, problem.final_shares, inheritorsSortedBySharePool, showResults]);
 
-
   useEffect(() => {
     const areCorrect = _.every(
       _.map(
@@ -107,33 +110,35 @@ const useProblems = (problems) => {
     setAreBasicSharesCorrect(areCorrect);
   }, [basicShareAnswers, problem.basic_shares, inheritorsSortedBySharePool]);
 
-  const checkAnswers = () => {
-
-    const areIntermediateSharesCorrect = _.every(
+  useEffect(() => {
+    const areCorrect = _.every(
       _.map(
         intermediateShareAnswers,
         (answer, i) => sortedIntermediateShareGroups[i].answer == answer
       )
     );
+    setAreIntermediateSharesCorrect(areCorrect);
+  }, [intermediateShareAnswers, sortedIntermediateShareGroups]);
 
-    const areFinalSharesCorrect = _.every(
+  useEffect(() => {
+    const areCorrect = _.every(
       _.map(
         finalShareAnswers,
         (answer, i) => problem.final_shares[inheritorsSortedBySharePool[i].key] == answer
       )
     );
+    setAreFinalSharesCorrect(areCorrect);
+  }, [finalShareAnswers, problem.final_shares, inheritorsSortedBySharePool]);
 
-    // Move to level 1 if at level 0 and answers are correct
+  useEffect(() => {
     if (areBasicSharesCorrect && level === levels.ONE) {
-      setLevel(1);
+      setLevel(levels.TWO);
     }
 
-    // Move to level 1 if at level 0 and answers are correct
     if (areBasicSharesCorrect && areIntermediateSharesCorrect && level === levels.TWO) {
-      setLevel(2);
+      setLevel(levels.THREE);
     }
 
-    // Show success
     if (
       areBasicSharesCorrect &&
       areIntermediateSharesCorrect &&
@@ -142,10 +147,9 @@ const useProblems = (problems) => {
     ) {
       alert('Success');
     }
+  }, [areBasicSharesCorrect, areIntermediateSharesCorrect, areFinalSharesCorrect, level])
 
-    //   TODO: Hide loading
-    setShowResults(true);
-  };
+  const checkAnswers = () => setShowResults(true);
 
   const updateBasicShareAnswers = (answers) => {
     setShowResults(false);
