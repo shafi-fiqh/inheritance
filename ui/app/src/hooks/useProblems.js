@@ -68,9 +68,6 @@ const useProblems = (problems) => {
     );
 
     setProblemData({
-      inheritors,
-      inheritancePool,
-      sharePools,
       inheritorsSortedBySharePool,
       sortedIntermediateShareGroups,
       answers: {
@@ -84,8 +81,8 @@ const useProblems = (problems) => {
   // TODO: isDisabled should be part of the input props
   useEffect(() => {
     const inputProps = _.map(basicShareAnswers, (answer, i) => {
-      const resultBackgroundColor =
-        problemData.answers.basic[i] === answer ? answerColors.CORRECT : answerColors.INCORRECT;
+      const isCorrectAnswer = problemData.answers.basic[i] === answer;
+      const resultBackgroundColor = isCorrectAnswer ? answerColors.CORRECT : answerColors.INCORRECT;
       return {
         value: answer,
         backgroundColor:
@@ -97,10 +94,8 @@ const useProblems = (problems) => {
 
   useEffect(() => {
     const inputProps = _.map(intermediateShareAnswers, (answer, i) => {
-      const resultBackgroundColor =
-        problemData.answers.intermediate[i] == answer
-          ? answerColors.CORRECT
-          : answerColors.INCORRECT;
+      const isCorrectAnswer = problemData.answers.intermediate[i] == answer;
+      const resultBackgroundColor = isCorrectAnswer ? answerColors.CORRECT : answerColors.INCORRECT;
       return {
         value: answer,
         size: problemData.sortedIntermediateShareGroups[i].groupSize,
@@ -115,8 +110,8 @@ const useProblems = (problems) => {
 
   useEffect(() => {
     const inputProps = _.map(finalShareAnswers, (answer, i) => {
-      const resultBackgroundColor =
-        problemData.answers.final[i] == answer ? answerColors.CORRECT : answerColors.INCORRECT;
+      const isCorrectAnswer = problemData.answers.final[i] == answer;
+      const resultBackgroundColor = isCorrectAnswer ? answerColors.CORRECT : answerColors.INCORRECT;
       return {
         value: answer,
         backgroundColor:
@@ -188,10 +183,10 @@ const useProblems = (problems) => {
     problem: problemIndex,
     level,
     basicShareInputProps,
-    updateBasicShareAnswers,
     intermediateShareInputProps,
-    updateIntermediateShareAnswers,
     finalShareInputProps,
+    updateBasicShareAnswers,
+    updateIntermediateShareAnswers,
     updateFinalShareAnswers,
     checkAnswers
   };

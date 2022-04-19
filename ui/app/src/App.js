@@ -23,6 +23,7 @@ function App() {
   } = useProblems(problemSet);
 
   const inheritorsDisplay = _.map(inheritors, (inheritor, i) => (
+    // TODO: Extract into component
     <div key={i} className="inheritor">
       <h3> {inheritor.key}</h3>
     </div>
@@ -39,6 +40,7 @@ function App() {
       backgroundColor: input.backgroundColor
     };
     return (
+      // TODO: Extract into component
       <div key={i} className="basic-share-select" style={style}>
         <select
           value={input.value !== null ? input.value : '-'}
@@ -72,6 +74,7 @@ function App() {
     };
     const isDisabled = level < levels.TWO;
     return (
+      // TODO: Extract into component
       <div key={i} className="intermediate-share-input" style={style}>
         <input
           disabled={isDisabled}
@@ -95,6 +98,7 @@ function App() {
     };
     const isDisabled = level !== levels.THREE;
     return (
+      // TODO: Extract into component
       <div key={i} className="final-share-input" style={style}>
         <input
           disabled={isDisabled}
@@ -111,12 +115,15 @@ function App() {
       <h2>Problem: {problem}</h2>
       <h2>Level: {level}</h2>
       <div className="problem-container">
+        {/* TODO: Extract into component */}
         <div className="column">{inheritorsDisplay}</div>
         <div className="column">{basicShareDropdowns}</div>
         <div className="column">{intermediateShareInputs}</div>
         <div className="column">{finalShareInputs}</div>
       </div>
+      {/* TODO: Previous problem */}
       <input type="button" value="Check Answer" onClick={checkAnswers} />
+      {/* TODO: Next problem */}
     </div>
   );
 }
