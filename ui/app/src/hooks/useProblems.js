@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { answerColors, levels } from '../constants';
 
@@ -34,17 +34,27 @@ const useProblems = (problems) => {
     .value();
   const sortedIntermediateShareGroups = _.map(intermediateShareGroups, normalizeSharePool);
 
-  const emptyBasicShareAnswers = new Array(inheritors.length).fill(null);
+  // const [basicShareAnswers, setBasicShareAnswers] = useState(null);
+  // useEffect(() => {
+  //   setBasicShareAnswers(new Array(inheritors.length).fill(null));
+  // }, [inheritors])
+
   const emptyIntermediateShareAnswers = new Array(_.size(intermediateShareGroups)).fill('');
   const emptyFinalShareAnswers = new Array(inheritors.length).fill('');
 
+  const emptyBasicShareAnswers = new Array(inheritors.length).fill(null);
   const [basicShareAnswers, setBasicShareAnswers] = useState(emptyBasicShareAnswers);
   const [intermediateShareAnswers, setIntermediateShareAnswers] = useState(
     emptyIntermediateShareAnswers
   );
   const [finalShareAnswers, setFinalShareAnswers] = useState(emptyFinalShareAnswers);
+  const [basicShareInputProps, setBasicShareInputProps] = useState(null);
+  const [areBasicSharesCorrect, setAreBasicSharesCorrect] = useState(false);
+  const [intermediateShareInputProps, setIntermediateShareInputProps] = useState(null);
+  const [finalShareInputProps, setFinalShareInputProps] = useState(null);
 
-  const basicShareInputProps = _.map(basicShareAnswers, (answer, i) => {
+  useEffect(() => {
+    const inputProps = _.map(basicShareAnswers, (answer, i) => {
     const resultBackgroundColor =
       problem.basic_shares[inheritorsSortedBySharePool[i].key] === answer
         ? answerColors.CORRECT
@@ -53,38 +63,51 @@ const useProblems = (problems) => {
       value: answer,
       backgroundColor: showResults ? resultBackgroundColor : answerColors.NOT_ANSWERED
     };
-  });
+    })
+    setBasicShareInputProps(inputProps);
+  }, [problem.basic_shares, inheritorsSortedBySharePool, basicShareAnswers, showResults]);
 
-  const intermediateShareInputProps = _.map(intermediateShareAnswers, (answer, i) => {
-    const resultBackgroundColor =
-      sortedIntermediateShareGroups[i].answer == answer
-        ? answerColors.CORRECT
-        : answerColors.INCORRECT;
-    return {
-      value: answer,
-      size: sortedIntermediateShareGroups[i].groupSize,
-      backgroundColor: showResults ? resultBackgroundColor : answerColors.NOT_ANSWERED
-    };
-  });
 
-  const finalShareInputProps = _.map(finalShareAnswers, (answer, i) => {
-    const inheritor = inheritorsSortedBySharePool[i].key;
-    const resultBackgroundColor =
-      problem.final_shares[inheritor] == answer ? answerColors.CORRECT : answerColors.INCORRECT;
-    return {
-      value: answer,
-      backgroundColor: showResults ? resultBackgroundColor : answerColors.NOT_ANSWERED
-    };
-  });
+  useEffect(() => {
+    const inputProps = _.map(intermediateShareAnswers, (answer, i) => {
+      const resultBackgroundColor =
+        sortedIntermediateShareGroups[i].answer == answer
+          ? answerColors.CORRECT
+          : answerColors.INCORRECT;
+      return {
+        value: answer,
+        size: sortedIntermediateShareGroups[i].groupSize,
+        backgroundColor: showResults ? resultBackgroundColor : answerColors.NOT_ANSWERED
+      };
+    });
+    setIntermediateShareInputProps(inputProps);
+  }, [intermediateShareAnswers, sortedIntermediateShareGroups, showResults]);
 
-  const checkAnswers = () => {
-    //   TODO: Show loading
-    const areBasicSharesCorrect = _.every(
+  useEffect(() => {
+    const inputProps = _.map(finalShareAnswers, (answer, i) => {
+      const inheritor = inheritorsSortedBySharePool[i].key;
+      const resultBackgroundColor =
+        problem.final_shares[inheritor] == answer ? answerColors.CORRECT : answerColors.INCORRECT;
+      return {
+        value: answer,
+        backgroundColor: showResults ? resultBackgroundColor : answerColors.NOT_ANSWERED
+      };
+    });
+    setFinalShareInputProps(inputProps);
+  }, [finalShareAnswers, problem.final_shares, inheritorsSortedBySharePool, showResults]);
+
+
+  useEffect(() => {
+    const areCorrect = _.every(
       _.map(
         basicShareAnswers,
         (answer, i) => problem.basic_shares[inheritorsSortedBySharePool[i].key] === answer
       )
     );
+    setAreBasicSharesCorrect(areCorrect);
+  }, [basicShareAnswers, problem.basic_shares, inheritorsSortedBySharePool]);
+
+  const checkAnswers = () => {
 
     const areIntermediateSharesCorrect = _.every(
       _.map(
