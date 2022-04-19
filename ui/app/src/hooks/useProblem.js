@@ -3,11 +3,10 @@ import { useState, useEffect } from 'react';
 
 import { answerColors, levels } from '../constants';
 
-const useProblems = (problems) => {
+const useProblem = (problem) => {
   const [level, setLevel] = useState(levels.ONE);
-  const [problemIndex, setProblemIndex] = useState(0);
   const [showResults, setShowResults] = useState(false);
-  const [problem, setProblem] = useState(problems[problemIndex]);
+  const [isProblemSolved, setIsProblemSolved] = useState(false);
 
   const [intermediateShareAnswers, setIntermediateShareAnswers] = useState(null);
   const [basicShareAnswers, setBasicShareAnswers] = useState(null);
@@ -23,11 +22,7 @@ const useProblems = (problems) => {
   const [problemData, setProblemData] = useState({});
 
   useEffect(() => {
-    setProblem(problems[problemIndex]);
-  }, [problems, problemIndex]);
-
-  useEffect(() => {
-    const normalizeInheritor = (index, inheritorKey) => {
+    const normalizeInheritor = (i, inheritorKey) => {
       return {
         key: inheritorKey,
         sharePool: inheritancePool[inheritorKey]
@@ -142,7 +137,7 @@ const useProblems = (problems) => {
       _.map(finalShareAnswers, (answer, i) => problemData.answers.final[i] == answer)
     );
     setAreFinalSharesCorrect(areCorrect);
-  }, [finalShareAnswers, problem, problemData]);
+  }, [finalShareAnswers, problemData]);
 
   const checkAnswers = () => {
     if (areBasicSharesCorrect && level === levels.ONE) {
@@ -155,10 +150,9 @@ const useProblems = (problems) => {
       areFinalSharesCorrect &&
       level === levels.THREE
     ) {
+      setIsProblemSolved(true);
+      // setSolvedProblems(_.assign(solvedProblems, { [problemIndex]: true }));
       alert('Success');
-      // setShowResults(false)
-      // setProblemIndex(problemIndex + 1)
-      // setLevel(levels.ONE)
     }
     setShowResults(true);
   };
@@ -179,8 +173,8 @@ const useProblems = (problems) => {
   };
 
   return {
+    isProblemSolved,
     inheritors: problemData?.inheritorsSortedBySharePool,
-    problem: problemIndex,
     level,
     basicShareInputProps,
     intermediateShareInputProps,
@@ -192,4 +186,4 @@ const useProblems = (problems) => {
   };
 };
 
-export default useProblems;
+export default useProblem;
