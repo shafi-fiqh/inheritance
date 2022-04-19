@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 import { answerColors, levels } from '../constants';
 
 const useProblems = (problems) => {
-  const [level, setLevel] = useState(levels.ONE);
   const [problemIndex, setProblemIndex] = useState(0);
+  const [level, setLevel] = useState(levels.ONE);
   const [showResults, setShowResults] = useState(false);
   const [problem, setProblem] = useState(problems[problemIndex]);
 
@@ -21,6 +21,7 @@ const useProblems = (problems) => {
   const [finalShareInputProps, setFinalShareInputProps] = useState(null);
   const [areFinalSharesCorrect, setAreFinalSharesCorrect] = useState(null);
   const [problemData, setProblemData] = useState({});
+  const [solvedProblems, setSolvedProblems] = useState(false);
 
   useEffect(() => {
     setProblem(problems[problemIndex]);
@@ -142,7 +143,7 @@ const useProblems = (problems) => {
       _.map(finalShareAnswers, (answer, i) => problemData.answers.final[i] == answer)
     );
     setAreFinalSharesCorrect(areCorrect);
-  }, [finalShareAnswers, problem, problemData]);
+  }, [finalShareAnswers, problemData]);
 
   const checkAnswers = () => {
     if (areBasicSharesCorrect && level === levels.ONE) {
@@ -155,10 +156,8 @@ const useProblems = (problems) => {
       areFinalSharesCorrect &&
       level === levels.THREE
     ) {
+      setSolvedProblems(_.assign(solvedProblems, { [problemIndex]: true }));
       alert('Success');
-      // setShowResults(false)
-      // setProblemIndex(problemIndex + 1)
-      // setLevel(levels.ONE)
     }
     setShowResults(true);
   };
@@ -188,7 +187,21 @@ const useProblems = (problems) => {
     updateBasicShareAnswers,
     updateIntermediateShareAnswers,
     updateFinalShareAnswers,
-    checkAnswers
+    checkAnswers,
+    goToPrevProblem: () => {
+      if (problemIndex > 0) {
+        setShowResults(false);
+        setProblemIndex(problemIndex - 1);
+        setLevel(levels.ONE);
+      }
+    },
+    goToNextProblem: () => {
+      if (solvedProblems[problemIndex] && problemIndex + 1 < problems.length) {
+        setShowResults(false);
+        setProblemIndex(problemIndex + 1);
+        setLevel(levels.ONE);
+      }
+    }
   };
 };
 

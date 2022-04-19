@@ -1,8 +1,9 @@
 import _ from 'lodash';
 
-import { levels } from './constants';
-import useProblems from './hooks/useProblems';
 import './App.css';
+
+import useProblems from './hooks/useProblems';
+import { Problem } from './components/components';
 
 import problemSet from './problems.json';
 
@@ -14,116 +15,37 @@ function App() {
     problem,
     level,
     basicShareInputProps,
-    updateBasicShareAnswers,
-    checkAnswers,
-    intermediateShareInputProps,
-    updateIntermediateShareAnswers,
     finalShareInputProps,
-    updateFinalShareAnswers
+    intermediateShareInputProps,
+    checkAnswers,
+    updateBasicShareAnswers,
+    updateIntermediateShareAnswers,
+    updateFinalShareAnswers,
+    goToPrevProblem,
+    goToNextProblem
   } = useProblems(problemSet);
 
-  const inheritorsDisplay = _.map(inheritors, (inheritor, i) => (
-    // TODO: Extract into component
-    <div key={i} className="inheritor">
-      <h3> {inheritor.key}</h3>
-    </div>
-  ));
-
-  const onBasicSharesChange = (changedIndex, value) => {
-    const answers = _.map(basicShareInputProps, 'value');
-    answers[changedIndex] = value;
-    updateBasicShareAnswers(answers);
+  const probelmProps = {
+    inheritors,
+    level,
+    basicShareInputProps,
+    intermediateShareInputProps,
+    finalShareInputProps,
+    updateBasicShareAnswers,
+    updateIntermediateShareAnswers,
+    updateFinalShareAnswers
   };
-
-  const basicShareDropdowns = _.map(basicShareInputProps, (input, i) => {
-    const style = {
-      backgroundColor: input.backgroundColor
-    };
-    return (
-      // TODO: Extract into component
-      <div key={i} className="basic-share-select" style={style}>
-        <select
-          value={input.value !== null ? input.value : '-'}
-          onChange={(e) => onBasicSharesChange(i, e.target.value)}
-        >
-          <option value="-">-</option>
-          <option value="1/2">1/2</option>
-          <option value="1/3">1/3</option>
-          <option value="1/4">1/4</option>
-          <option value="1/6">1/6</option>
-          <option value="1/8">1/8</option>
-          <option value="2/3">2/3</option>
-          <option value="U">U</option>
-        </select>
-      </div>
-    );
-  });
-
-  const onIntermediateSharesChange = (changedIndex, value) => {
-    const answers = _.map(intermediateShareInputProps, 'value');
-    answers[changedIndex] = value;
-    updateIntermediateShareAnswers(answers);
-  };
-
-  const intermediateShareInputs = _.map(intermediateShareInputProps, (input, i) => {
-    const style = {
-      backgroundColor: input.backgroundColor,
-      height: `${input.size * 40}.px`,
-      paddingTop: `${input.size * 10}.px`,
-      paddingBottom: `${input.size * 10}.px`
-    };
-    const isDisabled = level < levels.TWO;
-    return (
-      // TODO: Extract into component
-      <div key={i} className="intermediate-share-input" style={style}>
-        <input
-          disabled={isDisabled}
-          type="number"
-          value={input.value}
-          onChange={(e) => onIntermediateSharesChange(i, e.target.value)}
-        />
-      </div>
-    );
-  });
-
-  const onFinalSharesChange = (changedIndex, value) => {
-    const answers = _.map(finalShareInputProps, 'value');
-    answers[changedIndex] = value;
-    updateFinalShareAnswers(answers);
-  };
-
-  const finalShareInputs = _.map(finalShareInputProps, (input, i) => {
-    const style = {
-      backgroundColor: input.backgroundColor
-    };
-    const isDisabled = level !== levels.THREE;
-    return (
-      // TODO: Extract into component
-      <div key={i} className="final-share-input" style={style}>
-        <input
-          disabled={isDisabled}
-          type="number"
-          value={input.value}
-          onChange={(e) => onFinalSharesChange(i, e.target.value)}
-        />
-      </div>
-    );
-  });
 
   return (
     <div className="App">
       <h2>Problem: {problem}</h2>
       <h2>Level: {level}</h2>
-      <div className="problem-container">
-        {/* TODO: Extract into component */}
-        <div className="column">{inheritorsDisplay}</div>
-        <div className="column">{basicShareDropdowns}</div>
-        <div className="column">{intermediateShareInputs}</div>
-        <div className="column">{finalShareInputs}</div>
-      </div>
-      {/* TODO: Previous problem */}
+      {<Problem {...probelmProps} />}
+      {/* TODO: Disable on first problem */}
+      <input type="button" value="Prev" onClick={goToPrevProblem} />
       <input type="button" value="Check Answer" onClick={checkAnswers} />
-      {/* TODO: Next problem */}
+      {/* TODO: Disable if no more problems or havent solved the next one */}
+      <input type="button" value="Next" onClick={goToNextProblem} />
     </div>
   );
 }
