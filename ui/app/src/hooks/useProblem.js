@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 import { answerColors, levels } from '../constants';
 
-const useProblem = (problem) => {
+const useProblem = (problem, requiredLevels) => {
   const [level, setLevel] = useState(levels.ONE);
   const [showResults, setShowResults] = useState(false);
   const [isProblemSolved, setIsProblemSolved] = useState(false);
@@ -67,14 +67,14 @@ const useProblem = (problem) => {
       totalShares - _.sum(expectedIntermediateShareAnswers) // Remainder
     ];
 
-    const expectedFinalShareAnswers = _.map(
-      inheritorsSortedBySharePool,
-      (inheritor) => problem.final_shares[inheritor.key]
-    );
+    // TODO: Better code design for when final share answers are not required
+    const expectedFinalShareAnswers = problem.final_shares
+      ? _.map(inheritorsSortedBySharePool, (inheritor) => problem.final_shares[inheritor.key])
+      : [];
     const expectedFinalAnswers = [
-      problem.final_shares.total_shares,
+      problem.final_shares?.total_shares,
       ...expectedFinalShareAnswers,
-      problem.final_shares.remainder
+      problem.final_shares?.remainder
     ];
 
     setProblemData({
@@ -162,7 +162,12 @@ const useProblem = (problem) => {
     if (areBasicSharesCorrect && level === levels.ONE) {
       setLevel(levels.TWO);
     } else if (areBasicSharesCorrect && areIntermediateSharesCorrect && level === levels.TWO) {
-      setLevel(levels.THREE);
+      if (problem.final_shares) {
+        setLevel(levels.THREE);
+      } else {
+        setIsProblemSolved(true);
+        alert('Success');
+      }
     } else if (
       areBasicSharesCorrect &&
       areIntermediateSharesCorrect &&
@@ -170,7 +175,6 @@ const useProblem = (problem) => {
       level === levels.THREE
     ) {
       setIsProblemSolved(true);
-      // setSolvedProblems(_.assign(solvedProblems, { [problemIndex]: true }));
       alert('Success');
     }
     setShowResults(true);
@@ -193,11 +197,12 @@ const useProblem = (problem) => {
 
   return {
     isProblemSolved,
-    inheritors: problemData?.inheritorsSortedBySharePool,
+    inheritors: problemData?.inheritorsSortedBySharePool || [],
     level,
     basicShareInputProps,
     intermediateShareInputProps,
     finalShareInputProps,
+    areFinalSharesRequired: problem.final_shares,
     updateBasicShareAnswers,
     updateIntermediateShareAnswers,
     updateFinalShareAnswers,

@@ -5,13 +5,12 @@ import { useState } from 'react';
 import './App.css';
 
 import { Problem } from './components/components';
+import { levels } from './constants';
 
 import problemSet from './problems.json';
 
 // Ready to work on:
-// TODO: Hide 2nd and 3rd level with neutral boxes that do not indicate groups (size)
-// TODO: Deal with scenario where there are no final shares
-// TODO: Take param and only show upto a certain level
+// TODO: Take param and only show upto a certain level - i.e. implement functionality around requiredLevels
 
 function App() {
   const [currentProblem, setCurrentProblem] = useState(0);
@@ -36,7 +35,11 @@ function App() {
   const problems = _.map(problemSet, (problem, i) => {
     return (
       <div key={i} style={{ display: currentProblem == i ? 'block' : 'none' }}>
-        <Problem problem={problem} onProblemSolved={() => onProblemSolved(i)} />
+        <Problem
+          problem={problem}
+          requiredLevels={levels.THREE}
+          onProblemSolved={() => onProblemSolved(i)}
+        />
       </div>
     );
   });
