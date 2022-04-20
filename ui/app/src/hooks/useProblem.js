@@ -72,7 +72,7 @@ const useProblem = (problem) => {
       (inheritor) => problem.final_shares[inheritor.key]
     );
     const expectedFinalAnswers = [
-      problem.final_shares.total,
+      problem.final_shares.total_shares,
       ...expectedFinalShareAnswers,
       problem.final_shares.remainder
     ];

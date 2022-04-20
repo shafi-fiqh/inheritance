@@ -34,7 +34,7 @@
       "mother": "3",
       "son": "8",
       "daughter": "4",
-      "total": "18",
+      "total_shares": "18",
       "remainder": "0"
     }
   },
@@ -73,7 +73,7 @@
       "mother": "3",
       "son": "8",
       "daughter": "4",
-      "total": "18",
+      "total_shares": "18",
       "remainder": "0"
     }
   }
