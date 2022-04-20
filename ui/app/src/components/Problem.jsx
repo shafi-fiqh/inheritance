@@ -87,10 +87,26 @@ const Problem = ({ problem, onProblemSolved }) => {
   return (
     <>
       <div className="problem-container">
-        <div className="column">{inheritorsDisplay}</div>
-        <div className="column">{basicShareSelects}</div>
-        <div className="column">{intermediateShareInputs}</div>
-        <div className="column">{finalShareInputs}</div>
+        <div className="column">
+          <h3>Heir</h3>
+          <div className="neutral"></div>
+          {inheritorsDisplay}
+          <div className="neutral"></div>
+        </div>
+        <div className="column">
+          <h3>Shares</h3>
+          <div className="neutral"></div>
+          {basicShareSelects}
+          <div className="neutral"></div>
+        </div>
+        <div className="column">
+          <h3>Problem Base</h3>
+          {intermediateShareInputs}
+        </div>
+        <div className="column">
+          <h3>Problem Base</h3>
+          {finalShareInputs}
+        </div>
       </div>
       <input type="button" value="Check Answer" onClick={checkAnswers} />
     </>

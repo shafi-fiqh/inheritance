@@ -8,8 +8,10 @@ import { Problem } from './components/components';
 
 import problemSet from './problems.json';
 
-// TODO: Is total shares for the last level an input? How will they know what to put there
-// TODO: Ask Saif to return final total and remainder shares
+// Ready to work on:
+// TODO: Hide 2nd and 3rd level with neutral boxes that do not indicate groups (size)
+// TODO: Deal with scenario where there are no final shares
+// TODO: Take param and only show upto a certain level
 
 function App() {
   const [currentProblem, setCurrentProblem] = useState(0);

@@ -10,6 +10,7 @@ body {
   padding: 10px;
   width: 80px;
   height: 40px;
+  background-color: #F5FBFA;
 }
 
 .basic-share-select, .final-share-input {
@@ -25,5 +26,11 @@ body {
 .intermediate-share-input {
   padding: 10px;
   width: 160px;
+}
+
+.neutral {
+  padding: 10px;
+  background-color: #FBFBFB;
+  height: 40px;
 }
 
