@@ -5,10 +5,12 @@ import { useState } from 'react';
 import './App.css';
 
 import { Problem } from './components/components';
+import { levels } from './constants';
 
 import problemSet from './problems.json';
 
-// TODO: Is total shares for the last level an input? How will they know what to put there
+// Ready to work on:
+// TODO: Take param and only show upto a certain level - i.e. implement functionality around requiredLevels
 
 function App() {
   const [currentProblem, setCurrentProblem] = useState(0);
@@ -33,7 +35,11 @@ function App() {
   const problems = _.map(problemSet, (problem, i) => {
     return (
       <div key={i} style={{ display: currentProblem == i ? 'block' : 'none' }}>
-        <Problem problem={problem} onProblemSolved={() => onProblemSolved(i)} />
+        <Problem
+          problem={problem}
+          requiredLevels={levels.THREE}
+          onProblemSolved={() => onProblemSolved(i)}
+        />
       </div>
     );
   });

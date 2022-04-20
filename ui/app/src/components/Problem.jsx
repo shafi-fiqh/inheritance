@@ -2,8 +2,9 @@ import _ from 'lodash';
 import { useEffect } from 'react';
 import { Inheritor, BasicShareSelect, IntermediateShareInput, FinalShareInput } from './components';
 import useProblem from '../hooks/useProblem';
+import { levels } from '../constants';
 
-const Problem = ({ problem, onProblemSolved }) => {
+const Problem = ({ problem, requiredLevels, onProblemSolved }) => {
   const {
     isProblemSolved,
     inheritors,
@@ -11,11 +12,12 @@ const Problem = ({ problem, onProblemSolved }) => {
     basicShareInputProps,
     intermediateShareInputProps,
     finalShareInputProps,
+    areFinalSharesRequired,
     updateBasicShareAnswers,
     updateIntermediateShareAnswers,
     updateFinalShareAnswers,
     checkAnswers
-  } = useProblem(problem);
+  } = useProblem(problem, requiredLevels);
 
   useEffect(() => {
     if (isProblemSolved) {
@@ -84,13 +86,50 @@ const Problem = ({ problem, onProblemSolved }) => {
     );
   });
 
+  const levelTwoAndThreePlaceholder = _.chain(inheritors.length + 3)
+    .range()
+    .map((i) => <div key={i} className="neutral"></div>)
+    .value();
+
+  const levelTwoContent =
+    level === levels.TWO || level === levels.THREE ? (
+      <>
+        <h3>Problem Base</h3>
+        {intermediateShareInputs}
+      </>
+    ) : (
+      levelTwoAndThreePlaceholder
+    );
+
+  const levelThreeContent =
+    level === levels.TWO || level === levels.THREE ? (
+      <>
+        <h3>Problem Base</h3>
+        {finalShareInputs}
+      </>
+    ) : (
+      levelTwoAndThreePlaceholder
+    );
+
   return (
     <>
       <div className="problem-container">
-        <div className="column">{inheritorsDisplay}</div>
-        <div className="column">{basicShareSelects}</div>
-        <div className="column">{intermediateShareInputs}</div>
-        <div className="column">{finalShareInputs}</div>
+        <div className="column">
+          <h3>Heir</h3>
+          <div className="neutral"></div>
+          {inheritorsDisplay}
+          <div className="neutral"></div>
+        </div>
+        <div className="column">
+          <h3>Shares</h3>
+          <div className="neutral"></div>
+          {basicShareSelects}
+          <div className="neutral"></div>
+        </div>
+        <div className="column">{levelTwoContent}</div>
+        <div className="column" style={{ display: areFinalSharesRequired ? 'block' : 'none' }}>
+          {levelThreeContent}
+        </div>
       </div>
       <input type="button" value="Check Answer" onClick={checkAnswers} />
     </>
