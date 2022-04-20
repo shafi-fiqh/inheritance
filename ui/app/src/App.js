@@ -9,6 +9,7 @@ import { Problem } from './components/components';
 import problemSet from './problems.json';
 
 // TODO: Is total shares for the last level an input? How will they know what to put there
+// TODO: Ask Saif to return final total and remainder shares
 
 function App() {
   const [currentProblem, setCurrentProblem] = useState(0);

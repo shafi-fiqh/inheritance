@@ -33,7 +33,9 @@
       "father": "3",
       "mother": "3",
       "son": "8",
-      "daughter": "4"
+      "daughter": "4",
+      "total": "18",
+      "remainder": "0"
     }
   },
   {
@@ -70,7 +72,9 @@
       "father": "3",
       "mother": "3",
       "son": "8",
-      "daughter": "4"
+      "daughter": "4",
+      "total": "18",
+      "remainder": "0"
     }
   }
 ]
