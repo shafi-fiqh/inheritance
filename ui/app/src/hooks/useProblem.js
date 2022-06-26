@@ -197,6 +197,8 @@ const useProblem = (problem, requiredLevels) => {
 
   const showAnswers = () => {
     // TODO: Confirm with Saif if we should show for all levels vs only the one they are currently on
+    // TODO: User should be able to navigate to next problem
+    // TODO: Hide alert success
     setBasicShareAnswers(problemData.answers.basic);
     setIntermediateShareAnswers(problemData.answers.intermediate);
     if (problem.final_shares) {
