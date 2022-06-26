@@ -195,6 +195,18 @@ const useProblem = (problem, requiredLevels) => {
     setFinalShareAnswers(answers);
   };
 
+  const showAnswers = () => {
+    // TODO: Confirm with Saif if we should show for all levels vs only the one they are currently on
+    setBasicShareAnswers(problemData.answers.basic);
+    setIntermediateShareAnswers(problemData.answers.intermediate);
+    if (problem.final_shares) {
+      setLevel(levels.THREE);
+      setFinalShareAnswers(problemData.answers.final);
+    } else {
+      setLevel(levels.TWO);
+    }
+  }
+
   return {
     isProblemSolved,
     inheritors: problemData?.inheritorsSortedBySharePool || [],
@@ -206,7 +218,8 @@ const useProblem = (problem, requiredLevels) => {
     updateBasicShareAnswers,
     updateIntermediateShareAnswers,
     updateFinalShareAnswers,
-    checkAnswers
+    checkAnswers,
+    showAnswers,
   };
 };
 
