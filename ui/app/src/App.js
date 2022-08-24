@@ -37,7 +37,7 @@ function App() {
       <div key={i} style={{ display: currentProblem == i ? 'block' : 'none' }}>
         <Problem
           problem={problem}
-          requiredLevels={levels.THREE}
+          requiredLevels={levels.ONE}
           onProblemSolved={() => onProblemSolved(i)}
         />
       </div>

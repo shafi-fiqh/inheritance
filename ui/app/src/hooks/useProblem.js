@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 
 import { answerColors, levels } from '../constants';
 
+
 const useProblem = (problem, requiredLevels) => {
   const [level, setLevel] = useState(levels.ONE);
   const [showResults, setShowResults] = useState(false);
@@ -206,10 +207,13 @@ const useProblem = (problem, requiredLevels) => {
       setFinalShareAnswers(problemData.answers.final);
     }
 
-    if ((level === levels.TWO && !problem.final_shares) || (level === levels.THREE && problem.final_shares)) {
+    if (
+      (level === requiredLevels) ||
+      (level === levels.TWO && !problem.final_shares) // Special case when final_shares problem does not exist
+    ) {
       setIsProblemSolved(true);
     }
-  }
+  };
 
   return {
     isProblemSolved,
@@ -223,7 +227,7 @@ const useProblem = (problem, requiredLevels) => {
     updateIntermediateShareAnswers,
     updateFinalShareAnswers,
     checkAnswers,
-    showAnswers,
+    showAnswers
   };
 };
 

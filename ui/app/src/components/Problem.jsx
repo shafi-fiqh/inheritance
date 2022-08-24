@@ -17,7 +17,7 @@ const Problem = ({ problem, requiredLevels, onProblemSolved }) => {
     updateIntermediateShareAnswers,
     updateFinalShareAnswers,
     checkAnswers,
-    showAnswers,
+    showAnswers
   } = useProblem(problem, requiredLevels);
 
   useEffect(() => {
@@ -119,7 +119,9 @@ const Problem = ({ problem, requiredLevels, onProblemSolved }) => {
           <h3>Heir</h3>
           <div className="neutral"></div>
           {inheritorsDisplay}
-          <div className='neutral'><h3>Remainder</h3></div>
+          <div className="neutral">
+            <h3>Remainder</h3>
+          </div>
         </div>
         <div className="column">
           <h3>Shares</h3>
@@ -127,10 +129,14 @@ const Problem = ({ problem, requiredLevels, onProblemSolved }) => {
           {basicShareSelects}
           <div className="neutral"></div>
         </div>
-        <div className="column">{levelTwoContent}</div>
-        <div className="column" style={{ display: areFinalSharesRequired ? 'block' : 'none' }}>
-          {levelThreeContent}
-        </div>
+        {_.includes([levels.TWO, levels.THREE], requiredLevels) && (
+          <div className="column">{levelTwoContent}</div>
+        )}
+        {_.includes([levels.THREE], requiredLevels) && (
+          <div className="column" style={{ display: areFinalSharesRequired ? 'block' : 'none' }}>
+            {levelThreeContent}
+          </div>
+        )}
       </div>
       <input type="button" value="Check Answer" onClick={checkAnswers} />
       <input type="button" value="Show Answer" onClick={showAnswers} />
