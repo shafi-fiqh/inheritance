@@ -196,16 +196,18 @@ const useProblem = (problem, requiredLevels) => {
   };
 
   const showAnswers = () => {
-    // TODO: Confirm with Saif if we should show for all levels vs only the one they are currently on
-    // TODO: User should be able to navigate to next problem
-    // TODO: Hide alert success
-    setBasicShareAnswers(problemData.answers.basic);
-    setIntermediateShareAnswers(problemData.answers.intermediate);
-    if (problem.final_shares) {
-      setLevel(levels.THREE);
-      setFinalShareAnswers(problemData.answers.final);
-    } else {
+    if (level === levels.ONE) {
+      setBasicShareAnswers(problemData.answers.basic);
       setLevel(levels.TWO);
+    } else if (level === levels.TWO) {
+      setIntermediateShareAnswers(problemData.answers.intermediate);
+      setLevel(levels.THREE);
+    } else if (level === levels.THREE) {
+      setFinalShareAnswers(problemData.answers.final);
+    }
+
+    if ((level === levels.TWO && !problem.final_shares) || (level === levels.THREE && problem.final_shares)) {
+      setIsProblemSolved(true);
     }
   }
 
