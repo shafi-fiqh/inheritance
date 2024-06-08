@@ -116,17 +116,6 @@ def generate_problems():
     return json.dumps(ret)
 
 
-def create_parser():
-    # Create the parser and add arguments
-    parser = argparse.ArgumentParser(description="Example argparse program")
-    parser.add_argument("input", type=str, help="Input file")
-    parser.add_argument("output", type=str, help="Output file")
-    parser.add_argument(
-        "--verbose", "-v", action="store_true", help="Enable verbose mode"
-    )
-    return parser
-
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Case generator parameters")
     parser.add_argument(
