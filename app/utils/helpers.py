@@ -1,6 +1,7 @@
 """
 Misc helper functions
 """
+
 import copy
 import math
 from functools import reduce

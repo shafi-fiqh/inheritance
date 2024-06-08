@@ -3,6 +3,14 @@ FROM python:3
 COPY . /inheritance
 WORKDIR /inheritance
 
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+RUN python -m venv /inheritance_vm 
+RUN source /inheritance_vm/bin/activate 
 RUN pip install -r requirements.txt
 
-CMD [ "python", "app/main.py" ]
+# Set environment variable
+ARG PORT
+ENV PORT=$PORT
+
+# Run the application
+CMD python app/main.py --port $PORT

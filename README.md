@@ -34,9 +34,17 @@ This command uses all the inheritors found in [family_config.csv](config/family_
 generates all valid cases of size 3, and output the fully solved cases to the output file inheritance_3_filtered.csv.
 It will also filter using the filtration yml file.  
 
+## Running the app 
+
+1. Install [docker](https://docs.docker.com/engine/install/)
+2. Run `./inheritance_app.sh build $PORT` where $PORT is the desired port number for your application to run on, choose one that is not in use. Example 
+```
+./inheritance_app.sh build 3000
+```
+3. Run `./inheritance_app.sh up` to start the docker container. 
+4. To test that it is working you can run `./test_app.sh 3000`
 
 ## Contributing 
-
 To contribute to the repository please adhere to the following protocol: 
 
 1. Ensure python 3.7 is installed in your environment. 

@@ -5,6 +5,7 @@ from flask import abort
 from flask import Flask
 from flask import request
 
+import argparse
 from src.cases_generator import CaseGenerator
 from src.full_solver import full_solver
 from src.generate_unsolved_problems import generate_problems_lst
@@ -115,5 +116,24 @@ def generate_problems():
     return json.dumps(ret)
 
 
+def create_parser():
+    # Create the parser and add arguments
+    parser = argparse.ArgumentParser(description="Example argparse program")
+    parser.add_argument("input", type=str, help="Input file")
+    parser.add_argument("output", type=str, help="Output file")
+    parser.add_argument(
+        "--verbose", "-v", action="store_true", help="Enable verbose mode"
+    )
+    return parser
+
+
 if __name__ == "__main__":
-    app.run("0.0.0.0")
+    parser = argparse.ArgumentParser(description="Case generator parameters")
+    parser.add_argument(
+        "--port",
+        type=int,
+        default=5000,
+        help="Port to run the application on.",
+    )
+    args = parser.parse_args()
+    app.run("0.0.0.0", port=args.port)
