@@ -5,6 +5,7 @@ from flask import abort
 from flask import Flask
 from flask import request
 
+import argparse
 from src.cases_generator import CaseGenerator
 from src.full_solver import full_solver
 from src.generate_unsolved_problems import generate_problems_lst
@@ -116,4 +117,12 @@ def generate_problems():
 
 
 if __name__ == "__main__":
-    app.run("0.0.0.0")
+    parser = argparse.ArgumentParser(description="Case generator parameters")
+    parser.add_argument(
+        "--port",
+        type=int,
+        default=5000,
+        help="Port to run the application on.",
+    )
+    args = parser.parse_args()
+    app.run("0.0.0.0", port=args.port)

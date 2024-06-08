@@ -2,6 +2,7 @@
 Collection of functions to solve for various inheritors.
 The function should take a tuple of inheritors, and return some shares.
 """
+
 from fractions import Fraction
 
 from utils.helpers import calc_num_siblings

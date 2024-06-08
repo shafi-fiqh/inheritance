@@ -4,6 +4,7 @@ Configuration files specify the base set of inheritors to permute.
 Number of different types of inheritors passed as a parameter.
 Saving the cases to a csv is an option.
 """
+
 import argparse
 import ast
 import copy

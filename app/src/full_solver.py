@@ -28,7 +28,6 @@ def full_solver(case: dict) -> dict:
 def solve_regular_asaba_shares(
     case: dict, asaba_inh: list, asaba_share: Fraction
 ) -> dict:
-
     n_siblings = calc_num_siblings(case)
     if is_omariyya(case, n_siblings):
         return solve_asaba_omariyya(case)
@@ -68,7 +67,6 @@ def solve_regular_asaba_shares(
 def solve_grandfather_or_father_asaba_shares(
     case: dict, sum_of_shares: Fraction
 ) -> dict:
-
     sum_of_shares += Fraction("1/6")
 
     inheriting_ancestor = "father" if "father" in case else "father_of_father"
