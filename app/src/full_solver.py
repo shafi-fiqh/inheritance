@@ -1,11 +1,11 @@
 from fractions import Fraction
 
-from utils.helpers import calc_num_siblings
-from utils.helpers import calc_share_radd_total
-from utils.helpers import is_radd
-from utils.helpers import is_omariyya
-from utils.helpers import sum_of_inheriting_shares
-from utils.helpers import solve_asaba_omariyya
+from app.utils.helpers import calc_num_siblings
+from app.utils.helpers import calc_share_radd_total
+from app.utils.helpers import is_radd
+from app.utils.helpers import is_omariyya
+from app.utils.helpers import sum_of_inheriting_shares
+from app.utils.helpers import solve_asaba_omariyya
 
 
 def full_solver(case: dict) -> dict:

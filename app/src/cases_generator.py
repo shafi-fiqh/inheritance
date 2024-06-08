@@ -16,11 +16,11 @@ import pandas as pd
 import tqdm
 import yaml
 
-from src.solver import solve
-from src.full_solver import full_solver
-from utils.helpers import is_redundant
-from utils.helpers import nCr
-from utils.helpers import calculate_asl
+from app.src.solver import solve
+from app.src.full_solver import full_solver
+from app.utils.helpers import is_redundant
+from app.utils.helpers import nCr
+from app.utils.helpers import calculate_asl
 
 
 class CaseGenerator:

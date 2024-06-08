@@ -2,7 +2,7 @@ import json
 import itertools
 import tqdm
 
-from utils.helpers import nCr
+from app.utils.helpers import nCr
 
 
 UNIVERSAL_HEIRS = [

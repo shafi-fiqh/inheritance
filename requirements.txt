@@ -6,3 +6,4 @@ pandas
 pytest
 pyyaml
 tqdm
+gunicorn
