@@ -1,6 +1,6 @@
 import copy
 import json
-import os 
+import os
 
 from flask import abort
 from flask import Flask
@@ -118,6 +118,5 @@ def generate_problems():
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Case generator parameters")
-    port = os.environ.get('PORT', 3000)
+    port = os.environ.get("PORT", 3000)
     app.run("0.0.0.0", port=port)
