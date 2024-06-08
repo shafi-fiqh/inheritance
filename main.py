@@ -1,18 +1,19 @@
 import copy
 import json
+import os
 
 from flask import abort
 from flask import Flask
 from flask import request
 
 import argparse
-from src.cases_generator import CaseGenerator
-from src.full_solver import full_solver
-from src.generate_unsolved_problems import generate_problems_lst
-from src.solver import solve
-from utils.helpers import calculate_asl
-from utils.helpers import calculate_intermittent_asl
-from utils.helpers import need_final_solver
+from app.src.cases_generator import CaseGenerator
+from app.src.full_solver import full_solver
+from app.src.generate_unsolved_problems import generate_problems_lst
+from app.src.solver import solve
+from app.utils.helpers import calculate_asl
+from app.utils.helpers import calculate_intermittent_asl
+from app.utils.helpers import need_final_solver
 
 app = Flask(__name__)
 CASE_GEN = CaseGenerator(
@@ -117,12 +118,5 @@ def generate_problems():
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Case generator parameters")
-    parser.add_argument(
-        "--port",
-        type=int,
-        default=5000,
-        help="Port to run the application on.",
-    )
-    args = parser.parse_args()
-    app.run("0.0.0.0", port=args.port)
+    port = os.environ.get("PORT", 3000)
+    app.run("0.0.0.0", port=port)

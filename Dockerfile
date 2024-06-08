@@ -13,4 +13,4 @@ ARG PORT
 ENV PORT=$PORT
 
 # Run the application
-CMD python app/main.py --port $PORT
+CMD gunicorn main:app 0.0.0.0:$PORT

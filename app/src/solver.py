@@ -5,14 +5,14 @@ The function should take a tuple of inheritors, and return some shares.
 
 from fractions import Fraction
 
-from utils.helpers import calc_num_siblings
-from utils.helpers import calculate_remainder_grandfather
-from utils.helpers import calculate_share_of_maternal_siblings
-from utils.helpers import is_akdariyya
-from utils.helpers import is_full_sibling
-from utils.helpers import is_musharraka
-from utils.helpers import is_omariyya
-from utils.helpers import sisters_with_daughters
+from app.utils.helpers import calc_num_siblings
+from app.utils.helpers import calculate_remainder_grandfather
+from app.utils.helpers import calculate_share_of_maternal_siblings
+from app.utils.helpers import is_akdariyya
+from app.utils.helpers import is_full_sibling
+from app.utils.helpers import is_musharraka
+from app.utils.helpers import is_omariyya
+from app.utils.helpers import sisters_with_daughters
 
 
 def solve(
