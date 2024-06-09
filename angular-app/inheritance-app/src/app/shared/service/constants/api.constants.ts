@@ -1,0 +1,1 @@
+export const inheritanceGeneratorAPI = "http://api.islamic-inheritance.com/generate_problems"

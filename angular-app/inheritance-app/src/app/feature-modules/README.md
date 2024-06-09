@@ -1,0 +1,3 @@
+# FEATURE MODULES
+
+Feature modules deliver user experience dedicated to a particular application feature like an events page or articles page. We’re grouping the components, services, models and other functionality that belongs together. They typically have a top component that acts as the feature root and private, supporting sub-components descend from it. They might be imported by the root AppModule of a small application that lacks routing or need to show some initial content, but can also be lazy loaded with references in the app routing file.
