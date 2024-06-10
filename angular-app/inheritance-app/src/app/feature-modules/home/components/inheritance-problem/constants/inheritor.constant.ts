@@ -29,11 +29,27 @@ export enum INHERITOR_CONST  {
   grandmother_mother = <any> "Grandmother (mother's mother)",
   son_of_fathers_brother = <any> "Cousin [son of father's full brother]",
   son_of_fathers_paternal_halfbrother = <any> "Cousin [son of father's paternal brother]"
+}
 
+export enum GENDER {
+    daughter = 'daughter',   
+    daughter_x2 = 'daughter_x2',
+    daughter_of_son = 'daughter_of_son',
+    daughter_of_son_x2 = 'daughter_of_son_x2',
+    mother = 'mother',
+    sister = 'sister',
+    sister_x2 = 'sister_x2',
+    paternal_halfsister = 'paternal_halfsister',
+    paternal_halfsister_x2 = 'paternal_halfsister_x2',
+    maternal_halfsister = 'maternal_halfsister',
+    maternal_halfsister_x2 = 'maternal_halfsister_x2',
+    wife = 'wife',
+    grandmother_father = 'grandmother_father',
+    grandmother_mother =' grandmother_mother' ,
+  
 }
 
 export const DROPDOWN_VALUES = [
-  
   "1/2",
  "1/3",
   "1/4",
@@ -41,5 +57,4 @@ export const DROPDOWN_VALUES = [
   "1/8",
   "2/3",
   "U"
-  
 ]

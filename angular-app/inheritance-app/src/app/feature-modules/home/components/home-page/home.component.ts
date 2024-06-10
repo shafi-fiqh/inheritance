@@ -8,6 +8,7 @@ import { InheritanceStore } from './store/inheritance-generator.store'
   <div class="flex justify-center">
     <inheritance-problem-component
       [problemSet]="problemSet[index]"
+      [index]= "index"
       (rightArrowClickEvent)="nextProblem()"
       (leftArrowClickEvent)="previousProblem()"
     ></inheritance-problem-component>
@@ -28,10 +29,8 @@ export class HomeComponent implements OnInit{
 
   nextProblem() {
     this.index < this.problemSet.length ? this.index++ : this.index
-    console.log(this.index)
   }
   previousProblem() {
     this.index > 0 ? this.index-- : this.index
-    console.log(this.index)
   }
 }
