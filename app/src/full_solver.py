@@ -87,7 +87,7 @@ def solve_asaba_shares(case: dict) -> dict:
     :return: dictionary representing the inheritors and respective shares.
     """
 
-    asaba_inh = [inh for inh in case if case[inh] == "U"]
+    asaba_inh = [inh for inh in case if case[inh] == "U" or case[inh] == "1/6 + U"]
     sum_of_shares = sum_of_inheriting_shares(case)
 
     if len(asaba_inh) > 0:
