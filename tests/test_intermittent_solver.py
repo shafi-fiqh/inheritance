@@ -2,6 +2,8 @@ import copy
 import json
 import pdb
 
+from fractions import Fraction
+
 
 from app.utils.helpers import calculate_intermittent_asl
 from app.utils.helpers import need_final_solver
@@ -22,15 +24,29 @@ def test_cases(case):
     intermitten_soln = calculate_intermittent_asl(case_copy["initial_shares"])
     # pdb.set_trace()
     num_x2_inhs = [inh for inh in intermitten_soln["inheritance_pool"] if "x2" in inh]
-    num_universal_heir = [
+    universal_heir_lst = [
         inh for inh in case["initial_shares"] if case["initial_shares"][inh] == "U"
     ]
 
     if len(num_x2_inhs) > 0:
         assert True
 
-    elif len(num_universal_heir) > 1:
-        assert True
+    elif len(universal_heir_lst) > 1:
+        sum_shares_universal_heir = sum([case['full_shares'][inh] for inh in universal_heir_lst])
+        sum_shares_universal_heir_soln = intermitten_soln["share_pool"][intermitten_soln["inheritance_pool"][universal_heir_lst[0]]]
+
+        total_shares_case = case['full_shares']['total_shares']
+        total_shares_soln = intermitten_soln["share_pool"][intermitten_soln["inheritance_pool"]["total_shares"]]
+
+        assert Fraction(sum_shares_universal_heir / total_shares_case) == Fraction(sum_shares_universal_heir_soln / total_shares_soln) 
+        assert all(
+            [
+                Fraction(case["full_shares"][inh] / total_shares_case)
+                == 
+                Fraction(intermitten_soln["share_pool"][intermitten_soln["inheritance_pool"][inh]] / total_shares_soln)
+                for inh in case["full_shares"] if inh not in universal_heir_lst
+            ]
+        )
 
     elif (
         intermitten_soln["share_pool"][
