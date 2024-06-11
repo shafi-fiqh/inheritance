@@ -305,7 +305,9 @@ def calculate_intermittent_asl(case: dict) -> dict:
             break
         else:
             inheritance_pool[inh] = "pool_{id}".format(id=pool_id)
-            share_pool["pool_{id}".format(id=pool_id)] = max(1 - total_fixed_share_sum, 0) 
+            share_pool["pool_{id}".format(id=pool_id)] = max(
+                1 - total_fixed_share_sum, 0
+            )
 
     if len(asaba_inheritors):
         pool_id += 1
