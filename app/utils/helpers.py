@@ -205,10 +205,19 @@ def need_final_solver(case: dict) -> bool:
     need_normalization = len(case["inheritance_pool"].values()) != len(
         set(case["inheritance_pool"].values())
     )
-    two_inh_category = len([inh for inh in case["inheritance_pool"] if 'x2' in inh]) > 0
-    remainder_total_shares_pool_lst = [case['inheritance_pool']['total_shares'], case['inheritance_pool']['remainder']]
-    inh_shares_pool = [share_pool for share_pool in case['inheritance_pool'].values() if share_pool not in remainder_total_shares_pool_lst]
-    unique_inh_share_pool = reduce(lambda x, y: x + [y] if y not in x else x, inh_shares_pool, [])
+    two_inh_category = len([inh for inh in case["inheritance_pool"] if "x2" in inh]) > 0
+    remainder_total_shares_pool_lst = [
+        case["inheritance_pool"]["total_shares"],
+        case["inheritance_pool"]["remainder"],
+    ]
+    inh_shares_pool = [
+        share_pool
+        for share_pool in case["inheritance_pool"].values()
+        if share_pool not in remainder_total_shares_pool_lst
+    ]
+    unique_inh_share_pool = reduce(
+        lambda x, y: x + [y] if y not in x else x, inh_shares_pool, []
+    )
     unique_inh_shares = [case["share_pool"][share] for share in unique_inh_share_pool]
 
     is_awl = (
