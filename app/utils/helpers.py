@@ -205,23 +205,27 @@ def need_final_solver(case: dict) -> bool:
     need_normalization = len(case["inheritance_pool"].values()) != len(
         set(case["inheritance_pool"].values())
     )
+    two_inh_category = len([inh for inh in case["inheritance_pool"] if "x2" in inh]) > 0
+    remainder_total_shares_pool_lst = [
+        case["inheritance_pool"]["total_shares"],
+        case["inheritance_pool"]["remainder"],
+    ]
+    inh_shares_pool = [
+        share_pool
+        for share_pool in case["inheritance_pool"].values()
+        if share_pool not in remainder_total_shares_pool_lst
+    ]
+    unique_inh_share_pool = reduce(
+        lambda x, y: x + [y] if y not in x else x, inh_shares_pool, []
+    )
+    unique_inh_shares = [case["share_pool"][share] for share in unique_inh_share_pool]
 
-    case_inh = list(
-        filter(
-            lambda x: x != "remainder" and x != "total_shares",
-            case["inheritance_pool"].keys(),
-        )
-    )
-    shares = list(
-        map(lambda x: case["share_pool"][case["inheritance_pool"][x]], case_inh)
-    )
-    unique_shares = reduce(lambda x, y: x + [y] if y not in x else x, shares, [])
     is_awl = (
-        sum(unique_shares)
+        sum(unique_inh_shares)
         > case["share_pool"][case["inheritance_pool"]["total_shares"]]
     )
 
-    return is_case_radd or need_normalization or is_awl
+    return is_case_radd or two_inh_category or need_normalization or is_awl
 
 
 def assign_whole_shares(lcm, case):
@@ -292,16 +296,18 @@ def calculate_intermittent_asl(case: dict) -> dict:
     asaba_inheritors = [inh for inh in case if "U" in case[inh]]
     total_fixed_share_sum = sum([share_pool[id] for id in share_pool])
     for inh in asaba_inheritors:
-        if inh == "father":
+        if case[inh] == "1/6 + U":
             total_fixed_share_sum += Fraction(1, 6)
-            inheritance_pool["father"] = "pool_{id}".format(id=pool_id)
-            share_pool["pool_{id}".format(id=pool_id)] = Fraction(1, 6) + (
-                1 - total_fixed_share_sum
+            inheritance_pool[inh] = "pool_{id}".format(id=pool_id)
+            share_pool["pool_{id}".format(id=pool_id)] = Fraction(1, 6) + max(
+                1 - total_fixed_share_sum, 0
             )
             break
         else:
             inheritance_pool[inh] = "pool_{id}".format(id=pool_id)
-            share_pool["pool_{id}".format(id=pool_id)] = 1 - total_fixed_share_sum
+            share_pool["pool_{id}".format(id=pool_id)] = max(
+                1 - total_fixed_share_sum, 0
+            )
 
     if len(asaba_inheritors):
         pool_id += 1
@@ -319,7 +325,7 @@ def calculate_intermittent_asl(case: dict) -> dict:
 
     pool_id += 1
     inheritance_pool["total_shares"] = "pool_{id}".format(id=pool_id)
-    share_pool["pool_{id}".format(id=pool_id)] = lcm
+    share_pool["pool_{id}".format(id=pool_id)] = max(lcm, total_shares_sum)
     return {"inheritance_pool": inheritance_pool, "share_pool": share_pool}
 
 
