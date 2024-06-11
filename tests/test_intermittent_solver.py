@@ -32,19 +32,32 @@ def test_cases(case):
         assert True
 
     elif len(universal_heir_lst) > 1:
-        sum_shares_universal_heir = sum([case['full_shares'][inh] for inh in universal_heir_lst])
-        sum_shares_universal_heir_soln = intermitten_soln["share_pool"][intermitten_soln["inheritance_pool"][universal_heir_lst[0]]]
+        sum_shares_universal_heir = sum(
+            [case["full_shares"][inh] for inh in universal_heir_lst]
+        )
+        sum_shares_universal_heir_soln = intermitten_soln["share_pool"][
+            intermitten_soln["inheritance_pool"][universal_heir_lst[0]]
+        ]
 
-        total_shares_case = case['full_shares']['total_shares']
-        total_shares_soln = intermitten_soln["share_pool"][intermitten_soln["inheritance_pool"]["total_shares"]]
+        total_shares_case = case["full_shares"]["total_shares"]
+        total_shares_soln = intermitten_soln["share_pool"][
+            intermitten_soln["inheritance_pool"]["total_shares"]
+        ]
 
-        assert Fraction(sum_shares_universal_heir / total_shares_case) == Fraction(sum_shares_universal_heir_soln / total_shares_soln) 
+        assert Fraction(sum_shares_universal_heir / total_shares_case) == Fraction(
+            sum_shares_universal_heir_soln / total_shares_soln
+        )
         assert all(
             [
                 Fraction(case["full_shares"][inh] / total_shares_case)
-                == 
-                Fraction(intermitten_soln["share_pool"][intermitten_soln["inheritance_pool"][inh]] / total_shares_soln)
-                for inh in case["full_shares"] if inh not in universal_heir_lst
+                == Fraction(
+                    intermitten_soln["share_pool"][
+                        intermitten_soln["inheritance_pool"][inh]
+                    ]
+                    / total_shares_soln
+                )
+                for inh in case["full_shares"]
+                if inh not in universal_heir_lst
             ]
         )
 
