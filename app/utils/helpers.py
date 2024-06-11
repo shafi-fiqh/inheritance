@@ -296,16 +296,16 @@ def calculate_intermittent_asl(case: dict) -> dict:
     asaba_inheritors = [inh for inh in case if "U" in case[inh]]
     total_fixed_share_sum = sum([share_pool[id] for id in share_pool])
     for inh in asaba_inheritors:
-        if inh == "father":
+        if case[inh] == "1/6 + U":
             total_fixed_share_sum += Fraction(1, 6)
-            inheritance_pool["father"] = "pool_{id}".format(id=pool_id)
+            inheritance_pool[inh] = "pool_{id}".format(id=pool_id)
             share_pool["pool_{id}".format(id=pool_id)] = Fraction(1, 6) + max(
                 1 - total_fixed_share_sum, 0
             )
             break
         else:
             inheritance_pool[inh] = "pool_{id}".format(id=pool_id)
-            share_pool["pool_{id}".format(id=pool_id)] = 1 - total_fixed_share_sum
+            share_pool["pool_{id}".format(id=pool_id)] = max(1 - total_fixed_share_sum, 0) 
 
     if len(asaba_inheritors):
         pool_id += 1
