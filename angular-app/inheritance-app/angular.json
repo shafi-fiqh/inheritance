@@ -65,7 +65,8 @@
               "buildTarget": "inheritance-app:build:production"
             },
             "development": {
-              "buildTarget": "inheritance-app:build:development"
+              "buildTarget": "inheritance-app:build:development",
+              "proxyConfig": "proxy.config.json"
             }
           },
           "defaultConfiguration": "development"

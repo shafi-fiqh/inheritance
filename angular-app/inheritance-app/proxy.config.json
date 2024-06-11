@@ -1,0 +1,7 @@
+{
+  "/api*": {
+    "target": "http://islamic-inheritance-api-2f1f200c92b2.herokuapp.com",
+    "secure": false,
+    "changeOrigin":"true"
+    }
+  }

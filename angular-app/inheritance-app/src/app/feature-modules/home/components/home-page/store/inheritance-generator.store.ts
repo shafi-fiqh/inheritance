@@ -47,7 +47,7 @@ export class InheritanceStore extends ComponentStore<InheritanceState> {
       }),
       switchMap(() =>
         this.dataFetcher
-          .fetch(inheritanceGeneratorAPI, 'post', {
+          .fetch(inheritanceGeneratorAPI, {req:'post'}, {
             must_haves: ['father', 'mother', 'daughter', 'son'],
             not_haves: ['father_of_father'],
             n_types: 5,
