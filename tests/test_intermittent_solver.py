@@ -19,10 +19,12 @@ def pytest_generate_tests(metafunc):
 
 def test_cases(case):
     case_copy = copy.deepcopy(case)
-    intermitten_soln = calculate_intermittent_asl(case_copy['initial_shares'])
+    intermitten_soln = calculate_intermittent_asl(case_copy["initial_shares"])
     # pdb.set_trace()
-    num_x2_inhs = [inh for inh in intermitten_soln["inheritance_pool"] if 'x2' in inh]
-    num_universal_heir = [inh for inh in case['initial_shares'] if case['initial_shares'][inh] == 'U']
+    num_x2_inhs = [inh for inh in intermitten_soln["inheritance_pool"] if "x2" in inh]
+    num_universal_heir = [
+        inh for inh in case["initial_shares"] if case["initial_shares"][inh] == "U"
+    ]
 
     if len(num_x2_inhs) > 0:
         assert True
@@ -30,23 +32,40 @@ def test_cases(case):
     elif len(num_universal_heir) > 1:
         assert True
 
-    elif intermitten_soln['share_pool'][intermitten_soln['inheritance_pool']['remainder']] > 0:
+    elif (
+        intermitten_soln["share_pool"][
+            intermitten_soln["inheritance_pool"]["remainder"]
+        ]
+        > 0
+    ):
         assert True
 
-    elif len([inh for inh in case['initial_shares'] if 'maternal' in inh]) > 0:
+    elif len([inh for inh in case["initial_shares"] if "maternal" in inh]) > 0:
         assert True
 
-    elif len([inh for inh in case['initial_shares'] if 'share' in case['initial_shares'][inh]]) > 0:
+    elif (
+        len(
+            [
+                inh
+                for inh in case["initial_shares"]
+                if "share" in case["initial_shares"][inh]
+            ]
+        )
+        > 0
+    ):
         return True
 
     else:
-        test_val = all (
-                [
-                    case["full_shares"][inh] == intermitten_soln['share_pool'][intermitten_soln['inheritance_pool'][inh]]
-                    for inh in case['full_shares']
+        test_val = all(
+            [
+                case["full_shares"][inh]
+                == intermitten_soln["share_pool"][
+                    intermitten_soln["inheritance_pool"][inh]
                 ]
-            )
-        assert test_val 
+                for inh in case["full_shares"]
+            ]
+        )
+        assert test_val
         # assert all (
         #         [
         #             case["full_shares"][inh] == intermitten_soln['share_pool'][intermitten_soln['inheritance_pool'][inh]]
@@ -73,6 +92,7 @@ def test_cases(case):
     #     case["intermediate_shares"],
     #     initial_shares_solution,
     # )
+
 
 # def test_regular_shares():
 #     input_share = {"husband": "1/4", "daughter": "1/2"}
