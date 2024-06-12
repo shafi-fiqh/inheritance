@@ -6,7 +6,6 @@ import copy
 import math
 from functools import reduce
 from typing import Tuple
-from typing import Union
 
 from fractions import Fraction
 
@@ -416,7 +415,7 @@ def is_radd(case: dict) -> bool:
 
 def calc_share_radd_total(
     case: dict,
-) -> Tuple[Union[Fraction, None], Union[dict, None]]:
+) -> tuple[Fraction | None, dict | None]:
     if "share 1/3" not in case.values() and "share 1/6" not in case.values():
         return None, None
 
