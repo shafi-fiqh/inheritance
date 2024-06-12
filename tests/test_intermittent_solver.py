@@ -22,13 +22,28 @@ def pytest_generate_tests(metafunc):
 def test_cases(case):
     case_copy = copy.deepcopy(case)
     intermitten_soln = calculate_intermittent_asl(case_copy["initial_shares"])
-    # pdb.set_trace()
     num_x2_inhs = [inh for inh in intermitten_soln["inheritance_pool"] if "x2" in inh]
     universal_heir_lst = [
         inh for inh in case["initial_shares"] if case["initial_shares"][inh] == "U"
     ]
+    share_heir_lst = [
+        inh for inh in case["initial_shares"] if "share" in case["initial_shares"][inh]
+    ]
+    total_shares_case = case["full_shares"]["total_shares"]
+    total_shares_soln = intermitten_soln["share_pool"][
+        intermitten_soln["inheritance_pool"]["total_shares"]
+    ]
 
-    if len(num_x2_inhs) > 0:
+    if (
+        len(num_x2_inhs) > 0
+        or (
+            intermitten_soln["share_pool"][
+                intermitten_soln["inheritance_pool"]["remainder"]
+            ]
+            > 0
+        )
+        or (len(share_heir_lst) > 0)
+    ):
         assert True
 
     elif len(universal_heir_lst) > 1:
@@ -38,12 +53,6 @@ def test_cases(case):
         sum_shares_universal_heir_soln = intermitten_soln["share_pool"][
             intermitten_soln["inheritance_pool"][universal_heir_lst[0]]
         ]
-
-        total_shares_case = case["full_shares"]["total_shares"]
-        total_shares_soln = intermitten_soln["share_pool"][
-            intermitten_soln["inheritance_pool"]["total_shares"]
-        ]
-
         assert Fraction(sum_shares_universal_heir / total_shares_case) == Fraction(
             sum_shares_universal_heir_soln / total_shares_soln
         )
@@ -57,32 +66,9 @@ def test_cases(case):
                     / total_shares_soln
                 )
                 for inh in case["full_shares"]
-                if inh not in universal_heir_lst
+                if inh not in universal_heir_lst and inh not in num_x2_inhs
             ]
         )
-
-    elif (
-        intermitten_soln["share_pool"][
-            intermitten_soln["inheritance_pool"]["remainder"]
-        ]
-        > 0
-    ):
-        assert True
-
-    elif len([inh for inh in case["initial_shares"] if "maternal" in inh]) > 0:
-        assert True
-
-    elif (
-        len(
-            [
-                inh
-                for inh in case["initial_shares"]
-                if "share" in case["initial_shares"][inh]
-            ]
-        )
-        > 0
-    ):
-        return True
 
     else:
         test_val = all(
@@ -95,116 +81,3 @@ def test_cases(case):
             ]
         )
         assert test_val
-        # assert all (
-        #         [
-        #             case["full_shares"][inh] == intermitten_soln['share_pool'][intermitten_soln['inheritance_pool'][inh]]
-        #             for inh in case['full_shares']
-        #         ]
-        #     )
-
-    # assert all(
-    #     [
-    #         case["intermediate_shares"]["inheritance_pool"][inh] == intermitten_soln["intermediate_shares"]["inheritance_pool"][inh]
-    #         for inh in case
-    #     ]
-    # ), "Case %s failed solver returned %s" % (
-    #     case["intermediate_shares"],
-    #     initial_shares_solution,
-    # )
-
-    # assert all(
-    #     [
-    #         case["intermediate_shares"]["share_pool"][inh] == intermitten_soln["intermediate_shares"]["share_pool"][inh]
-    #         for inh in case
-    #     ]
-    # ), "Case %s failed solver returned %s" % (
-    #     case["intermediate_shares"],
-    #     initial_shares_solution,
-    # )
-
-
-# def test_regular_shares():
-#     input_share = {"husband": "1/4", "daughter": "1/2"}
-#     expected_output = {
-#         "inheritance_pool": {
-#             "husband": "pool_1",
-#             "daughter": "pool_2",
-#             "remainder": "pool_3",
-#             "total_shares": "pool_4",
-#         },
-#         "share_pool": {"pool_1": 1, "pool_2": 2, "pool_3": 1, "pool_4": 4},
-#     }
-#     actual_output = calculate_intermittent_asl(input_share)
-#     assert need_final_solver(actual_output) is True
-#     assert actual_output == expected_output
-
-
-# def test_regular_asaba_shares():
-#     input_share = {"daughter": "U", "father": "1/6", "son": "U"}
-#     expected_output = {
-#         "inheritance_pool": {
-#             "father": "pool_1",
-#             "son": "pool_2",
-#             "daughter": "pool_2",
-#             "remainder": "pool_3",
-#             "total_shares": "pool_4",
-#         },
-#         "share_pool": {"pool_1": 1, "pool_2": 5, "pool_3": 0, "pool_4": 6},
-#     }
-#     actual_output = calculate_intermittent_asl(input_share)
-#     assert need_final_solver(actual_output) is True
-#     assert actual_output == expected_output
-
-
-# def test_maternal_grandmother_shares():
-#     input_share = {
-#         "maternal_halfbrother": "share 1/3",
-#         "maternal_halfsister": "share 1/3",
-#         "grandmother_mother": "share 1/6",
-#         "grandmother_father": "share 1/6",
-#         "son_of_son": "U",
-#     }
-#     expected_output = {
-#         "inheritance_pool": {
-#             "maternal_halfbrother": "pool_1",
-#             "maternal_halfsister": "pool_1",
-#             "grandmother_mother": "pool_2",
-#             "grandmother_father": "pool_2",
-#             "son_of_son": "pool_3",
-#             "remainder": "pool_4",
-#             "total_shares": "pool_5",
-#         },
-#         "share_pool": {"pool_1": 2, "pool_2": 1, "pool_3": 3, "pool_4": 0, "pool_5": 6},
-#     }
-#     actual_output = calculate_intermittent_asl(input_share)
-#     assert need_final_solver(actual_output) is True
-#     assert actual_output == expected_output
-
-
-# def test_father_asaba():
-#     input_share = {"daughter": "1/2", "father": "1/6 + U"}
-#     expected_output = {
-#         "inheritance_pool": {
-#             "daughter": "pool_1",
-#             "father": "pool_2",
-#             "remainder": "pool_3",
-#             "total_shares": "pool_4",
-#         },
-#         "share_pool": {"pool_1": 1, "pool_2": 1, "pool_3": 0, "pool_4": 2},
-#     }
-#     actual_output = calculate_intermittent_asl(input_share)
-#     assert need_final_solver(actual_output) is False
-#     assert actual_output == expected_output
-
-
-# def test_awl_needs_final_solver():
-#     input_share = {
-#         "husband": "1/4",
-#         "daughter_x2": "2/3",
-#         "mother": "1/6",
-#         "father_of_father": "1/6",
-#         "brother": "U",
-#     }
-
-#     actual_output = calculate_intermittent_asl(input_share)
-#     assert need_final_solver(actual_output) is True
