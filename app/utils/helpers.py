@@ -5,7 +5,7 @@ Misc helper functions
 import copy
 import math
 from functools import reduce
-from typing import Tuple
+from typing import Any
 
 from fractions import Fraction
 
@@ -334,6 +334,7 @@ def calculate_asl(case: dict) -> dict:
     :param case:
     :return:
     """
+    full_case: dict[str, Any]
     full_case = copy.copy(case)
     maternal = {
         "maternal_halfbrother": 1,
@@ -394,8 +395,8 @@ def calculate_asl(case: dict) -> dict:
     rationals = [full_case[inh] for inh in full_case if full_case[inh] > 0]
     lcm = least_common_multiple(rationals)
     full_case = assign_whole_shares(lcm, full_case)
-    full_case["remainder"] = Fraction(0)
-    full_case["total_shares"] = Fraction(int(sum(full_case[inh] for inh in full_case)))
+    full_case["remainder"] = 0
+    full_case["total_shares"] = int(sum(full_case[inh] for inh in full_case))
     return full_case
 
 
