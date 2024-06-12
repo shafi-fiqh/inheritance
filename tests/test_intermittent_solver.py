@@ -26,11 +26,24 @@ def test_cases(case):
     universal_heir_lst = [
         inh for inh in case["initial_shares"] if case["initial_shares"][inh] == "U"
     ]
-    share_heir_lst = [inh for inh in case['initial_shares'] if "share" in case["initial_shares"][inh]]
-    total_shares_case = case['full_shares']['total_shares']
-    total_shares_soln = intermitten_soln["share_pool"][intermitten_soln["inheritance_pool"]["total_shares"]]
+    share_heir_lst = [
+        inh for inh in case["initial_shares"] if "share" in case["initial_shares"][inh]
+    ]
+    total_shares_case = case["full_shares"]["total_shares"]
+    total_shares_soln = intermitten_soln["share_pool"][
+        intermitten_soln["inheritance_pool"]["total_shares"]
+    ]
 
-    if (len(num_x2_inhs) > 0 or (intermitten_soln["share_pool"][intermitten_soln["inheritance_pool"]["remainder"]]> 0) or (len(share_heir_lst) > 0)):
+    if (
+        len(num_x2_inhs) > 0
+        or (
+            intermitten_soln["share_pool"][
+                intermitten_soln["inheritance_pool"]["remainder"]
+            ]
+            > 0
+        )
+        or (len(share_heir_lst) > 0)
+    ):
         assert True
 
     elif len(universal_heir_lst) > 1:
