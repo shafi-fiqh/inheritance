@@ -138,9 +138,10 @@ def solve_radd(case: dict) -> dict:
     for inh in scaled_inh:
         case[inh] = str(Fraction(case[inh]) + scaled_inh[inh] * remainder)
 
-    for inh in share_scaled_inh:
-        case[inh] = "share {}".format(
-            str(Fraction(share_inh[inh]) + share_scaled_inh[inh] * remainder)
-        )
+    if share_inh:
+        for inh in share_scaled_inh:
+            case[inh] = "share {}".format(
+                str(Fraction(share_inh[inh]) + share_scaled_inh[inh] * remainder)
+            )
 
     return case

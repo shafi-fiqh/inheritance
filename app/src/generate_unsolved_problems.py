@@ -23,7 +23,7 @@ UNIVERSAL_HEIRS = [
 ]
 
 
-def keep_asaba_at_end(case: tuple) -> dict:
+def keep_asaba_at_end(case: tuple[str]) -> list[str]:
     taseeb_in_case = set([inh for inh in UNIVERSAL_HEIRS if inh in case])
     remaining_inh = set(case) - taseeb_in_case
     return list(remaining_inh) + list(taseeb_in_case)

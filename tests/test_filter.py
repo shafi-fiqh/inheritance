@@ -7,7 +7,7 @@ import ast
 import pandas as pd
 import yaml
 
-from src.cases_generator import CaseGenerator
+from app.src.cases_generator import CaseGenerator
 
 
 def test_filter():

@@ -1,4 +1,4 @@
-from src.full_solver import solve_radd
+from app.src.full_solver import solve_radd
 
 
 def test_no_spouse():

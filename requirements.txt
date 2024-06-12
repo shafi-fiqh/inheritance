@@ -7,3 +7,4 @@ pytest
 pyyaml
 tqdm
 gunicorn
+pandas-stubs
