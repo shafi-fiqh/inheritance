@@ -4,7 +4,7 @@ import sys
 topdir = os.path.join(os.path.dirname(__file__), "..", "app")
 sys.path.append(topdir)
 
-from src.full_solver import solve_asaba_shares
+from app.src.full_solver import solve_asaba_shares
 
 
 def test_asaba_shares_calc():

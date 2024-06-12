@@ -11,7 +11,7 @@ from typing import Union
 from fractions import Fraction
 
 
-def is_redundant(case: dict) -> bool:
+def is_redundant(case: tuple) -> bool:
     """
     Reveals whether there is a redundancy such as sister and sister_x2
     :param case: Dictionary containing the inheritors and their shares
@@ -159,7 +159,7 @@ def sum_of_inheriting_shares(scope: dict) -> Fraction:
         for share in scope.values()
         if share not in ["share 1/3", "share 1/6", "1/3 remainder", "U", "1/6 + U"]
     ]
-    shares = sum(Fraction(share) for share in fard_basic)
+    shares = Fraction(sum(Fraction(share) for share in fard_basic))
     if "share 1/3" in scope.values():
         shares += Fraction("1/3")
     if "share 1/6" in scope.values():
@@ -395,8 +395,8 @@ def calculate_asl(case: dict) -> dict:
     rationals = [full_case[inh] for inh in full_case if full_case[inh] > 0]
     lcm = least_common_multiple(rationals)
     full_case = assign_whole_shares(lcm, full_case)
-    full_case["remainder"] = 0
-    full_case["total_shares"] = int(sum(full_case[inh] for inh in full_case))
+    full_case["remainder"] = Fraction(0)
+    full_case["total_shares"] = Fraction(int(sum(full_case[inh] for inh in full_case)))
     return full_case
 
 
@@ -420,7 +420,7 @@ def calc_share_radd_total(
     if "share 1/3" not in case.values() and "share 1/6" not in case.values():
         return None, None
 
-    sum_of_shares = 0
+    sum_of_shares = Fraction(0)
     share_inh = {}
     if "share 1/3" in case.values():
         sum_of_shares += Fraction("1/3")

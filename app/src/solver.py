@@ -280,7 +280,7 @@ def solve_maternal_siblings(case: dict, mahjoob: dict) -> dict:
     return case
 
 
-def solve_asaba(case: dict, rank: dict, taseeb: dict) -> dict:
+def solve_asaba(case: dict, rank: dict[str, float], taseeb: dict) -> dict:
     """
     Solve for asaba inheritors except for the father/grandfather.
 
@@ -303,7 +303,7 @@ def solve_asaba(case: dict, rank: dict, taseeb: dict) -> dict:
             case_ranks["paternal_halfsister_x2"] = 6.5
     if not case_ranks:
         return case
-    closest = min(case_ranks, key=case_ranks.get)
+    closest = min(case_ranks, key=lambda k: case_ranks[k])
 
     # Father is a special case to be handled in another function
     if closest != "father" and closest != "father_of_father":

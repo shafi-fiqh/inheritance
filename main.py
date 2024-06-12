@@ -24,6 +24,8 @@ CASE_GEN = CaseGenerator(
 @app.route("/solve", methods=["POST"])
 def solver():
     case = request.json
+    if not case:
+        abort(400, "Case is empty")
 
     if not all(inh in CASE_GEN.inheritors for inh in case):
         abort(400, "Inheritors must correspond to the config definition")
@@ -53,6 +55,9 @@ def solver():
 @app.route("/generate_problems", methods=["POST"])
 def generate_problems():
     problem_specs = request.json
+
+    if not problem_specs:
+        abort(400, "The problem specs are empty")
 
     if int(problem_specs["n_types"]) < 1:
         abort(
@@ -118,5 +123,5 @@ def generate_problems():
 
 
 if __name__ == "__main__":
-    port = os.environ.get("PORT", 3000)
+    port = int(os.environ.get("PORT", 3000))
     app.run("0.0.0.0", port=port)

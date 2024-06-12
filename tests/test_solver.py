@@ -5,10 +5,10 @@ Testing module
 import copy
 import json
 
-from src.cases_generator import CaseGenerator
-from src.full_solver import full_solver
-from src.solver import solve
-from utils.helpers import calculate_asl
+from app.src.cases_generator import CaseGenerator
+from app.src.full_solver import full_solver
+from app.src.solver import solve
+from app.utils.helpers import calculate_asl
 
 
 def pytest_generate_tests(metafunc):
