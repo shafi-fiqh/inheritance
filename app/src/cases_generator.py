@@ -124,7 +124,7 @@ class CaseGenerator:
                         "Full_case": [full_case],
                     }
                 )
-                base = base.append(temp)  # type: ignore
+                base = base._append(temp)  # type: ignore
                 n_cases += 1
                 if n_cases % chunk_size == 0:
                     base.to_csv(output, mode="a", index=False, header=False)
