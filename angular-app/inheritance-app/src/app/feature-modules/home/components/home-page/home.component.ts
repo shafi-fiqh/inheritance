@@ -29,10 +29,10 @@ export class HomeComponent implements OnInit, OnDestroy{
   index = 0
   subscriptions = new Subscription()
   ngOnInit() {
-    // this.inheritanceStore.fetchProblems();
-    // this.subscriptions.add(this.problems$.subscribe(problem =>{
-    //   this.problemSet = problem
-    //  }))
+    this.inheritanceStore.fetchProblems();
+    this.subscriptions.add(this.problems$.subscribe(problem =>{
+      console.log(problem)
+     }))
   }
 
   nextProblem() {
