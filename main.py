@@ -5,6 +5,7 @@ import os
 from flask import abort
 from flask import Flask
 from flask import request
+from flask_cors import CORS, cross_origin
 
 import argparse
 from app.src.cases_generator import CaseGenerator
@@ -16,12 +17,14 @@ from app.utils.helpers import calculate_intermittent_asl
 from app.utils.helpers import need_final_solver
 
 app = Flask(__name__)
+CORS(app)
 CASE_GEN = CaseGenerator(
     "config/family_config.csv", filter="config/filter.yml", filter_bool=False
 )
 
 
 @app.route("/solve", methods=["POST"])
+@cross_origin()
 def solver():
     case = request.json
     if not case:
@@ -53,6 +56,7 @@ def solver():
 
 
 @app.route("/generate_problems", methods=["POST"])
+@cross_origin()
 def generate_problems():
     problem_specs = request.json
 

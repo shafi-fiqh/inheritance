@@ -2,6 +2,7 @@ argparse
 coloredlogs
 coverage
 flask
+flask-cors
 pandas
 pytest
 pyyaml
