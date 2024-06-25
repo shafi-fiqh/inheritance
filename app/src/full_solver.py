@@ -10,7 +10,7 @@ from app.utils.helpers import (
 )
 
 
-def full_solver(case: dict) -> dict:
+def full_solver(case: dict) -> None:
     """
     This is the final solver. In this step we solve for Asaba, Radd and
     find the Asl (base shares) of the problem and finally assign integers to
@@ -19,15 +19,15 @@ def full_solver(case: dict) -> dict:
     :return: case with shares filled
     """
     if "U" in case.values() or "1/6 + U" in case.values():
-        case = solve_asaba_shares(case)
+        solve_asaba_shares(case)
 
     elif is_radd(case):
-        case = solve_radd(case)
+        solve_radd(case)
 
 
 def solve_regular_asaba_shares(
     case: dict, asaba_inh: list, asaba_share: Fraction
-) -> dict:
+) -> None:
     n_siblings = calc_num_siblings(case)
     if is_omariyya(case, n_siblings):
         return solve_asaba_omariyya(case)
@@ -64,7 +64,7 @@ def solve_regular_asaba_shares(
 
 def solve_grandfather_or_father_asaba_shares(
     case: dict, sum_of_shares: Fraction
-) -> dict:
+) -> None:
     sum_of_shares += Fraction("1/6")
 
     inheriting_ancestor = "father" if "father" in case else "father_of_father"
@@ -76,7 +76,7 @@ def solve_grandfather_or_father_asaba_shares(
         case[inheriting_ancestor] = str(Fraction("1/6") + 1 - sum_of_shares)
 
 
-def solve_asaba_shares(case: dict) -> dict:
+def solve_asaba_shares(case: dict) -> None:
     """
     Calculate the numerical shares of each Asaba inheritor
     :param case: dictionary of inheritors and shares
@@ -92,7 +92,7 @@ def solve_asaba_shares(case: dict) -> dict:
     return solve_grandfather_or_father_asaba_shares(case, sum_of_shares)
 
 
-def solve_radd(case: dict) -> dict:
+def solve_radd(case: dict) -> None:
     """
     Calculate the distribution of the remainder of shares if there's any left
     :param case: dictionary of inheritors and shares
