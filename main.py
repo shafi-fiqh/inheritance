@@ -7,7 +7,6 @@ from flask import Flask
 from flask import request
 from flask_cors import CORS, cross_origin
 
-import argparse
 from app.src.cases_generator import CaseGenerator
 from app.src.full_solver import full_solver
 from app.src.generate_unsolved_problems import generate_problems_lst
@@ -60,6 +59,14 @@ def solver():
 def generate_problems():
     problem_specs = request.json
 
+    assert isinstance(problem_specs, dict)
+
+    if "not_haves" not in problem_specs:
+        problem_specs["not_haves"] = []
+
+    if "must_haves" not in problem_specs:
+        problem_specs["must_haves"] = []
+
     if not problem_specs:
         abort(400, "The problem specs are empty")
 
@@ -69,10 +76,7 @@ def generate_problems():
             "The number of inheritors in a problem should be greater than or equal to 1",
         )
 
-    if not (
-        set(problem_specs["must_haves"]) - set(problem_specs["not_haves"])
-        or set(problem_specs["not_haves"]) - set(problem_specs["must_haves"])
-    ):
+    if set(problem_specs["must_haves"]).intersection(set(problem_specs["not_haves"])):
         abort(
             400,
             "An inheritor cannot be in both the must have and ignore list at the same time",

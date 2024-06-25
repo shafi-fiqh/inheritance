@@ -7,7 +7,7 @@ if [ -z "$1" ]; then
 fi
 
 # Default port
-PORT=2000
+PORT=3000
 
 # Check if a second argument (port) is provided for the build command
 if [ "$1" == "build" ] && [ -n "$2" ]; then
