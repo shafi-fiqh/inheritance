@@ -2,18 +2,18 @@ import copy
 import json
 import os
 
-from flask import abort
-from flask import Flask
-from flask import request
+from flask import Flask, abort, request
 from flask_cors import CORS, cross_origin
 
 from app.src.cases_generator import CaseGenerator
 from app.src.full_solver import full_solver
 from app.src.generate_unsolved_problems import generate_problems_lst
 from app.src.solver import solve
-from app.utils.helpers import calculate_asl
-from app.utils.helpers import calculate_intermittent_asl
-from app.utils.helpers import need_final_solver
+from app.utils.helpers import (
+    calculate_asl,
+    calculate_intermittent_asl,
+    need_final_solver,
+)
 
 app = Flask(__name__)
 CORS(app)
@@ -32,7 +32,7 @@ def solver():
     if not all(inh in CASE_GEN.inheritors for inh in case):
         abort(400, "Inheritors must correspond to the config definition")
 
-    basic_shares_soln = solve(
+    solve(
         case=case,
         descendants=CASE_GEN.descendants,
         mahjoob=CASE_GEN.mahjoob,
@@ -43,13 +43,13 @@ def solver():
     intermediate_shares_soln = calculate_intermittent_asl(case=case)
 
     solved_case = {
-        "basic_shares": basic_shares_soln,
+        "basic_shares": case,
         "intermediate_shares": intermediate_shares_soln,
     }
     if need_final_solver(intermediate_shares_soln):
-        solved_case["final_shares"] = calculate_asl(
-            full_solver(copy.deepcopy(basic_shares_soln))
-        )
+        case_copy = copy.deepcopy(case)
+        full_solver(case_copy)
+        solved_case["final_shares"] = calculate_asl(case_copy)
 
     return solved_case
 
@@ -109,22 +109,22 @@ def generate_problems():
     for case in cases:
         case_obj = {}
         case_obj["problem"] = copy.deepcopy(case)
-        basic_shares_soln = solve(
+        solve(
             case=case,
             descendants=CASE_GEN.descendants,
             mahjoob=CASE_GEN.mahjoob,
             rank=CASE_GEN.rank,
             taseeb=CASE_GEN.taseeb,
         )
-        case_obj["basic_shares"] = basic_shares_soln
+        case_obj["basic_shares"] = case
 
         intermediate_shares_soln = calculate_intermittent_asl(case=case)
         case_obj["intermediate_shares"] = intermediate_shares_soln
 
         if need_final_solver(intermediate_shares_soln):
-            case_obj["final_shares"] = calculate_asl(
-                full_solver(copy.deepcopy(basic_shares_soln))
-            )
+            case_copy = copy.deepcopy(case)
+            full_solver(case_copy)
+            case_obj["final_shares"] = calculate_asl(case_copy)
         ret.append(case_obj)
 
     return json.dumps(ret)

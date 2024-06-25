@@ -5,19 +5,21 @@ The function should take a tuple of inheritors, and return some shares.
 
 from fractions import Fraction
 
-from app.utils.helpers import calc_num_siblings
-from app.utils.helpers import calculate_remainder_grandfather
-from app.utils.helpers import calculate_share_of_maternal_siblings
-from app.utils.helpers import is_akdariyya
-from app.utils.helpers import is_full_sibling
-from app.utils.helpers import is_musharraka
-from app.utils.helpers import is_omariyya
-from app.utils.helpers import sisters_with_daughters
+from app.utils.helpers import (
+    calc_num_siblings,
+    calculate_remainder_grandfather,
+    calculate_share_of_maternal_siblings,
+    is_akdariyya,
+    is_full_sibling,
+    is_musharraka,
+    is_omariyya,
+    sisters_with_daughters,
+)
 
 
 def solve(
     case: dict, descendants: dict, mahjoob: dict, rank: dict, taseeb: dict
-) -> dict:
+) -> None:
     """
     This is the master solver. Individual inheritor solvers added to this
     incrementally.
@@ -29,35 +31,34 @@ def solve(
     :param rank: asaba ranking in the hierarchy
     :param taseeb: Dictionary mapping each inheritor to a list of inheritors
     that would take asaba if he is present.
-    :return: case with shares filled
+
     """
-    case = solve_father(case=case, descendants=descendants)
-    case = solve_husband(case=case, descendants=descendants)
-    case = solve_wife(case=case, descendants=descendants)
-    case = solve_daughter(case=case)
-    case = solve_granddaughter(case=case)
-    case = solve_full_sister(case=case, mahjoob=mahjoob)
-    case = solve_paternal_sister(case=case, mahjoob=mahjoob)
-    case = solve_grandmother(case=case, mahjoob=mahjoob)
-    case = solve_mother(case=case)
-    case = solve_maternal_siblings(case=case, mahjoob=mahjoob)
-    case = solve_asaba(case=case, rank=rank, taseeb=taseeb)
-    case = solve_omariyya(case=case)
-    case = solve_grandfather(case=case, descendants=descendants, taseeb=taseeb)
+    solve_father(case=case, descendants=descendants)
+    solve_husband(case=case, descendants=descendants)
+    solve_wife(case=case, descendants=descendants)
+    solve_daughter(case=case)
+    solve_granddaughter(case=case)
+    solve_full_sister(case=case, mahjoob=mahjoob)
+    solve_paternal_sister(case=case, mahjoob=mahjoob)
+    solve_grandmother(case=case, mahjoob=mahjoob)
+    solve_mother(case=case)
+    solve_maternal_siblings(case=case, mahjoob=mahjoob)
+    solve_asaba(case=case, rank=rank, taseeb=taseeb)
+    solve_omariyya(case=case)
+    solve_grandfather(case=case, descendants=descendants, taseeb=taseeb)
     # Add more here as we create more partial solvers
-    return case
 
 
-def solve_father(case: dict, descendants: dict) -> dict:
+def solve_father(case: dict, descendants: dict) -> None:
     """
     Solve only for the father's share if he exists
     :param case: dictionary of inheritors and shares
     :param descendants: dictionary mapping inheritor name to whether
     or not they're a male/female descendant
-    :return: string representing the fraction or asaba.
+
     """
     if "father" not in case:
-        return case
+        return
     # Check for any male descendants
     if any([descendants[inh] == "M" for inh in case]):
         case["father"] = "1/6"
@@ -66,53 +67,50 @@ def solve_father(case: dict, descendants: dict) -> dict:
         case["father"] = "1/6 + U"
     else:
         case["father"] = "U"
-    return case
 
 
-def solve_husband(case: dict, descendants: dict) -> dict:
+def solve_husband(case: dict, descendants: dict) -> None:
     """
     Solve only for the father's share if he exists
     :param case: dictionary of inheritors and shares
     :param descendants: dictionary mapping inheritor name to whether
     or not they're a male/female descendant
-    :return: string representing the fraction.
+
     """
     if "husband" not in case:
-        return case
+        return
     male_female_lookup = {"M": 0, "F": 0}
     if any([descendants[inh] in male_female_lookup for inh in case]):
         case["husband"] = "1/4"
     else:
         case["husband"] = "1/2"
-    return case
 
 
-def solve_wife(case: dict, descendants: dict) -> dict:
+def solve_wife(case: dict, descendants: dict) -> None:
     """
     Solve only for the father's share if he exists
     :param case: dictionary of inheritors and shares
     :param descendants: dictionary mapping inheritor name to whether
     or not they're a male/female descendant
-    :return: string representing the fraction.
+
     """
     if "wife" not in case:
-        return case
+        return
     male_female_lookup = {"M": 0, "F": 0}
     if any([descendants[inh] in male_female_lookup for inh in case]):
         case["wife"] = "1/8"
     else:
         case["wife"] = "1/4"
-    return case
 
 
-def solve_daughter(case: dict) -> dict:
+def solve_daughter(case: dict) -> None:
     """
     Solve only for the daughter's share if she exists
     :param case: dictionary of inheritors and shares
-    :return: string representing the fraction.
+
     """
     if "daughter" not in case and "daughter_x2" not in case:
-        return case
+        return
     inh = "daughter"
     share = "1/2"
     if "daughter_x2" in case:
@@ -122,25 +120,24 @@ def solve_daughter(case: dict) -> dict:
         case[inh] = "U"
     else:
         case[inh] = share
-    return case
 
 
-def solve_full_sister(case: dict, mahjoob: dict) -> dict:
+def solve_full_sister(case: dict, mahjoob: dict) -> None:
     """
     Solve only for the sister's share if she exists or is not blocked
     :param case: dictionary of inheritors and shares
     :param mahjoob: dictionary of inheritors and blockers
-    :return: string representing the fraction.
+
     """
 
     if "sister" not in case and "sister_x2" not in case:
-        return case
+        return
 
     if any(blocker in case for blocker in mahjoob["sister"]):
-        return case
+        return
 
     if sisters_with_daughters(case):
-        return case
+        return
 
     if "sister" in case:
         case["sister"] = "1/2"
@@ -148,17 +145,15 @@ def solve_full_sister(case: dict, mahjoob: dict) -> dict:
     if "sister_x2" in case:
         case["sister_x2"] = "2/3"
 
-    return case
 
-
-def solve_granddaughter(case: dict) -> dict:
+def solve_granddaughter(case: dict) -> None:
     """
     Solve only for the daughter's share if she exists
     :param case: dictionary of inheritors and shares
-    :return: string representing the fraction.
+
     """
     if "daughter_of_son" not in case and "daughter_of_son_x2" not in case:
-        return case
+        return
     inh = "daughter_of_son"
     share = "1/2"
     if "daughter_of_son_x2" in case:
@@ -174,25 +169,24 @@ def solve_granddaughter(case: dict) -> dict:
         case[inh] = "1/6"
     else:
         case[inh] = share
-    return case
 
 
-def solve_paternal_sister(case: dict, mahjoob: dict) -> dict:
+def solve_paternal_sister(case: dict, mahjoob: dict) -> None:
     """
     Solve only for the paternal sister's share if she exists or is not blocked
     :param case: dictionary of inheritors and shares
     :param mahjoob: dictionary of inheritors and blockers
-    :return: string representing the fraction.
+
     """
 
     if "paternal_halfsister" not in case and "paternal_halfsister_x2" not in case:
-        return case
+        return
 
     if any(blocker in case for blocker in mahjoob["paternal_halfsister"]):
-        return case
+        return
 
     if sisters_with_daughters(case):
-        return case
+        return
 
     paternal_sister_in_case = [
         inh for inh in case if "paternal_halfsister" in inh
@@ -207,21 +201,19 @@ def solve_paternal_sister(case: dict, mahjoob: dict) -> dict:
     if "sister" in case:
         case[paternal_sister_in_case] = "1/6"
 
-    return case
 
-
-def solve_grandmother(case: dict, mahjoob: dict) -> dict:
+def solve_grandmother(case: dict, mahjoob: dict) -> None:
     """
     Solve for maternal siblings.
 
     :param case: dictionary of inheritors and shares
     :param mahjoob: dictionary of inheritors and blockers
-    :return: string representing the fraction.
+
     """
     if not any(
         grandma in case for grandma in ["grandmother_mother", "grandmother_father"]
     ):
-        return case
+        return
 
     if (
         not any(blocker in case for blocker in mahjoob["grandmother_father"])
@@ -230,7 +222,7 @@ def solve_grandmother(case: dict, mahjoob: dict) -> dict:
     ):
         case["grandmother_mother"] = "share 1/6"
         case["grandmother_father"] = "share 1/6"
-        return case
+        return
 
     if (
         not any(blocker in case for blocker in mahjoob["grandmother_father"])
@@ -244,22 +236,20 @@ def solve_grandmother(case: dict, mahjoob: dict) -> dict:
     ):
         case["grandmother_mother"] = "1/6"
 
-    return case
 
-
-def solve_maternal_siblings(case: dict, mahjoob: dict) -> dict:
+def solve_maternal_siblings(case: dict, mahjoob: dict) -> None:
     """
     Solve for maternal siblings.
 
     :param case: dictionary of inheritors and shares
     :param mahjoob: dictionary of inheritors and blockers
-    :return: string representing the fraction.
+
     """
     # Mahjoob for maternal siblings is common for brother or sister
     relatives_who_block_maternal_siblings = mahjoob["maternal_halfbrother"]
 
     if any(relative in case for relative in relatives_who_block_maternal_siblings):
-        return case
+        return
 
     maternal_siblings_in_case = [inh for inh in case if "maternal" in inh]
 
@@ -277,10 +267,8 @@ def solve_maternal_siblings(case: dict, mahjoob: dict) -> dict:
         for maternal_sibling in maternal_siblings_in_case:
             case[maternal_sibling] = maternal_sibling_share
 
-    return case
 
-
-def solve_asaba(case: dict, rank: dict[str, float], taseeb: dict) -> dict:
+def solve_asaba(case: dict, rank: dict[str, float], taseeb: dict) -> None:
     """
     Solve for asaba inheritors except for the father/grandfather.
 
@@ -289,7 +277,7 @@ def solve_asaba(case: dict, rank: dict[str, float], taseeb: dict) -> dict:
     :param rank:
     :param taseeb: Dictionary containing the list of
     inheritors who become asaba if this inheritor is present.
-    :return:
+
     """
     case_ranks = {inh: rank[inh] for inh in case if rank[inh] > 0}
     if sisters_with_daughters(case=case):
@@ -302,7 +290,7 @@ def solve_asaba(case: dict, rank: dict[str, float], taseeb: dict) -> dict:
         if "paternal_halfsister_x2" in case:
             case_ranks["paternal_halfsister_x2"] = 6.5
     if not case_ranks:
-        return case
+        return
     closest = min(case_ranks, key=lambda k: case_ranks[k])
 
     # Father is a special case to be handled in another function
@@ -323,17 +311,15 @@ def solve_asaba(case: dict, rank: dict[str, float], taseeb: dict) -> dict:
             if inheritor in case:
                 case[inheritor] = "share {}".format(maternal_sibling_share)
 
-    return case
 
-
-def solve_mother(case: dict) -> dict:
+def solve_mother(case: dict) -> None:
     """
     Solve for the mother
     :param case:
-    :return:
+
     """
     if "mother" not in case:
-        return case
+        return
     siblings_dict = {}
     for inh in case:
         if "brother" in inh or "sister" in inh:
@@ -350,22 +336,20 @@ def solve_mother(case: dict) -> dict:
         case["mother"] = "1/6"
     else:
         case["mother"] = "1/3"
-    return case
 
 
-def solve_omariyya(case: dict) -> dict:
+def solve_omariyya(case: dict) -> None:
     """
     Solve for the 2 omariyan cases.
     :param case:
-    :return:
+
     """
     n_siblings = calc_num_siblings(case)
     if is_omariyya(case=case, n_siblings=n_siblings):
         case["mother"] = "1/3 remainder"
-    return case
 
 
-def solve_grandfather_no_siblings(case: dict, descendants: dict) -> dict:
+def solve_grandfather_no_siblings(case: dict, descendants: dict) -> None:
     if any([descendants[inh] == "M" for inh in case]):
         case["father_of_father"] = "1/6"
     # Check for any female descendants
@@ -373,10 +357,9 @@ def solve_grandfather_no_siblings(case: dict, descendants: dict) -> dict:
         case["father_of_father"] = "1/6 + U"
     else:
         case["father_of_father"] = "U"
-    return case
 
 
-def solve_akdariya(case: dict) -> dict:
+def solve_akdariya(case: dict) -> None:
     sister = "paternal_halfsister"
     if "sister" in case:
         sister = "sister"
@@ -384,18 +367,16 @@ def solve_akdariya(case: dict) -> dict:
     case["husband"] = "9/27"
     case["father_of_father"] = "8/27"
     case[sister] = "4/27"
-    return case
 
 
-def solve_grandfather_brother(case: dict, taseeb: dict) -> dict:
+def solve_grandfather_brother(case: dict, taseeb: dict) -> None:
     case["brother"] = "U"
     for inheritor in taseeb["brother"]:
         if inheritor in case:
             case[inheritor] = "U"
-    return case
 
 
-def solve_grandfather_sister(case: dict, remainder: Fraction, best: Fraction) -> dict:
+def solve_grandfather_sister(case: dict, remainder: Fraction, best: Fraction) -> None:
     if "sister" in case:
         base = Fraction("1/2")
         sister = "sister"
@@ -411,35 +392,32 @@ def solve_grandfather_sister(case: dict, remainder: Fraction, best: Fraction) ->
             case[inh] = "U"
 
     case[sister] = str(sister_share)
-    return case
 
 
-def solve_grandfather_paternal_halfbrother(case: dict, taseeb: dict) -> dict:
+def solve_grandfather_paternal_halfbrother(case: dict, taseeb: dict) -> None:
     case["paternal_halfbrother"] = "U"
     for inheritor in taseeb["paternal_halfbrother"]:
         if inheritor in case:
             case[inheritor] = "U"
-    return case
 
 
-def solve_grandfather_paternal_halfsister(case: dict) -> dict:
+def solve_grandfather_paternal_halfsister(case: dict) -> None:
     if "paternal_halfsister" in case:
         case["paternal_halfsister"] = "U"
     else:
         case["paternal_halfsister_x2"] = "U"
-    return case
 
 
-def solve_grandfather(case: dict, descendants: dict, taseeb: dict) -> dict:
+def solve_grandfather(case: dict, descendants: dict, taseeb: dict) -> None:
     """
     Solve for the grandfather
     :param case:
-    :return:
+
     """
     if "father_of_father" not in case:
-        return case
+        return
     if "father" in case:
-        return case
+        return
     brothers = {"brother": 1, "paternal_halfbrother": 1}
     sisters = {
         "sister": 1,
@@ -474,5 +452,3 @@ def solve_grandfather(case: dict, descendants: dict, taseeb: dict) -> dict:
 
     if "paternal_halfsister" or "paternal_halfsister_x2" in case:
         return solve_grandfather_paternal_halfsister(case)
-
-    return case

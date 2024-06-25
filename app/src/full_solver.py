@@ -1,11 +1,13 @@
 from fractions import Fraction
 
-from app.utils.helpers import calc_num_siblings
-from app.utils.helpers import calc_share_radd_total
-from app.utils.helpers import is_radd
-from app.utils.helpers import is_omariyya
-from app.utils.helpers import sum_of_inheriting_shares
-from app.utils.helpers import solve_asaba_omariyya
+from app.utils.helpers import (
+    calc_num_siblings,
+    calc_share_radd_total,
+    is_omariyya,
+    is_radd,
+    solve_asaba_omariyya,
+    sum_of_inheriting_shares,
+)
 
 
 def full_solver(case: dict) -> dict:
@@ -21,8 +23,6 @@ def full_solver(case: dict) -> dict:
 
     elif is_radd(case):
         case = solve_radd(case)
-
-    return case
 
 
 def solve_regular_asaba_shares(
@@ -61,8 +61,6 @@ def solve_regular_asaba_shares(
 
         case[inh] = str(inh_normalized_share)
 
-    return case
-
 
 def solve_grandfather_or_father_asaba_shares(
     case: dict, sum_of_shares: Fraction
@@ -76,8 +74,6 @@ def solve_grandfather_or_father_asaba_shares(
 
     else:
         case[inheriting_ancestor] = str(Fraction("1/6") + 1 - sum_of_shares)
-
-    return case
 
 
 def solve_asaba_shares(case: dict) -> dict:
@@ -143,5 +139,3 @@ def solve_radd(case: dict) -> dict:
             case[inh] = "share {}".format(
                 str(Fraction(share_inh[inh]) + share_scaled_inh[inh] * remainder)
             )
-
-    return case

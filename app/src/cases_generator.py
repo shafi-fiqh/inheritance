@@ -8,19 +8,18 @@ Saving the cases to a csv is an option.
 import argparse
 import ast
 import copy
-import logging
 import itertools
+import logging
 import os
+
 import coloredlogs
 import pandas as pd
 import tqdm
 import yaml
 
-from app.src.solver import solve
 from app.src.full_solver import full_solver
-from app.utils.helpers import is_redundant
-from app.utils.helpers import nCr
-from app.utils.helpers import calculate_asl
+from app.src.solver import solve
+from app.utils.helpers import calculate_asl, is_redundant, nCr
 
 
 class CaseGenerator:
@@ -107,7 +106,7 @@ class CaseGenerator:
             if not is_redundant(case):
                 # Later to be filled by the solver
                 case = {x: "0" for x in case}
-                case = solve(
+                solve(
                     case=case,
                     descendants=self.descendants,
                     mahjoob=self.mahjoob,
@@ -115,12 +114,12 @@ class CaseGenerator:
                     taseeb=self.taseeb,
                 )
                 case_copy = copy.copy(case)
-                case_asaba_rad = full_solver(case_copy)
-                full_case = calculate_asl(case=case_asaba_rad)
+                full_solver(case_copy)
+                full_case = calculate_asl(case=case_copy)
                 temp = pd.DataFrame(
                     {
                         "Case": [case],
-                        "Asaba_Rad": [case_asaba_rad],
+                        "Asaba_Rad": [case_copy],
                         "Full_case": [full_case],
                     }
                 )

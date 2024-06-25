@@ -1,12 +1,9 @@
 import copy
 import json
 import pdb
-
 from fractions import Fraction
 
-
-from app.utils.helpers import calculate_intermittent_asl
-from app.utils.helpers import need_final_solver
+from app.utils.helpers import calculate_intermittent_asl, need_final_solver
 
 
 def pytest_generate_tests(metafunc):

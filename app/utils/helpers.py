@@ -4,10 +4,9 @@ Misc helper functions
 
 import copy
 import math
+from fractions import Fraction
 from functools import reduce
 from typing import Any
-
-from fractions import Fraction
 
 
 def is_redundant(case: tuple) -> bool:
@@ -233,7 +232,6 @@ def assign_whole_shares(lcm, case):
             case[p_id] = int(lcm / case[p_id].denominator * case[p_id].numerator)
         else:
             case[p_id] = 0
-    return case
 
 
 def calculate_intermittent_asl(case: dict) -> dict:
@@ -315,7 +313,7 @@ def calculate_intermittent_asl(case: dict) -> dict:
         share_pool[pool_id] for pool_id in share_pool if share_pool[pool_id] > 0
     ]
     lcm = least_common_multiple(rationals)
-    share_pool = assign_whole_shares(lcm, share_pool)
+    assign_whole_shares(lcm, share_pool)
     total_shares_sum = sum([share_pool[pool_id] for pool_id in share_pool])
     remainder = 0 if total_shares_sum >= lcm else lcm - total_shares_sum
 
@@ -394,7 +392,7 @@ def calculate_asl(case: dict) -> dict:
 
     rationals = [full_case[inh] for inh in full_case if full_case[inh] > 0]
     lcm = least_common_multiple(rationals)
-    full_case = assign_whole_shares(lcm, full_case)
+    assign_whole_shares(lcm, full_case)
     full_case["remainder"] = 0
     full_case["total_shares"] = int(sum(full_case[inh] for inh in full_case))
     return full_case
@@ -435,7 +433,7 @@ def calc_share_radd_total(
     return sum_of_shares, share_inh
 
 
-def solve_asaba_omariyya(case: dict) -> dict:
+def solve_asaba_omariyya(case: dict) -> None:
     shares = {
         "wife": {"father": "1/2", "mother": "1/4"},
         "husband": {"father": "1/3", "mother": "1/6"},
@@ -445,5 +443,3 @@ def solve_asaba_omariyya(case: dict) -> dict:
         if spouse in case:
             for inh in shares[spouse]:
                 case[inh] = shares[spouse][inh]
-
-    return case

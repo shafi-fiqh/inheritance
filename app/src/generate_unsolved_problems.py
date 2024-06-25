@@ -1,9 +1,9 @@
-import json
 import itertools
+import json
+
 import tqdm
 
 from app.utils.helpers import nCr
-
 
 UNIVERSAL_HEIRS = [
     "son",

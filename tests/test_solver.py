@@ -37,8 +37,10 @@ def test_cases(case):
     for inh in case_copy["initial_shares"]:
         case_copy["initial_shares"][inh] = "0"
 
-    initial_shares_solution = solve(
-        case=case_copy["initial_shares"],
+    init = case_copy["initial_shares"]
+
+    solve(
+        case=init,
         descendants=casegen.descendants,
         mahjoob=casegen.mahjoob,
         rank=casegen.rank,
@@ -46,13 +48,10 @@ def test_cases(case):
     )
 
     assert all(
-        [
-            case["initial_shares"][inh] == initial_shares_solution[inh]
-            for inh in case["initial_shares"]
-        ]
+        [case["initial_shares"][inh] == init[inh] for inh in case["initial_shares"]]
     ), "Case %s failed solver returned %s" % (
         case["initial_shares"],
-        initial_shares_solution,
+        init,
     )
 
 
@@ -66,17 +65,17 @@ def test_full_solver_cases(case):
         "config/family_config.csv", filter="config/filter.yml", filter_bool=False
     )
     case_copy = copy.deepcopy(case)
-
-    initial_shares_solution = solve(
-        case=case_copy["initial_shares"],
+    init = case_copy["initial_shares"]
+    solve(
+        case=init,
         descendants=casegen.descendants,
         mahjoob=casegen.mahjoob,
         rank=casegen.rank,
         taseeb=casegen.taseeb,
     )
 
-    asba_radd_copy = copy.copy(initial_shares_solution)
-    asba_radd_copy = full_solver(asba_radd_copy)
+    asba_radd_copy = copy.copy(init)
+    full_solver(asba_radd_copy)
     full_shares_solution = calculate_asl(asba_radd_copy)
 
     assert all(

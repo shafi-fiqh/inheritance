@@ -1,7 +1,5 @@
-from os.path import abspath, dirname, join
-
 import json
-
+from os.path import abspath, dirname, join
 
 MAP_FILE = join(dirname(dirname(abspath(__file__))), "config/mapping.json")
 
