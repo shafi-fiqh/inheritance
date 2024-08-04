@@ -14,6 +14,7 @@ from app.src.solver import solve
 from app.utils.helpers import calculate_asl
 from app.utils.helpers import calculate_intermittent_asl
 from app.utils.helpers import need_final_solver
+from app.utils.sort_heirs import order_dict_by_keys, order_inhs_according_to_sorted
 
 app = Flask(__name__)
 CORS(app)
@@ -39,6 +40,8 @@ def solver():
         rank=CASE_GEN.rank,
         taseeb=CASE_GEN.taseeb,
     )
+    basic_shares_soln = order_dict_by_keys(basic_shares_soln)
+    case = order_inhs_according_to_sorted(sorted_inh=basic_shares_soln, unsorted_inh=case)
 
     intermediate_shares_soln = calculate_intermittent_asl(case=case)
 
@@ -116,6 +119,9 @@ def generate_problems():
             rank=CASE_GEN.rank,
             taseeb=CASE_GEN.taseeb,
         )
+        basic_shares_soln = order_dict_by_keys(basic_shares_soln)
+        case = order_inhs_according_to_sorted(sorted_inh=basic_shares_soln, unsorted_inh=case)
+
         case_obj["basic_shares"] = basic_shares_soln
 
         intermediate_shares_soln = calculate_intermittent_asl(case=case)
