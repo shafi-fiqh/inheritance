@@ -1,4 +1,4 @@
-def order_dict_by_keys(inh_dict: dict) -> dict:
+def order_dict_by_inhs(inh_dict: dict) -> dict:
     # Determine the first key ('husband' or 'wife')
     first_key = next((key for key in ["husband", "wife"] if key in inh_dict), None)
 
