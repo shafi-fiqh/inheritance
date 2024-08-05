@@ -41,7 +41,9 @@ def solver():
         taseeb=CASE_GEN.taseeb,
     )
     basic_shares_soln = order_dict_by_inhs(basic_shares_soln)
-    case = order_inhs_according_to_sorted(sorted_inh=basic_shares_soln, unsorted_inh=case)
+    case = order_inhs_according_to_sorted(
+        sorted_inh=basic_shares_soln, unsorted_inh=case
+    )
 
     intermediate_shares_soln = calculate_intermittent_asl(case=case)
 
@@ -120,7 +122,9 @@ def generate_problems():
             taseeb=CASE_GEN.taseeb,
         )
         basic_shares_soln = order_dict_by_inhs(basic_shares_soln)
-        case = order_inhs_according_to_sorted(sorted_inh=basic_shares_soln, unsorted_inh=case)
+        case = order_inhs_according_to_sorted(
+            sorted_inh=basic_shares_soln, unsorted_inh=case
+        )
 
         case_obj["basic_shares"] = basic_shares_soln
 
