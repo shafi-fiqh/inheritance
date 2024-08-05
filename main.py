@@ -111,7 +111,8 @@ def generate_problems():
     ret = []
     for case in cases:
         case_obj = {}
-        case_obj["problem"] = copy.deepcopy(case)
+        case_problem = copy.deepcopy(case)
+
         basic_shares_soln = solve(
             case=case,
             descendants=CASE_GEN.descendants,
@@ -119,11 +120,13 @@ def generate_problems():
             rank=CASE_GEN.rank,
             taseeb=CASE_GEN.taseeb,
         )
+
         basic_shares_soln = order_dict_by_inhs(basic_shares_soln)
-        case = order_inhs_according_to_sorted(
-            sorted_inh=basic_shares_soln, unsorted_inh=case
+        case_problem = order_inhs_according_to_sorted(
+            sorted_inh=basic_shares_soln, unsorted_inh=case_problem
         )
 
+        case_obj["problem"] = case_problem
         case_obj["basic_shares"] = basic_shares_soln
 
         intermediate_shares_soln = calculate_intermittent_asl(case=case)

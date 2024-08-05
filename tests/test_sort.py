@@ -28,13 +28,13 @@ def test_order_dict_by_keys():
 
 def test_order_dict_according_to_sorted():
     unsorted_dict = {
-        "daughter": "U",
-        "father": "1/6",
-        "mother": "1/6",
-        "sister": "0",
-        "husband": "1/4",
-        "brother": "0",
-        "son": "U",
+        "daughter": "",
+        "father": "",
+        "mother": "",
+        "sister": "",
+        "husband": "",
+        "brother": "",
+        "son": "",
     }
 
     sorted_dict = {
@@ -47,5 +47,15 @@ def test_order_dict_according_to_sorted():
         "son": "U",
     }
 
+    expected = {
+        "husband": "",
+        "father": "",
+        "mother": "",
+        "sister": "",
+        "brother": "",
+        "daughter": "",
+        "son": "",
+    }
+
     result = order_inhs_according_to_sorted(sorted_dict, unsorted_dict)
-    assert result == sorted_dict
+    assert result == expected
