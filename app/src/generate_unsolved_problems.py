@@ -64,6 +64,6 @@ def generate_problems_lst(
             continue
         case = case + tuple(must_haves)
         case = keep_asaba_at_end(case)
-        case = {x: "0" for x in case}
+        case = {x: "X" for x in case}
         total_cases.append(case)
     return total_cases
