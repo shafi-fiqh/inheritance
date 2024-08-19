@@ -6,9 +6,10 @@ def order_dict_by_inhs(inh_dict: dict) -> dict:
     fixed_inh = {
         key: value
         for key, value in inh_dict.items()
-        if key != first_key and value != "U"
+        if key != first_key and value != "U" and value != "0"
     }
     universal_inh = {key: value for key, value in inh_dict.items() if value == "U"}
+    blocked_inh = {key: value for key, value in inh_dict.items() if value == "0"}
 
     # Construct the ordered dictionary
     ordered_dict = {}
@@ -16,6 +17,7 @@ def order_dict_by_inhs(inh_dict: dict) -> dict:
         ordered_dict[first_key] = inh_dict[first_key]
     ordered_dict.update(fixed_inh)
     ordered_dict.update(universal_inh)
+    ordered_dict.update(blocked_inh)
 
     return ordered_dict
 
