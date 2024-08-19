@@ -19,7 +19,7 @@ def test_order_dict_by_keys():
         "daughter": "U",
         "son": "U",
         "sister": "0",
-        "brother": "0"
+        "brother": "0",
     }
 
     result = order_dict_by_inhs(data_dict)
@@ -44,7 +44,7 @@ def test_order_dict_according_to_sorted():
         "daughter": "U",
         "son": "U",
         "sister": "0",
-        "brother": "0"
+        "brother": "0",
     }
 
     expected = {
@@ -54,7 +54,7 @@ def test_order_dict_according_to_sorted():
         "daughter": "",
         "son": "",
         "sister": "",
-        "brother": ""
+        "brother": "",
     }
 
     result = order_inhs_according_to_sorted(sorted_dict, unsorted_dict)
