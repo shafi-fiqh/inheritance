@@ -242,22 +242,15 @@ def calculate_intermittent_asl(case: dict) -> dict:
     :param case:
     :return:
     """
-    maternal = {
-        "maternal_halfbrother": 1,
-        "maternal_halfsister": 1,
-        "maternal_halfsister_x2": 2,
-    }
 
     inheritance_pool = {}
     share_pool = {}
 
     pool_id = 1
 
-    mat_in_case = [inh for inh in maternal if inh in case]
-    if len(mat_in_case) > 1 and case[mat_in_case[0]][:5] == "share":
-        share_pool["pool_{id}".format(id=pool_id)] = Fraction(
-            case[mat_in_case[0]].split(" ")[1]
-        )
+    mat_in_case = [inh for inh in case if case[inh] == 'share 1/3']
+    if len(mat_in_case) >= 1: 
+        share_pool["pool_{id}".format(id=pool_id)] = Fraction("1/3")
         for inh in mat_in_case:
             inheritance_pool[inh] = "pool_{id}".format(id=pool_id)
         pool_id += 1
@@ -415,8 +408,7 @@ def is_radd(case: dict) -> bool:
 
 
 def calc_share_radd_total(
-    case: dict,
-) -> tuple[Fraction | None, dict | None]:
+    case: dict):
     if "share 1/3" not in case.values() and "share 1/6" not in case.values():
         return None, None
 
