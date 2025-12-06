@@ -248,8 +248,8 @@ def calculate_intermittent_asl(case: dict) -> dict:
 
     pool_id = 1
 
-    mat_in_case = [inh for inh in case if case[inh] == 'share 1/3']
-    if len(mat_in_case) >= 1: 
+    mat_in_case = [inh for inh in case if case[inh] == "share 1/3"]
+    if len(mat_in_case) >= 1:
         share_pool["pool_{id}".format(id=pool_id)] = Fraction("1/3")
         for inh in mat_in_case:
             inheritance_pool[inh] = "pool_{id}".format(id=pool_id)
@@ -407,8 +407,7 @@ def is_radd(case: dict) -> bool:
     return sum_of_shares < 1
 
 
-def calc_share_radd_total(
-    case: dict):
+def calc_share_radd_total(case: dict):
     if "share 1/3" not in case.values() and "share 1/6" not in case.values():
         return None, None
 
